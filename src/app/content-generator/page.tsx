@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,8 +24,6 @@ import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { Copy, RefreshCw } from "lucide-react";
-import { useEffect } from "react";
-
 const contentTypes = [
   { value: "blog", label: "Blog Post" },
   { value: "social", label: "Social Media" },
@@ -44,33 +42,20 @@ const lengths = [
   { value: "long", label: "Long" },
 ];
 
-const providers = [
-  { value: "gemini", label: "Gemini" },
-  { value: "deepseek", label: "DeepSeek" },
-  { value: "huggingface", label: "Hugging Face" },
-  { value: "openrouter", label: "OpenRouter" },
-];
-
 export default function ContentGeneratorPage() {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, loading } = useAuthContext();
   const router = useRouter();
 
   const [topic, setTopic] = useState("");
   const [contentType, setContentType] = useState("blog");
   const [tone, setTone] = useState("formal");
   const [length, setLength] = useState("medium");
-  const [provider, setProvider] = useState("gemini");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("ai-provider");
-    if (saved) setProvider(saved);
-  }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
+    if (!loading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, loading, router]);
 
   const generate = async () => {
     if (!topic.trim()) return;
@@ -79,10 +64,9 @@ export default function ContentGeneratorPage() {
     try {
       const data: any = await api("/ai/generate-content", {
         method: "POST",
-        body: JSON.stringify({ topic, contentType, tone, length, provider }),
+        body: JSON.stringify({ topic, contentType, tone, length }),
       });
       setOutput(data.content);
-      localStorage.setItem("ai-provider", provider);
     } catch (err: any) {
       toast.error(err.message || "Generation failed");
     } finally {
@@ -153,19 +137,6 @@ export default function ContentGeneratorPage() {
                 <SelectContent>
                   {lengths.map((l) => (
                     <SelectItem key={l.value} value={l.value}>{l.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label>AI Model</Label>
-              <Select value={provider} onValueChange={setProvider}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {providers.map((p) => (
-                    <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

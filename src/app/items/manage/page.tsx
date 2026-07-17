@@ -8,12 +8,12 @@ import { useAuthContext } from "@/providers/auth-provider";
 import Link from "next/link";
 
 export default function ManageItemsPage() {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, loading } = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
+    if (!loading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, loading, router]);
 
   if (!isAuthenticated) return null;
 

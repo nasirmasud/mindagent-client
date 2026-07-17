@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const posts = [
   { title: "Getting Started with AI Agents", date: "2026-07-01", excerpt: "Learn how MindAgent's agents can boost your productivity." },
   { title: "Content Creation with AI", date: "2026-06-25", excerpt: "Tips for generating high-quality content using AI." },
-  { title: "Understanding Multi-Provider AI", date: "2026-06-18", excerpt: "How Groq and Gemini work together in MindAgent." },
+  { title: "Understanding Multi-Provider AI", date: "2026-06-18", excerpt: "How OpenRouter powers MindAgent's AI capabilities." },
 ];
 
 export default function BlogPage() {

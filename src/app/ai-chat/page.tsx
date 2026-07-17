@@ -14,7 +14,7 @@ interface Message {
 }
 
 export default function AIChatPage() {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, loading } = useAuthContext();
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -24,8 +24,8 @@ export default function AIChatPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
+    if (!loading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, loading, router]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -54,12 +54,14 @@ export default function AIChatPage() {
           },
           body: JSON.stringify({
             message: text,
-            sessionId,
-            provider: localStorage.getItem("ai-provider") || "gemini",
+            ...(sessionId ? { sessionId } : {}),
           }),
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}`);
+      }
       const reader = res.body?.getReader();
       if (!reader) return;
 
@@ -94,11 +96,12 @@ export default function AIChatPage() {
           } catch {}
         }
       }
-    } catch {
-      toast.error("Chat failed");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Chat failed";
+      toast.error(msg);
       setMessages((prev) => {
         const updated = [...prev];
-        updated[updated.length - 1] = { role: "assistant", content: "Sorry, I encountered an error." };
+        updated[updated.length - 1] = { role: "assistant", content: `Sorry, I encountered an error${msg !== "Chat failed" ? `: ${msg}` : ""}.` };
         return updated;
       });
     } finally {

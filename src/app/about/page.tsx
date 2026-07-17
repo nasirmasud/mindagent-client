@@ -7,7 +7,7 @@ export default function AboutPage() {
         generate content, analyze data, summarize documents, and chat with an intelligent assistant.
       </p>
       <p className="text-muted-foreground">
-        Built with Next.js, Express, TypeScript, and powered by Groq and Gemini AI models.
+        Built with Next.js, Express, TypeScript, and powered by OpenRouter AI models.
       </p>
     </div>
   );

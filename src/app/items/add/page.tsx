@@ -11,7 +11,7 @@ import { api } from "@/lib/api";
 import { toast } from "sonner";
 
 export default function AddItemPage() {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, loading } = useAuthContext();
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [shortDesc, setShortDesc] = useState("");
@@ -20,8 +20,8 @@ export default function AddItemPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
+    if (!loading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, loading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
