@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       {/* 1. Hero */}
-      <section className="w-full min-h-[65vh] flex flex-col items-center justify-center text-center px-4">
+        <section className="w-full min-h-[65vh] flex flex-col items-center justify-center text-center px-4 md:px-20">
         <h1 className="text-5xl font-bold tracking-tight">MindAgent</h1>
         <p className="mt-4 text-xl text-muted-foreground">
           AI Agents That Think. Create. Deliver Results.
@@ -67,7 +67,7 @@ export default function Home() {
       </section>
 
       {/* 2. Featured Categories */}
-      <section className="w-full px-4 pb-16">
+      <section className="w-full px-4 md:px-20 pb-16">
         <h2 className="text-2xl font-bold text-center mb-6">Agent Categories</h2>
         <div className="flex flex-wrap justify-center gap-3">
           {categories.map((cat) => (
@@ -82,7 +82,7 @@ export default function Home() {
 
       {/* 3. Recommended for You */}
       {recData?.recommendations?.length > 0 && (
-        <section className="w-full px-4 pb-16">
+        <section className="w-full px-4 md:px-20 pb-16">
           <h2 className="text-2xl font-bold mb-6">Recommended for You</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {recData.recommendations.map((agent: any) => (
@@ -100,7 +100,7 @@ export default function Home() {
       )}
 
       {/* 4. AI Features */}
-      <section className="w-full px-4 pb-16">
+      <section className="w-full px-4 md:px-20 pb-16">
         <h2 className="text-3xl font-bold text-center mb-8">AI Agents</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
@@ -118,7 +118,7 @@ export default function Home() {
 
       {/* 5. How It Works */}
       <section className="w-full bg-muted/50 py-16">
-        <div className="px-4 text-center">
+        <div className="px-4 md:px-20 text-center">
           <h2 className="text-3xl font-bold mb-10">How It Works</h2>
           <div className="grid gap-8 md:grid-cols-3">
             {steps.map((s, i) => (
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* 6. Testimonials */}
-      <section className="w-full px-4 py-16">
+      <section className="w-full px-4 md:px-20 py-16">
         <h2 className="text-3xl font-bold text-center mb-10">What Users Say</h2>
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
@@ -152,7 +152,7 @@ export default function Home() {
 
       {/* 7. FAQ */}
       <section className="w-full bg-muted/50 py-16">
-        <div className="px-4 max-w-3xl mx-auto">
+        <div className="px-4 md:px-20 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">FAQ</h2>
           <div className="space-y-3">
             {faqs.map((faq) => (
@@ -166,7 +166,7 @@ export default function Home() {
       </section>
 
       {/* 8. Newsletter / CTA */}
-      <section className="w-full py-16 text-center px-4">
+      <section className="w-full py-16 text-center px-4 md:px-20">
         <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
         <p className="text-muted-foreground mb-6">Get the latest AI tips and product updates.</p>
         <div className="flex gap-3 max-w-md mx-auto justify-center">

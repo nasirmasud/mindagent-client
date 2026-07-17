@@ -82,7 +82,7 @@ export default function ContentGeneratorPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="w-full px-4 py-10">
+    <div className="w-full px-4 md:px-20 py-10">
       <Card>
         <CardHeader>
           <CardTitle>AI Content Generator</CardTitle>

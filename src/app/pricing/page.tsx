@@ -9,7 +9,7 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="w-full px-4 py-10">
+    <div className="w-full px-4 md:px-20 py-10">
       <h1 className="text-3xl font-bold text-center mb-10">Pricing</h1>
       <div className="grid gap-6 md:grid-cols-3">
         {plans.map((plan) => (

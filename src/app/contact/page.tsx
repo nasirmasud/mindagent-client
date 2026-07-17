@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ContactPage() {
   return (
-    <div className="w-full px-4 py-10 max-w-lg mx-auto">
+    <div className="w-full px-4 md:px-20 py-10 max-w-lg mx-auto">
       <Card>
         <CardHeader>
           <CardTitle>Contact Us</CardTitle>
