@@ -55,7 +55,7 @@ export default function AIChatPage() {
           body: JSON.stringify({
             message: text,
             sessionId,
-            provider: localStorage.getItem("ai-provider") || "groq",
+            provider: localStorage.getItem("ai-provider") || "gemini",
           }),
         }
       );
@@ -65,29 +65,33 @@ export default function AIChatPage() {
 
       const decoder = new TextDecoder();
       let full = "";
+      let buffer = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split("\n\n");
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() || "";
 
-        for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
-          const json = JSON.parse(line.slice(6));
+        for (const part of parts) {
+          if (!part.startsWith("data: ")) continue;
+          try {
+            const json = JSON.parse(part.slice(6));
 
-          if (json.done) {
-            setSessionId(json.sessionId);
-            setSuggestions(json.suggestions || []);
-          } else {
-            full += json.text;
-            setMessages((prev) => {
-              const updated = [...prev];
-              updated[updated.length - 1] = { role: "assistant", content: full };
-              return updated;
-            });
-          }
+            if (json.done) {
+              setSessionId(json.sessionId);
+              setSuggestions(json.suggestions || []);
+            } else {
+              full += json.text;
+              setMessages((prev) => {
+                const updated = [...prev];
+                updated[updated.length - 1] = { role: "assistant", content: full };
+                return updated;
+              });
+            }
+          } catch {}
         }
       }
     } catch {
