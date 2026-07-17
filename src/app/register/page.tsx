@@ -16,6 +16,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuthContext();
 
@@ -34,6 +35,20 @@ export default function RegisterPage() {
       toast.error(err.message || "Registration failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDemoLogin = async () => {
+    setDemoLoading(true);
+    try {
+      const data: any = await api("/auth/demo-login", { method: "POST" });
+      login(data.token, data.user);
+      toast.success("Logged in as demo user");
+      router.push("/");
+    } catch (err: any) {
+      toast.error(err.message || "Demo login failed");
+    } finally {
+      setDemoLoading(false);
     }
   };
 
@@ -60,6 +75,9 @@ export default function RegisterPage() {
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Creating..." : "Sign Up"}
+            </Button>
+            <Button type="button" variant="outline" className="w-full" disabled={demoLoading} onClick={handleDemoLogin}>
+              {demoLoading ? "Signing in..." : "Login Test User"}
             </Button>
           </form>
           <p className="mt-4 text-center text-sm text-muted-foreground">
