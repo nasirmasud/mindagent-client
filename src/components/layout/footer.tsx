@@ -18,7 +18,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-10">
+      <div className="w-full px-4 py-10">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
             <h3 className="font-semibold mb-3">Links</h3>
