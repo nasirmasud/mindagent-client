@@ -64,6 +64,9 @@ export function Navbar() {
                   <Link href="/content-generator">Content Generator</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <Link href="/data-analyzer">Data Analyzer</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link href="/items/manage">My Items</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
