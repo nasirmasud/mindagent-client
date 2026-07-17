@@ -43,7 +43,7 @@ const lengths = [
 ];
 
 export default function ContentGeneratorPage() {
-  const { isAuthenticated, loading } = useAuthContext();
+  const { isAuthenticated, loading: authLoading } = useAuthContext();
   const router = useRouter();
 
   const [topic, setTopic] = useState("");
@@ -54,8 +54,8 @@ export default function ContentGeneratorPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!loading && !isAuthenticated) router.push("/login");
-  }, [isAuthenticated, loading, router]);
+    if (!authLoading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, authLoading, router]);
 
   const generate = async () => {
     if (!topic.trim()) return;
