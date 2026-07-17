@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuthContext } from "@/providers/auth-provider";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api";
 
 const features = [
   { title: "Content Creator", desc: "Generate blogs, social posts, and product descriptions with AI." },
@@ -10,6 +15,14 @@ const features = [
 ];
 
 export default function Home() {
+  const { isAuthenticated } = useAuthContext();
+
+  const { data: recData } = useQuery({
+    queryKey: ["recommendations"],
+    queryFn: () => api<any>("/recommendations"),
+    enabled: isAuthenticated,
+  });
+
   return (
     <div className="flex flex-col items-center">
       <section className="w-full py-20 text-center">
@@ -26,6 +39,24 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
+      {recData?.recommendations?.length > 0 && (
+        <section className="w-full max-w-5xl mx-auto px-4 pb-12">
+          <h2 className="text-2xl font-bold mb-6">Recommended for You</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {recData.recommendations.map((agent: any) => (
+              <Card key={agent._id}>
+                <CardHeader>
+                  <CardTitle className="text-lg">{agent.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{agent.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="w-full max-w-5xl mx-auto px-4 pb-20">
         <h2 className="text-3xl font-bold text-center mb-8">AI Agents</h2>
