@@ -18,7 +18,7 @@ export default function ManageItemsPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="container mx-auto px-4 py-10 max-w-2xl">
+    <div className="w-full px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">My Items</h1>
         <Button asChild>

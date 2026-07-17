@@ -142,7 +142,7 @@ export default function DataAnalyzerPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="w-full px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Data Analyzer</h1>
         <div className="flex gap-2">

@@ -112,7 +112,7 @@ export default function AIChatPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl">
+    <div className="w-full px-4 py-6">
       <Card className="min-h-[70vh] flex flex-col">
         <CardHeader>
           <CardTitle>AI Chat Assistant</CardTitle>

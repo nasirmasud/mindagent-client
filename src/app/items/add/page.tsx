@@ -43,7 +43,7 @@ export default function AddItemPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="container mx-auto px-4 py-10 max-w-lg">
+    <div className="w-full px-4 py-10">
       <Card>
         <CardHeader>
           <CardTitle>Add Item</CardTitle>

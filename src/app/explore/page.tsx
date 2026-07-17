@@ -10,7 +10,7 @@ const agents = [
 
 export default function ExplorePage() {
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <h1 className="text-3xl font-bold mb-8">Explore AI Agents</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {agents.map((agent) => (
