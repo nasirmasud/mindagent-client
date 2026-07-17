@@ -59,7 +59,15 @@ export default function DataAnalyzerPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Upload failed");
-      setAnalysis(data);
+      setAnalysis({
+        _id: data.analysisId,
+        fileName: data.fileName,
+        fileType: data.fileType,
+        originalRowCount: data.rowCount,
+        parsedPreview: data.preview,
+        aiInsights: { summary: "", trends: [], risks: [], kpis: [] },
+        createdAt: new Date().toISOString(),
+      });
       toast.success("File uploaded and parsed");
     } catch (err: any) {
       toast.error(err.message);
