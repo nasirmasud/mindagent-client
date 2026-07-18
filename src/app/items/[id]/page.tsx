@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -43,7 +43,8 @@ interface Item {
   createdAt: string;
 }
 
-export default function ItemDetailPage({ params }: { params: { id: string } }) {
+export default function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const router = useRouter();
   const [item, setItem] = useState<Item | null>(null);
   const [related, setRelated] = useState<Item[]>([]);
@@ -54,7 +55,7 @@ export default function ItemDetailPage({ params }: { params: { id: string } }) {
     (async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${BASE}/items/${params.id}`, {
+        const res = await fetch(`${BASE}/items/${id}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         const data = await res.json();
@@ -68,13 +69,13 @@ export default function ItemDetailPage({ params }: { params: { id: string } }) {
         setLoading(false);
       }
     })();
-  }, [params.id, router]);
+  }, [id, router]);
 
   const handleDownload = async () => {
     setDownloading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${BASE}/items/${params.id}/report`, {
+      const res = await fetch(`${BASE}/items/${id}/report`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (!res.ok) throw new Error("Download failed");
