@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { HeroSwiper } from "@/components/layout/hero-swiper";
+import AgentCategories from "@/components/layout/agent-categories";
 
 const categories = ["Writing", "Coding", "Research", "Design", "Analytics", "Productivity", "Education", "Finance"];
 
@@ -53,6 +54,8 @@ export default function Home() {
     <div className="flex flex-col items-center">
       {/* 1. Hero */}
       <HeroSwiper />
+
+      <AgentCategories />
 
       {/* 2. Featured Categories */}
       <section className="w-full px-4 md:px-20 pb-16">
