@@ -17,7 +17,7 @@ export default function AddItemPage() {
   const [shortDesc, setShortDesc] = useState("");
   const [fullDesc, setFullDesc] = useState("");
   const [price, setPrice] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (!loading && !isAuthenticated) router.push("/login");
@@ -25,7 +25,7 @@ export default function AddItemPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitting(true);
     try {
       await api("/items", {
         method: "POST",
@@ -36,7 +36,7 @@ export default function AddItemPage() {
     } catch (err: any) {
       toast.error(err.message || "Failed to add item");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -66,8 +66,8 @@ export default function AddItemPage() {
               <Label htmlFor="price">Price</Label>
               <Input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Adding..." : "Add Item"}
+            <Button type="submit" className="w-full" disabled={submitting}>
+              {submitting ? "Adding..." : "Add Item"}
             </Button>
           </form>
         </CardContent>

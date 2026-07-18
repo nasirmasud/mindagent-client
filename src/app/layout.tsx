@@ -5,7 +5,7 @@ import { AuthProvider } from "@/providers/auth-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/shared/toaster";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
               <Navbar />
               <main className="flex-1"><ErrorBoundary>{children}</ErrorBoundary></main>
               <Footer />
-              <Toaster richColors />
+              <Toaster />
             </AuthProvider>
           </QueryProvider>
         </ThemeProvider>
