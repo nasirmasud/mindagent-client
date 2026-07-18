@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthContext } from "@/providers/auth-provider";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import Link from "next/link";
 
 export default function ManageItemsPage() {
@@ -15,6 +16,7 @@ export default function ManageItemsPage() {
     if (!loading && !isAuthenticated) router.push("/login");
   }, [isAuthenticated, loading, router]);
 
+  if (loading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (

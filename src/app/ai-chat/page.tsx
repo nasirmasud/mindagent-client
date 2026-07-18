@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthContext } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 
 interface Message {
   role: "user" | "assistant";
@@ -109,6 +110,7 @@ export default function AIChatPage() {
     }
   };
 
+  if (loading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (

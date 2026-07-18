@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuthContext } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 
 export default function ProfilePage() {
   const { isAuthenticated, loading, user } = useAuthContext();
@@ -26,6 +27,7 @@ export default function ProfilePage() {
     toast.success("Profile updated (UI only for now)");
   };
 
+  if (loading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (

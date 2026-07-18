@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuthContext } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
@@ -139,6 +140,7 @@ export default function DataAnalyzerPage() {
     }
   };
 
+  if (loading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (

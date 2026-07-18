@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthContext } from "@/providers/auth-provider";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -40,6 +41,7 @@ export default function AddItemPage() {
     }
   };
 
+  if (loading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (

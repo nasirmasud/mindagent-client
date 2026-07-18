@@ -23,6 +23,7 @@ import { useAuthContext } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { Copy, RefreshCw } from "lucide-react";
 const contentTypes = [
   { value: "blog", label: "Blog Post" },
@@ -79,6 +80,7 @@ export default function ContentGeneratorPage() {
     toast.success("Copied to clipboard");
   };
 
+  if (authLoading) return <PageSkeleton />;
   if (!isAuthenticated) return null;
 
   return (
