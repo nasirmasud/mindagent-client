@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -43,8 +43,7 @@ interface Item {
   createdAt: string;
 }
 
-export default function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolved = use(params);
+export default function ItemDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [item, setItem] = useState<Item | null>(null);
   const [related, setRelated] = useState<Item[]>([]);
@@ -55,7 +54,7 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
     (async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${BASE}/items/${resolved.id}`, {
+        const res = await fetch(`${BASE}/items/${params.id}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         const data = await res.json();
@@ -69,13 +68,13 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
         setLoading(false);
       }
     })();
-  }, [resolved.id, router]);
+  }, [params.id, router]);
 
   const handleDownload = async () => {
     setDownloading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${BASE}/items/${resolved.id}/report`, {
+      const res = await fetch(`${BASE}/items/${params.id}/report`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (!res.ok) throw new Error("Download failed");
@@ -251,7 +250,7 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
                   <XAxis dataKey="label" tick={{ fontSize: 12 }} className="text-muted-foreground" />
                   <YAxis tick={{ fontSize: 12 }} className="text-muted-foreground" />
                   <Tooltip />
-                  <Bar dataKey="value" fill="var(--indigo-500)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="value" fill="#6366f1" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
