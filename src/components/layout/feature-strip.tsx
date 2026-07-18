@@ -28,13 +28,15 @@ export default function FeatureStrip() {
   return (
     <section className="w-full bg-slate-50 dark:bg-[#0A0820] flex items-center justify-center px-6 py-40">
       <div className="w-full max-w-6xl rounded-2xl border border-slate-200 dark:border-[#2E274A] bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-8 shadow-sm">
-        <div className="grid grid-cols-4 divide-x divide-slate-200 dark:divide-[#2E274A]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 md:divide-x divide-slate-200 dark:divide-[#2E274A]">
           {features.map(({ icon: Icon, title, description }, i) => (
             <div
               key={title}
               className={`group flex items-start gap-2 sm:gap-4 px-2 sm:px-6 ${
                 i === 0 ? "pl-0" : ""
-              } ${i === features.length - 1 ? "pr-0" : ""} transition-transform duration-300 ease-out hover:-translate-y-1`}
+              } ${i === features.length - 1 ? "pr-0" : ""} ${
+                i % 2 === 0 ? "md:pl-0" : ""
+              } transition-transform duration-300 ease-out hover:-translate-y-1`}
             >
               <div className="flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900/30 transition-all duration-300 ease-out group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:scale-110 group-hover:rotate-6">
                 <Icon

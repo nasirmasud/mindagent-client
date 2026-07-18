@@ -145,7 +145,7 @@ export default function DataAnalyzerPage() {
 
   return (
     <div className="w-full px-4 md:px-20 py-8">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-bold">Data Analyzer</h1>
         <div className="flex gap-2">
           <Button variant={tab === "upload" ? "default" : "outline"} onClick={() => setTab("upload")}>Upload</Button>
