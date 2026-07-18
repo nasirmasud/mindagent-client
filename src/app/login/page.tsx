@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthContext } from "@/providers/auth-provider";
+import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -75,6 +76,15 @@ export default function LoginPage() {
               {demoLoading ? "Signing in..." : "Login Test User"}
             </Button>
           </form>
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+          <GoogleAuthButton />
           <p className="mt-4 text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link href="/register" className="text-primary underline">Sign up</Link>
