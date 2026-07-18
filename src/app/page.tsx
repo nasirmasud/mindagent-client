@@ -2,6 +2,7 @@
 
 import AgentCategories from "@/components/layout/agent-categories";
 import FeatureStrip from "@/components/layout/feature-strip";
+import HowItWorks from "@/components/layout/how-it-works";
 import { HeroSwiper } from "@/components/layout/hero-swiper";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,20 +30,6 @@ const categories = [
 ];
 
 
-const steps = [
-  {
-    title: "Pick an Agent",
-    desc: "Browse our marketplace of specialized AI agents.",
-  },
-  {
-    title: "Chat or Generate",
-    desc: "Interact with agents through chat or content generation.",
-  },
-  {
-    title: "Save & Reuse",
-    desc: "Save results and reuse them across your workflow.",
-  },
-];
 
 const testimonials = [
   {
@@ -121,23 +108,7 @@ export default function Home() {
       )}
 
 
-      {/* 5. How It Works */}
-      <section className='w-full bg-muted/50 py-16'>
-        <div className='px-4 md:px-20 text-center'>
-          <h2 className='text-3xl font-bold mb-10'>How It Works</h2>
-          <div className='grid gap-8 md:grid-cols-3'>
-            {steps.map((s, i) => (
-              <div key={s.title}>
-                <div className='w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 font-bold'>
-                  {i + 1}
-                </div>
-                <h3 className='font-semibold mb-2'>{s.title}</h3>
-                <p className='text-sm text-muted-foreground'>{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HowItWorks />
 
       {/* 6. Testimonials */}
       <section className='w-full px-4 md:px-20 py-16'>
