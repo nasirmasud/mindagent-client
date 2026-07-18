@@ -35,6 +35,8 @@ export function HeroSwiper() {
     };
   }, []);
 
+
+
   return (
     <div className="w-full relative min-h-[660px]">
       <Swiper
@@ -43,9 +45,11 @@ export function HeroSwiper() {
         speed={700}
         autoplay={{ delay: 6000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        onInit={retriggerReveal}
+        onSwiper={(s) => {
+          swiperRef.current = s;
+          retriggerReveal(s);
+        }}
         onSlideChangeTransitionStart={retriggerReveal}
-        onSwiper={(s) => { swiperRef.current = s; }}
         className="hero-swiper"
       >
         {/* SLIDE 1 */}
