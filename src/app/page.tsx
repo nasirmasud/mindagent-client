@@ -3,6 +3,7 @@
 import AgentCategories from "@/components/layout/agent-categories";
 import FeatureStrip from "@/components/layout/feature-strip";
 import HowItWorks from "@/components/layout/how-it-works";
+import Testimonials from "@/components/layout/testimonials";
 import { HeroSwiper } from "@/components/layout/hero-swiper";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,23 +32,6 @@ const categories = [
 
 
 
-const testimonials = [
-  {
-    name: "Sarah K.",
-    role: "Content Writer",
-    text: "MindAgent cut my content creation time in half. The AI agents are incredibly intuitive.",
-  },
-  {
-    name: "Marcus J.",
-    role: "Data Analyst",
-    text: "The data analyzer feature is a game-changer. I can upload CSV files and get insights in seconds.",
-  },
-  {
-    name: "Priya R.",
-    role: "Developer",
-    text: "Having multiple specialized agents in one place is brilliant. Highly recommend.",
-  },
-];
 
 const faqs = [
   {
@@ -110,23 +94,7 @@ export default function Home() {
 
       <HowItWorks />
 
-      {/* 6. Testimonials */}
-      <section className='w-full px-4 md:px-20 py-16'>
-        <h2 className='text-3xl font-bold text-center mb-10'>What Users Say</h2>
-        <div className='grid gap-6 md:grid-cols-3'>
-          {testimonials.map((t) => (
-            <Card key={t.name}>
-              <CardContent className='pt-6'>
-                <p className='text-sm text-muted-foreground mb-4'>
-                  &ldquo;{t.text}&rdquo;
-                </p>
-                <p className='font-semibold text-sm'>{t.name}</p>
-                <p className='text-xs text-muted-foreground'>{t.role}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+      <Testimonials />
 
       {/* 7. FAQ */}
       <section className='w-full bg-muted/50 py-16'>
