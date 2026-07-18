@@ -18,11 +18,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 const baseLinks = [
-  { href: "/", label: "Home" },
   { href: "/explore", label: "Explore Tools" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About Us" },
 ];
 
 const authLinks = [

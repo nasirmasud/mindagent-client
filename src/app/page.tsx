@@ -9,6 +9,7 @@ import { useAuthContext } from "@/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { HeroSwiper } from "@/components/layout/hero-swiper";
 
 const categories = ["Writing", "Coding", "Research", "Design", "Analytics", "Productivity", "Education", "Finance"];
 
@@ -51,20 +52,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       {/* 1. Hero */}
-        <section className="w-full min-h-[65vh] flex flex-col items-center justify-center text-center px-4 md:px-20">
-        <h1 className="text-5xl font-bold tracking-tight">MindAgent</h1>
-        <p className="mt-4 text-xl text-muted-foreground">
-          AI Agents That Think. Create. Deliver Results.
-        </p>
-        <div className="mt-8 flex gap-4">
-          <Button size="lg" asChild>
-            <Link href="/explore">Explore Agents</Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/ai-chat">Try AI Chat</Link>
-          </Button>
-        </div>
-      </section>
+      <HeroSwiper />
 
       {/* 2. Featured Categories */}
       <section className="w-full px-4 md:px-20 pb-16">
