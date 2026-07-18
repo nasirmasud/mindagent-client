@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Eye, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
@@ -49,8 +49,8 @@ export function ItemActions({ itemId, onDeleted }: ItemActionsProps) {
 
   return (
     <div className="flex items-center justify-end gap-1">
-      <Button variant="ghost" size="icon" onClick={() => router.push(`/items/${itemId}`)} title="View">
-        <Eye className="h-4 w-4" />
+      <Button variant="outline" size="sm" onClick={() => router.push(`/items/${itemId}`)}>
+        See Details Report
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
