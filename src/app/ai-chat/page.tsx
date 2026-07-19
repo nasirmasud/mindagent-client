@@ -162,6 +162,14 @@ export default function AIChatPage() {
             if (json.done) {
               setSessionId(json.sessionId);
               setSuggestions(json.suggestions || []);
+              const cleaned = full.replace(/```json[\s\S]*?```/, "").replace(/\n*Here are a few follow-up questions.*$/, "").trim();
+              if (cleaned.length < full.length) {
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = { role: "assistant", content: cleaned };
+                  return updated;
+                });
+              }
             } else {
               full += json.text;
               setMessages((prev) => {
@@ -330,7 +338,8 @@ export default function AIChatPage() {
         {/* ─── MAIN CHAT AREA ─── */}
         <main className="flex-1 flex flex-col h-full min-w-0">
           {/* messages */}
-          <div className="flex-1 overflow-y-auto chat-scrollbar px-4 sm:px-8 py-6 space-y-6 relative">
+          <div className="flex-1 overflow-y-auto chat-scrollbar px-4 sm:px-8 py-6 relative">
+            <div className="max-w-4xl mx-auto space-y-6">
             <button
               onClick={() => setSidebarOpen(true)}
               className="lg:hidden absolute top-2 left-4 w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-colors z-10"
@@ -404,20 +413,17 @@ export default function AIChatPage() {
               </div>
             ))}
             <div ref={messagesEndRef} />
-          </div>
-
-          {/* typing indicator */}
-          {showTyping && (
-            <div className="px-4 sm:px-8 pb-2">
-              <div className="max-w-2xl">
-                <div className="bg-slate-100 dark:bg-[#16132B] rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5">
+            {showTyping && (
+              <div className="msg-in max-w-2xl">
+                <div className="bg-slate-100 dark:bg-[#16132B] rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5 w-fit">
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
                 </div>
               </div>
+            )}
             </div>
-          )}
+          </div>
 
           {/* input bar */}
           <div className="px-4 sm:px-8 pb-5 pt-2 flex-shrink-0">
