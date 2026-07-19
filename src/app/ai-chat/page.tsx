@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
 import {
   Bot,
   Plus,
@@ -14,8 +15,8 @@ import {
   PanelLeft,
   Send,
   Paperclip,
-  MoreHorizontal,
   Settings,
+  Trash2,
 } from "lucide-react";
 
 /* ───── types ───── */
@@ -24,10 +25,11 @@ interface Message {
   content: string;
 }
 
-interface ChatSession {
-  id: string;
+interface SessionListItem {
+  _id: string;
   title: string;
   dateGroup: string;
+  latestTimestamp: string;
 }
 
 /* ───── helpers ───── */
@@ -56,17 +58,41 @@ export default function AIChatPage() {
   /* ui state */
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showTyping, setShowTyping] = useState(false);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
-  /* ───── chat history (static for now) ───── */
-  const [chatSessions] = useState<ChatSession[]>([
-    { id: "1", title: "CSV sales trend analysis", dateGroup: "Today" },
-    { id: "2", title: "Explain quarterly KPI drop", dateGroup: "Today" },
-    { id: "3", title: "Excel formulas for churn rate", dateGroup: "Yesterday" },
-    { id: "4", title: "JSON schema cleanup help", dateGroup: "Yesterday" },
-    { id: "5", title: "Marketing report summary", dateGroup: "Previous 7 days" },
-  ]);
+  /* ───── sessions from API ───── */
+  const [sessions, setSessions] = useState<SessionListItem[]>([]);
 
-  const groupedSessions = chatSessions.reduce<Record<string, ChatSession[]>>((acc, s) => {
+  useEffect(() => {
+    if (!isAuthenticated || loading) return;
+    (async () => {
+      try {
+        const data: any = await api("/ai/sessions");
+        const mapped: SessionListItem[] = (data.sessions || []).map((s: any) => {
+          const firstUserMsg = s.messages.find((m: any) => m.role === "user");
+          const title = firstUserMsg
+            ? firstUserMsg.content.length > 40
+              ? firstUserMsg.content.slice(0, 40) + "…"
+              : firstUserMsg.content
+            : "Untitled chat";
+          const latest = s.messages[s.messages.length - 1]?.timestamp || s.createdAt;
+          const date = new Date(latest);
+          const now = new Date();
+          const diff = now.getTime() - date.getTime();
+          const dateGroup =
+            diff < 86400000
+              ? "Today"
+              : diff < 172800000
+              ? "Yesterday"
+              : "Previous 7 days";
+          return { _id: s._id, title, dateGroup, latestTimestamp: latest };
+        });
+        setSessions(mapped);
+      } catch {}
+    })();
+  }, [isAuthenticated, loading]);
+
+  const groupedSessions = sessions.reduce<Record<string, SessionListItem[]>>((acc, s) => {
     (acc[s.dateGroup] ??= []).push(s);
     return acc;
   }, {});
@@ -206,7 +232,43 @@ export default function AIChatPage() {
     setMessages([]);
     setSessionId(null);
     setSuggestions([]);
+    setActiveSessionId(null);
     setSidebarOpen(false);
+  };
+
+  /* ───── load session ───── */
+  const loadSession = async (id: string) => {
+    try {
+      const data: any = await api(`/ai/sessions`);
+      const session = (data.sessions || []).find((s: any) => s._id === id);
+      if (!session) return;
+      const msgs: Message[] = session.messages
+        .filter((m: any) => m.role !== "system")
+        .map((m: any) => ({ role: m.role, content: m.content }));
+      setMessages(msgs);
+      setSessionId(id);
+      setActiveSessionId(id);
+      setSuggestions([]);
+      setSidebarOpen(false);
+    } catch {
+      toast.error("Failed to load session");
+    }
+  };
+
+  /* ───── delete session ───── */
+  const deleteSession = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    try {
+      await api(`/ai/sessions/${id}`, { method: "DELETE" });
+      setSessions((prev) => prev.filter((s) => s._id !== id));
+      if (activeSessionId === id) {
+        setMessages([]);
+        setSessionId(null);
+        setActiveSessionId(null);
+      }
+    } catch {
+      toast.error("Failed to delete session");
+    }
   };
 
   /* ───── loading state ───── */
@@ -283,31 +345,43 @@ export default function AIChatPage() {
           {/* chat history */}
           <div className="flex-1 overflow-y-auto chat-scrollbar px-3 py-3 space-y-1">
             {groupedOrder.map((group) => {
-              const sessions = groupedSessions[group];
-              if (!sessions) return null;
+              const groupSessions = groupedSessions[group];
+              if (!groupSessions) return null;
               return (
                 <div key={group}>
                   <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide px-2 mb-1 mt-4 first:mt-0">
                     {group}
                   </p>
-                  {sessions.map((s) => (
+                  {groupSessions.map((s) => (
                     <div
-                      key={s.id}
-                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:translate-x-0.5 ${
-                        s.id === "1"
+                      key={s._id}
+                      onClick={() => loadSession(s._id)}
+                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:translate-x-0.5 group ${
+                        activeSessionId === s._id
                           ? "bg-violet-50 dark:bg-indigo-900/20"
                           : ""
                       }`}
                     >
                       <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
-                      <span className="text-sm text-slate-700 dark:text-slate-300 truncate">
+                      <span className="text-sm text-slate-700 dark:text-slate-300 truncate flex-1">
                         {s.title}
                       </span>
+                      <button
+                        onClick={(e) => deleteSession(e, s._id)}
+                        className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex-shrink-0"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   ))}
                 </div>
               );
             })}
+            {sessions.length === 0 && (
+              <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-8">
+                No chat history yet
+              </p>
+            )}
           </div>
 
           {/* user profile */}
