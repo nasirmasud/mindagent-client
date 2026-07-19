@@ -1,6 +1,7 @@
 "use client";
 
 import AgentCategories from "@/components/layout/agent-categories";
+import FaqSection from "@/components/layout/faq-section";
 import FeatureStrip from "@/components/layout/feature-strip";
 import HowItWorks from "@/components/layout/how-it-works";
 import Testimonials from "@/components/layout/testimonials";
@@ -31,26 +32,6 @@ const categories = [
 ];
 
 
-
-
-const faqs = [
-  {
-    q: "What is MindAgent?",
-    a: "MindAgent is an AI-powered productivity platform with specialized agents for content generation, data analysis, and chat.",
-  },
-  {
-    q: "Is my data secure?",
-    a: "Yes. Your data is encrypted in transit and at rest. We never share your data with third parties.",
-  },
-  {
-    q: "Can I try it for free?",
-    a: "Absolutely. Use the demo login to explore all features without any commitment.",
-  },
-  {
-    q: "What file types are supported for data analysis?",
-    a: "We support CSV, XLSX, and JSON files up to 5MB.",
-  },
-];
 
 export default function Home() {
   const { isAuthenticated } = useAuthContext();
@@ -96,23 +77,7 @@ export default function Home() {
 
       <Testimonials />
 
-      {/* 7. FAQ */}
-      <section className='w-full bg-muted/50 py-16'>
-        <div className='px-4 md:px-20 max-w-3xl mx-auto'>
-          <h2 className='text-3xl font-bold text-center mb-8'>FAQ</h2>
-          <div className='space-y-3'>
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className='bg-background rounded-lg p-4 cursor-pointer'
-              >
-                <summary className='font-medium'>{faq.q}</summary>
-                <p className='mt-2 text-sm text-muted-foreground'>{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqSection />
 
       {/* 8. Newsletter / CTA */}
       <section className='w-full py-16 text-center px-4 md:px-20'>

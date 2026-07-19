@@ -29,7 +29,7 @@ const authLinks = [
 ];
 
 export function Navbar() {
-  const { user, isAuthenticated, logout } = useAuthContext();
+  const { user, isAuthenticated, logout, loading } = useAuthContext();
   const [open, setOpen] = useState(false);
 
   return (
@@ -43,7 +43,7 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700 dark:text-gray-300">
-          {[...baseLinks, ...(isAuthenticated ? authLinks : [])].map((link) => (
+          {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : [])].map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -65,7 +65,7 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-8">
-                {[...baseLinks, ...(isAuthenticated ? authLinks : [])].map((link) => (
+                {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : [])].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -76,7 +76,7 @@ export function Navbar() {
                   </Link>
                 ))}
                 <hr className="my-2 border-gray-200 dark:border-gray-700" />
-                {isAuthenticated ? (
+                {!loading && isAuthenticated ? (
                   <>
                     <Link href="/items/manage" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">My Items</Link>
                     <Link href="/profile" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">Profile</Link>
@@ -96,7 +96,7 @@ export function Navbar() {
             </SheetContent>
           </Sheet>
 
-          {isAuthenticated ? (
+          {!loading && isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full max-md:hidden">

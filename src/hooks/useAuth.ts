@@ -9,21 +9,19 @@ interface User {
   avatar?: string;
 }
 
-function getInitialUser(): User | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(stored) : null;
-  } catch {
-    return null;
-  }
-}
-
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(getInitialUser);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        setUser(JSON.parse(stored));
+      }
+    } catch {
+      // ignore
+    }
     setLoading(false);
   }, []);
 
