@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuthContext } from "@/providers/auth-provider";
+import { toast } from "sonner";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,14 +14,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 const baseLinks = [
   { href: "/explore", label: "Explore Tools" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const authLinks = [
@@ -29,6 +29,8 @@ const authLinks = [
   { href: "/data-analyzer", label: "Data Analyzer" },
   { href: "/image-analyzer", label: "Image Analyzer" },
 ];
+
+const contactLink = { href: "/contact", label: "Contact" };
 
 export function Navbar() {
   const { user, isAuthenticated, logout, loading } = useAuthContext();
@@ -44,8 +46,8 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700 dark:text-gray-300">
-          {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : [])].map((link) => (
+        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-700 dark:text-gray-300">
+          {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -61,13 +63,13 @@ export function Navbar() {
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="lg:hidden">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-8">
-                {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : [])].map((link) => (
+                {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -82,7 +84,7 @@ export function Navbar() {
                   <>
                     <Link href="/items/manage" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">My Items</Link>
                     <Link href="/profile" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">Profile</Link>
-                    <Button variant="outline" onClick={() => { logout(); setOpen(false); }}>Logout</Button>
+                    <Button variant="outline" onClick={() => { logout(); toast.success("Logged out"); setOpen(false); }}>Logout</Button>
                   </>
                 ) : (
                   <div className="flex flex-col gap-2">
@@ -101,8 +103,9 @@ export function Navbar() {
           {!loading && isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full max-md:hidden">
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full max-lg:hidden">
                   <Avatar className="h-8 w-8">
+                    <AvatarImage src={user?.avatar} alt={user?.name || "User"} />
                     <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
                   </Avatar>
                 </Button>
@@ -117,11 +120,11 @@ export function Navbar() {
                   <Link href="/profile">Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => { logout(); toast.success("Logged out"); }}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3">
               <Button variant="outline" asChild className="border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
                 <Link href="/login">Log In</Link>
               </Button>

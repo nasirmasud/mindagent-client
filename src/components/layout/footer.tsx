@@ -10,7 +10,6 @@ const platformLinks = [
 
 const companyLinks = [
   { href: "/about", label: "About Us" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "Careers" },
   { href: "/contact", label: "Contact Us" },
   { href: "/privacy", label: "Privacy Policy" },
