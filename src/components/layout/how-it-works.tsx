@@ -30,8 +30,8 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="w-full bg-slate-50 dark:bg-[#0A0820] flex items-center justify-center px-6 pt-10 pb-40">
-      <div className="w-full max-w-6xl">
+    <section className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-[#0A0820] dark:to-[#0B0B1F] overflow-hidden px-4 md:px-20 pt-10 pb-40">
+      <div className="mx-auto w-full max-w-7xl">
         {/* Eyebrow */}
         <p className="text-center text-xs font-bold tracking-wider text-indigo-600 dark:text-indigo-400">
           HOW IT WORKS
@@ -46,7 +46,7 @@ export default function HowItWorks() {
         <div className="mt-10 flex items-stretch gap-2 md:gap-4">
           {steps.map(({ number, icon: Icon, title, description }, i) => (
             <React.Fragment key={number}>
-              <div className="group relative flex-1 min-w-0 rounded-2xl border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-5 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-500/50">
+              <div className="group relative flex-1 min-w-0 rounded-2xl border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50">
                 {/* Step number badge */}
                 <div className="absolute -top-3 left-4 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white shadow-sm transition-transform duration-300 ease-out group-hover:scale-110">
                   {number}

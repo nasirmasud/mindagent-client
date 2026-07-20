@@ -26,35 +26,29 @@ const features = [
 
 export default function FeatureStrip() {
   return (
-    <section className="w-full bg-slate-50 dark:bg-[#0A0820] flex items-center justify-center px-6 py-40">
-      <div className="w-full max-w-6xl rounded-2xl border border-slate-200 dark:border-[#2E274A] bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-8 shadow-sm">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 md:divide-x divide-slate-200 dark:divide-[#2E274A]">
-          {features.map(({ icon: Icon, title, description }, i) => (
-            <div
-              key={title}
-              className={`group flex items-start gap-2 sm:gap-4 px-2 sm:px-6 ${
-                i === 0 ? "pl-0" : ""
-              } ${i === features.length - 1 ? "pr-0" : ""} ${
-                i % 2 === 0 ? "md:pl-0" : ""
-              } transition-transform duration-300 ease-out hover:-translate-y-1`}
-            >
-              <div className="flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900/30 transition-all duration-300 ease-out group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:scale-110 group-hover:rotate-6">
-                <Icon
-                  className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600 dark:text-indigo-400 transition-transform duration-300"
-                  strokeWidth={2}
-                />
-              </div>
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-[#0A0820] dark:to-[#0B0B1F] py-16 md:py-24">
+      <div className="mx-auto w-full px-4 md:px-20">
+        <div className="relative rounded-3xl border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/70 dark:bg-[#1E1A35]/70 backdrop-blur-xl shadow-xl shadow-indigo-500/5 dark:shadow-indigo-500/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/50 dark:divide-[#2E274A]/50">
+            {features.map(({ icon: Icon, title, description }) => (
+              <div
+                key={title}
+                className="group relative flex flex-col items-center p-8 md:p-10 text-center transition-all duration-500 hover:z-10"
+              >
+                <span className="relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/40 dark:to-indigo-800/30 transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+                  <Icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 transition-transform duration-500 group-hover:rotate-3" strokeWidth={1.5} />
+                </span>
 
-              <div className="min-w-0">
-                <h3 className="text-xs sm:text-base font-bold text-slate-900 dark:text-white transition-colors duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 truncate">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                   {title}
                 </h3>
-                <p className="mt-1 text-[10px] sm:text-sm text-slate-500 dark:text-slate-400 leading-snug hidden sm:block">
+
+                <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
                   {description}
                 </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -90,8 +90,8 @@ export default function Testimonials() {
   const next = () => goTo((page + 1) % pageCount);
 
   return (
-    <section className="w-full bg-slate-50 dark:bg-[#0A0820] flex items-center justify-center px-6 pt-10 pb-40">
-      <div className="w-full max-w-6xl">
+    <section className="w-full bg-gradient-to-b from-white to-slate-50 dark:from-[#0B0B1F] dark:to-[#0A0820] overflow-hidden px-4 md:px-20 pt-10 pb-40">
+      <div className="mx-auto w-full max-w-7xl">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex-1 text-center">
@@ -120,36 +120,36 @@ export default function Testimonials() {
               {Array.from({ length: pageCount }).map((_, pageIdx) => (
                 <div
                   key={pageIdx}
-                  className="grid w-full shrink-0 grid-cols-3 gap-2 sm:gap-4 md:gap-6 px-1"
+                  className="grid w-full shrink-0 grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 px-1"
                 >
                   {testimonials
                     .slice(pageIdx * PER_PAGE, pageIdx * PER_PAGE + PER_PAGE)
                     .map((t) => (
                       <div
                         key={t.name}
-                        className="group relative flex flex-col rounded-xl sm:rounded-2xl border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-3 sm:p-5 md:p-6 min-w-0 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-500/50"
+                        className="group relative flex flex-col rounded-2xl border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50"
                       >
                         <Quote
-                          className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 text-indigo-200 dark:text-indigo-700 transition-colors duration-300 group-hover:text-indigo-300 dark:group-hover:text-indigo-500"
+                          className="h-6 w-6 text-indigo-200 dark:text-indigo-700 transition-colors duration-300 group-hover:text-indigo-300 dark:group-hover:text-indigo-500"
                           fill="currentColor"
                           strokeWidth={0}
                         />
-                        <p className="mt-2 sm:mt-3 text-[11px] sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-4 sm:line-clamp-none sm:min-h-[4.5rem]">
+                        <p className="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                           &ldquo;{t.quote}&rdquo;
                         </p>
 
-                        <div className="mt-3 sm:mt-6 flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
+                        <div className="mt-6 flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-3 min-w-0">
                             <img
                               src={t.avatar}
                               alt={t.name}
-                              className="h-7 w-7 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              className="h-10 w-10 shrink-0 rounded-full object-cover ring-2 ring-slate-100 dark:ring-[#2E274A] transition-transform duration-300 group-hover:scale-105"
                             />
                             <div className="min-w-0">
-                              <p className="text-[11px] sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                              <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
                                 {t.name}
                               </p>
-                              <p className="text-[9px] sm:text-xs text-slate-400 dark:text-slate-500 truncate">
+                              <p className="text-xs text-slate-400 dark:text-slate-500 truncate">
                                 {t.role}
                               </p>
                             </div>
