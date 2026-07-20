@@ -148,6 +148,7 @@ export default function DataAnalyzerPage() {
   const [recentFiles, setRecentFiles] = useState<ItemData[]>([]);
   const [editableKpis, setEditableKpis] = useState<{ label: string; value: string }[]>([]);
   const [chartColumn, setChartColumn] = useState("");
+  const [userPrompt, setUserPrompt] = useState("");
 
   /* Derive chart data from parsedPreview grouped by selected column */
   const dynamicChartData = useMemo(() => {
@@ -208,6 +209,7 @@ export default function DataAnalyzerPage() {
       }
       const form = new FormData();
       form.append("file", file);
+      if (userPrompt.trim()) form.append("prompt", userPrompt.trim());
       const res = await fetch(`${BASE}/items`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
@@ -219,6 +221,7 @@ export default function DataAnalyzerPage() {
       toast.success("Analysis complete!");
       fetchRecent();
       setFile(null);
+      setUserPrompt("");
       if (fileRef.current) fileRef.current.value = "";
     } catch (err: any) {
       toast.error(err.message);
@@ -401,23 +404,32 @@ export default function DataAnalyzerPage() {
                 </div>
 
                 {file && (
-                  <button
-                    onClick={handleUpload}
-                    disabled={uploading}
-                    className="mt-6 w-full bg-gradient-to-r from-[#7C5CFC] to-[#5A38EA] text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-[0_0_30px_-8px_#7C5CFC] transition-all"
-                  >
-                    {uploading ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-5 h-5" />
-                        Upload & Analyze
-                      </>
-                    )}
-                  </button>
+                  <>
+                    <textarea
+                      value={userPrompt}
+                      onChange={(e) => setUserPrompt(e.target.value)}
+                      placeholder="Optional: Ask the AI to focus on something specific (e.g. 'Highlight sales trends by region' or 'Find anomalies')"
+                      rows={2}
+                      className="mt-4 w-full rounded-xl border border-[#232235] bg-[#0D0D1A] text-sm text-white placeholder:text-gray-500 p-3 outline-none resize-none transition-all focus:border-[#7C5CFC] focus:shadow-[0_0_0_4px_rgba(124,92,252,0.12)]"
+                    />
+                    <button
+                      onClick={handleUpload}
+                      disabled={uploading}
+                      className="mt-4 w-full bg-gradient-to-r from-[#7C5CFC] to-[#5A38EA] text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-[0_0_30px_-8px_#7C5CFC] transition-all"
+                    >
+                      {uploading ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Analyzing...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-5 h-5" />
+                          Upload & Analyze
+                        </>
+                      )}
+                    </button>
+                  </>
                 )}
               </div>
 
