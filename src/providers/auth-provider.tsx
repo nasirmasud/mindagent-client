@@ -8,6 +8,8 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
+  authProvider?: string;
+  createdAt?: string;
 }
 
 interface AuthContextType {
