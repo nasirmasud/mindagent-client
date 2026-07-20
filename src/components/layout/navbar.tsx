@@ -26,6 +26,7 @@ const authLinks = [
   { href: "/ai-chat", label: "AI Chat" },
   { href: "/content-generator", label: "Content Generator" },
   { href: "/data-analyzer", label: "Data Analyzer" },
+  { href: "/image-analyzer", label: "Image Analyzer" },
 ];
 
 export function Navbar() {
