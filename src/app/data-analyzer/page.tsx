@@ -48,7 +48,7 @@ import {
   Area,
 } from "recharts";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://mindagent-server.onrender.com/api";
 
 function getToken() {
   return typeof window !== "undefined" ? localStorage.getItem("token") : null;

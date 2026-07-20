@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://mindagent-server.onrender.com/api";
 
 export async function api<T = unknown>(
   path: string,

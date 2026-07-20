@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuthContext } from "@/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -19,7 +20,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://mindagent-server.onrender.com/api";
 
 interface Item {
   _id: string;
@@ -46,12 +47,18 @@ interface Item {
 export default function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
+  const { isAuthenticated, loading: authLoading } = useAuthContext();
   const [item, setItem] = useState<Item | null>(null);
   const [related, setRelated] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
+    if (!authLoading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, authLoading, router]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
     (async () => {
       try {
         const token = localStorage.getItem("token");
@@ -94,6 +101,7 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
     }
   };
 
+  if (authLoading || !isAuthenticated) return <PageSkeleton />;
   if (loading) return <PageSkeleton />;
   if (!item) return null;
 

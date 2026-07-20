@@ -147,7 +147,7 @@ export default function AIChatPage() {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/ai/chat`,
+        `${process.env.NEXT_PUBLIC_API_URL || "https://mindagent-server.onrender.com/api"}/ai/chat`,
         {
           method: "POST",
           headers: {

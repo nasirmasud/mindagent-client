@@ -15,7 +15,7 @@ import {
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://mindagent-server.onrender.com/api";
 
 interface ItemActionsProps {
   itemId: string;

@@ -176,7 +176,7 @@ export default function ExplorePage() {
 
         {/* Results */}
         {isLoading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)}
           </div>
         ) : items.length === 0 ? (
@@ -187,7 +187,7 @@ export default function ExplorePage() {
           </div>
         ) : (
           <>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {items.map((item) => (
                 <Link key={item._id} href={`/items/${item._id}`}>
                   <Card className="h-full hover:bg-muted/50 transition cursor-pointer">
@@ -266,7 +266,7 @@ export default function ExplorePage() {
       {/* All Agents */}
       <section>
         <h2 className="text-2xl font-bold mb-6">Explore AI Agents</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {agents.map((agent) => (
             <Card key={agent.name}>
               <CardHeader>
