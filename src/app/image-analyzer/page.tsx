@@ -47,6 +47,10 @@ export default function ImageAnalyzerPage() {
   const { isAuthenticated, loading: authLoading } = useAuthContext();
   const router = useRouter();
 
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, authLoading, router]);
+
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
   const [dragging, setDragging] = useState(false);
@@ -191,7 +195,7 @@ export default function ImageAnalyzerPage() {
     toast.success("Copied to clipboard");
   };
 
-  if (authLoading) return <PageSkeleton />;
+  if (authLoading || !isAuthenticated) return <PageSkeleton />;
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-[#0A0A13] text-white">

@@ -138,6 +138,10 @@ export default function DataAnalyzerPage() {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (!loading && !isAuthenticated) router.push("/login");
+  }, [isAuthenticated, loading, router]);
+
   /* state */
   const [uploading, setUploading] = useState(false);
   const [currentItem, setCurrentItem] = useState<ItemData | null>(null);
@@ -282,7 +286,7 @@ export default function DataAnalyzerPage() {
     if (dropped) setFile(dropped);
   };
 
-  if (loading) return <PageSkeleton />;
+  if (loading || !isAuthenticated) return <PageSkeleton />;
 
   return (
     <div className="bg-[#0A0A13] text-white min-h-[calc(100vh-4rem)]">
