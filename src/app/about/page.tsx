@@ -112,7 +112,7 @@ export default function AboutPage() {
             href="/contact"
             className="flex shrink-0 items-center gap-2 rounded-lg bg-[#7C5CFC] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#6B4CE8] transition-colors"
           >
-            See open roles&nbsp; <ArrowRight size={14} />
+            Contact us <ArrowRight size={14} />
           </Link>
         </div>
       </section>

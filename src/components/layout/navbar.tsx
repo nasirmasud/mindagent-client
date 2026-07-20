@@ -20,6 +20,7 @@ import { Menu } from "lucide-react";
 const baseLinks = [
   { href: "/explore", label: "Explore Tools" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const authLinks = [
