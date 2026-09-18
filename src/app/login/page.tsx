@@ -3,8 +3,8 @@
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { api } from "@/lib/api";
 import { useAuthContext } from "@/providers/auth-provider";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const IMAGEBB_KEY = process.env.NEXT_PUBLIC_IMAGEBB_API_KEY;
@@ -22,9 +22,23 @@ async function uploadToImageBB(base64: string): Promise<string> {
 }
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageInner />
+    </Suspense>
+  );
+}
+
+function LoginPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login } = useAuthContext();
-  const [activeTab, setActiveTab] = useState<"login" | "register">("login");
+  // Respect intent: a "Get Started" / register CTA links here with ?tab=register
+  // so the visitor lands on the tab that matches what they clicked, instead of
+  // always seeing "Login" first regardless of what they asked for.
+  const [activeTab, setActiveTab] = useState<"login" | "register">(
+    searchParams.get("tab") === "register" ? "register" : "login"
+  );
 
   // Login form
   const [loginEmail, setLoginEmail] = useState("");
