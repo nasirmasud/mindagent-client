@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 import {
   Bot,
@@ -298,46 +299,44 @@ export default function AIChatPage() {
         .cursor-blink { animation: blink 1s steps(1) infinite; }
 
         .chat-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .chat-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .chat-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
-        .dark .chat-scrollbar::-webkit-scrollbar-thumb { background: #2E274A; }
-        .dark .chat-scrollbar::-webkit-scrollbar-thumb:hover { background: #3D3560; }
+        .chat-scrollbar::-webkit-scrollbar-thumb { background: hsl(var(--muted-foreground) / 0.3); border-radius: 10px; }
+        .chat-scrollbar::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.45); }
       `}</style>
 
-      <div className="fixed inset-0 top-16 flex overflow-hidden bg-white dark:bg-[#0A0820]">
+      <div className="fixed inset-0 top-16 flex overflow-hidden bg-background">
         {/* ─── SIDEBAR ─── */}
         <aside
           className={`mobile-sidebar fixed lg:static z-30 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 w-72 h-full bg-slate-50 dark:bg-[#1E1A35] border-r border-slate-200 dark:border-[#2E274A] flex flex-col transition-transform duration-350`}
+          } lg:translate-x-0 w-72 h-full bg-muted/50 border-r border-border flex flex-col transition-transform duration-350`}
         >
           {/* logo + new chat */}
-          <div className="p-4 border-b border-slate-200 dark:border-[#2E274A]">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-end mb-4 lg:hidden">
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-colors"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <button
+            <Button
               onClick={newChat}
-              className="w-full h-10 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-8px_rgba(108,78,230,0.4)] active:translate-y-0"
+              className="w-full h-10 rounded-xl text-sm font-semibold gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.4)] active:translate-y-0"
             >
               <Plus className="w-4 h-4" />
               New Chat
-            </button>
+            </Button>
           </div>
 
           {/* search */}
           <div className="px-3 pt-3">
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search chats"
-                className="w-full h-9 pl-8 pr-3 rounded-lg bg-white dark:bg-[#16132B] border border-slate-200 dark:border-[#2E274A] text-xs outline-none text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-indigo-300 dark:focus:border-indigo-600 transition-colors"
+                className="w-full h-9 pl-8 pr-3 rounded-lg bg-card border border-border text-xs outline-none text-foreground placeholder:text-muted-foreground focus:border-primary transition-colors"
               />
             </div>
           </div>
@@ -349,26 +348,26 @@ export default function AIChatPage() {
               if (!groupSessions) return null;
               return (
                 <div key={group}>
-                  <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide px-2 mb-1 mt-4 first:mt-0">
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide px-2 mb-1 mt-4 first:mt-0">
                     {group}
                   </p>
                   {groupSessions.map((s) => (
                     <div
                       key={s._id}
                       onClick={() => loadSession(s._id)}
-                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:translate-x-0.5 group ${
+                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-accent hover:translate-x-0.5 group ${
                         activeSessionId === s._id
-                          ? "bg-violet-50 dark:bg-indigo-900/20"
+                          ? "bg-accent"
                           : ""
                       }`}
                     >
-                      <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
-                      <span className="text-sm text-slate-700 dark:text-slate-300 truncate flex-1">
+                      <MessageSquare className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-sm text-foreground truncate flex-1">
                         {s.title}
                       </span>
                       <button
                         onClick={(e) => deleteSession(e, s._id)}
-                        className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex-shrink-0"
+                        className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all flex-shrink-0"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -378,25 +377,25 @@ export default function AIChatPage() {
               );
             })}
             {sessions.length === 0 && (
-              <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-8">
+              <p className="text-xs text-muted-foreground text-center py-8">
                 No chat history yet
               </p>
             )}
           </div>
 
           {/* user profile */}
-          <div className="p-3 border-t border-slate-200 dark:border-[#2E274A]">
-            <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer hover:bg-violet-50 dark:hover:bg-indigo-900/20 transition-colors">
-              <div className="w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+          <div className="p-3 border-t border-border">
+            <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer hover:bg-accent transition-colors">
+              <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-xs font-semibold text-primary">
                 {userInitial}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-slate-800 dark:text-white truncate">
+                <p className="text-xs font-semibold text-foreground truncate">
                   {user?.name || "User"}
                 </p>
-                <p className="text-[11px] text-slate-400 dark:text-slate-500 truncate">Free plan</p>
+                <p className="text-[11px] text-muted-foreground truncate">Free plan</p>
               </div>
-              <Settings className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+              <Settings className="w-4 h-4 text-muted-foreground" />
             </div>
           </div>
         </aside>
@@ -416,16 +415,16 @@ export default function AIChatPage() {
             <div className="max-w-4xl mx-auto space-y-6">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden absolute top-2 left-4 w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-colors z-10"
+              className="lg:hidden absolute top-2 left-4 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors z-10"
             >
               <PanelLeft className="w-4.5 h-4.5" />
             </button>
             {messages.length === 0 && (
               <div className="msg-in max-w-2xl">
-                <div className="bg-slate-100 dark:bg-[#16132B] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed">
                   Hi! I&apos;m your MindAgent assistant. Ask me anything — I can help with research, explain concepts, draft content, or work through problems with you.
                 </div>
-                <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">
+                <span className="text-[11px] text-muted-foreground mt-1 block">
                   {currentTime()}
                 </span>
               </div>
@@ -440,26 +439,26 @@ export default function AIChatPage() {
                   <div
                     className={
                       msg.role === "user"
-                        ? "rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-white leading-relaxed"
-                        : "bg-slate-100 dark:bg-[#16132B] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-700 dark:text-slate-300 leading-relaxed"
+                        ? "rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-primary-foreground leading-relaxed"
+                        : "bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed"
                     }
                     style={
                       msg.role === "user"
-                        ? { background: "linear-gradient(135deg, #6c4ee6, #8b5cf6)" }
+                        ? { background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.85))" }
                         : undefined
                     }
                   >
                     {streaming && i === messages.length - 1 && msg.role === "assistant" ? (
                       <span>
                         {msg.content}
-                        <span className="cursor-blink text-indigo-600">▍</span>
+                        <span className="cursor-blink text-primary">▍</span>
                       </span>
                     ) : (
                       <span className="whitespace-pre-wrap">{msg.content}</span>
                     )}
                   </div>
                   <span
-                    className={`text-[11px] text-slate-400 dark:text-slate-500 mt-1 block ${
+                    className={`text-[11px] text-muted-foreground mt-1 block ${
                       msg.role === "user" ? "text-right" : ""
                     }`}
                   >
@@ -476,7 +475,7 @@ export default function AIChatPage() {
                           <button
                             key={si}
                             onClick={() => sendMessage(s)}
-                            className="text-xs font-medium text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] px-3 py-1.5 rounded-full hover:border-indigo-500 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:-translate-y-0.5 transition-all duration-200"
+                            className="text-xs font-medium text-muted-foreground border border-border bg-card px-3 py-1.5 rounded-full hover:border-primary hover:bg-accent hover:-translate-y-0.5 transition-all duration-200"
                           >
                             {s}
                           </button>
@@ -489,10 +488,10 @@ export default function AIChatPage() {
             <div ref={messagesEndRef} />
             {showTyping && (
               <div className="msg-in max-w-2xl">
-                <div className="bg-slate-100 dark:bg-[#16132B] rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5 w-fit">
-                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
-                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
-                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
+                <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5 w-fit">
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
                 </div>
               </div>
             )}
@@ -502,10 +501,10 @@ export default function AIChatPage() {
           {/* input bar */}
           <div className="px-4 sm:px-8 pb-5 pt-2 flex-shrink-0">
             <div className="max-w-3xl mx-auto">
-              <div className="flex items-end gap-2 rounded-2xl border border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] px-3 py-2.5 transition-all duration-250 focus-within:border-indigo-500 focus-within:shadow-[0_0_0_4px_rgba(108,78,230,0.10)]">
+              <div className="flex items-end gap-2 rounded-2xl border border-border bg-muted px-3 py-2.5 transition-all duration-250 focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-colors flex-shrink-0"
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors flex-shrink-0"
                 >
                   <Paperclip className="w-4 h-4" />
                 </button>
@@ -522,17 +521,19 @@ export default function AIChatPage() {
                     }
                   }}
                   placeholder="Message MindAgent Assistant..."
-                  className="flex-1 resize-none bg-transparent outline-none text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 py-1.5 max-h-32"
+                  className="flex-1 resize-none bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground py-1.5 max-h-32"
                 />
-                <button
+                <Button
                   onClick={() => sendMessage()}
                   disabled={!input.trim() || streaming}
-                  className="w-9 h-9 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center flex-shrink-0 transition-all duration-250 hover:-translate-y-0.5 hover:scale-103 hover:shadow-[0_10px_22px_-8px_rgba(108,78,230,0.45)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100 disabled:hover:shadow-none"
+                  size="icon"
+                  className="w-9 h-9 rounded-xl transition-all duration-250 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.45)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100 disabled:hover:shadow-none"
+                  aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />
-                </button>
+                </Button>
               </div>
-              <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-center text-[11px] text-muted-foreground mt-2">
                 MindAgent can make mistakes. Verify important information.
               </p>
             </div>
