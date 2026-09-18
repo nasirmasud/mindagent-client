@@ -37,21 +37,21 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-[#0B0B1F]/95 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
       <div className="w-full flex h-16 items-center justify-between px-4 md:px-20">
         <Link href="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
-          <img src="/favicon.ico" alt="MindAgent" className="h-[4.5rem] w-[4.5rem] -mt-2" />
-          <span className="text-xl font-bold text-gray-900 dark:text-white">
-            Mind<span className="text-indigo-600">Agent</span>
+          <img src="/favicon.ico" alt="MindAgent logo" className="h-[4.5rem] w-[4.5rem] -mt-2" />
+          <span className="text-xl font-bold text-foreground">
+            Mind<span className="text-primary">Agent</span>
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-muted-foreground" aria-label="Main navigation">
           {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+              className="rounded-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {link.label}
             </Link>
@@ -74,12 +74,12 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="text-lg font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+                    className="text-lg font-medium transition hover:text-primary"
                   >
                     {link.label}
                   </Link>
                 ))}
-                <hr className="my-2 border-gray-200 dark:border-gray-700" />
+                <hr className="my-2 border-border" />
                 {!loading && isAuthenticated ? (
                   <>
                     <Link href="/items/manage" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">My Items</Link>
@@ -92,7 +92,7 @@ export function Navbar() {
                       <Link href="/login">Log In</Link>
                     </Button>
                     <Button asChild onClick={() => setOpen(false)}>
-                      <Link href="/register">Get Started</Link>
+                      <Link href="/login?tab=register">Get Started</Link>
                     </Button>
                   </div>
                 )}
@@ -125,11 +125,11 @@ export function Navbar() {
             </DropdownMenu>
           ) : (
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="outline" asChild className="border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+              <Button variant="outline" asChild>
                 <Link href="/login">Log In</Link>
               </Button>
-              <Button asChild className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                <Link href="/register">Get Started</Link>
+              <Button asChild>
+                <Link href="/login?tab=register">Get Started</Link>
               </Button>
             </div>
           )}
