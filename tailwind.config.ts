@@ -43,6 +43,18 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          50: "var(--violet-50)",
+          100: "var(--violet-100)",
+          200: "var(--violet-200)",
+          500: "var(--violet-500)",
+          600: "var(--violet-600)",
+          700: "var(--violet-700)",
+          DEFAULT: "var(--violet-600)",
+        },
+      },
+      ringColor: {
+        DEFAULT: "hsl(var(--ring))",
       },
       borderRadius: {
         lg: "var(--radius)",
