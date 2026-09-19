@@ -7,7 +7,7 @@ const stats = [
 
 export function HomeStatsStrip() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-10 md:py-12">
+    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-14 md:py-16">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-y-8 md:grid-cols-4 md:divide-x md:divide-border">
         {stats.map((s) => (
           <div
