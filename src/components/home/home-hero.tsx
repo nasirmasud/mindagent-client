@@ -47,14 +47,14 @@ export function HomeHero() {
           </span>
 
           <h1 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Agents that read, write and reason —{" "}
+            Agents that read, write and reason -{" "}
             <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               on your terms.
             </span>
           </h1>
 
           <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            MindAgent puts a fleet of specialized AI agents at your fingertips —
+            MindAgent puts a fleet of specialized AI agents at your fingertips -
             summarize documents, analyze data, generate content, and automate
             busywork. Build the workflow you want, not the one you&apos;re given.
           </p>
