@@ -15,6 +15,16 @@ export function HomeHero() {
 <section
       className="relative w-full overflow-hidden px-4 md:px-20 py-16 md:py-28"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: "radial-gradient(rgba(124,92,255,0.25) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          backgroundPosition: "0 13px",
+        }}
+      />
+
       {/* Ambient violet glows */}
       <div
         aria-hidden="true"
