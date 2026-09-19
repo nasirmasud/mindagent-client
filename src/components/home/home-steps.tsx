@@ -5,7 +5,7 @@ const steps = [
     number: 1,
     icon: UserPlus,
     title: "Create an Account",
-    description: "Sign up in seconds — free, no card required.",
+    description: "Sign up in seconds - free, no card required.",
   },
   {
     number: 2,
