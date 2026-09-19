@@ -57,7 +57,7 @@ export function HomeActivityStream() {
   });
 
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-16 md:py-24">
+    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
