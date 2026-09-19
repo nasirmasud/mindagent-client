@@ -1,12 +1,20 @@
 "use client";
 
-import AgentCategories from "@/components/layout/agent-categories";
-import FaqSection from "@/components/layout/faq-section";
-import FeatureStrip from "@/components/layout/feature-strip";
-import HowItWorks from "@/components/layout/how-it-works";
 import NewsletterSection from "@/components/layout/newsletter-section";
-import Testimonials from "@/components/layout/testimonials";
-import { HeroSwiper } from "@/components/layout/hero-swiper";
+import { HomeActivityStream } from "@/components/home/home-activity-stream";
+import { HomeApiSection } from "@/components/home/home-api-section";
+import { HomeBlog } from "@/components/home/home-blog";
+import { HomeClosingCta } from "@/components/home/home-closing-cta";
+import { HomeFaq } from "@/components/home/home-faq";
+import { HomeFeatureGrid } from "@/components/home/home-feature-grid";
+import { HomeHero } from "@/components/home/home-hero";
+import { HomeIntegrations } from "@/components/home/home-integrations";
+import { HomePricing } from "@/components/home/home-pricing";
+import { HomeSecurity } from "@/components/home/home-security";
+import { HomeStatsStrip } from "@/components/home/home-stats-strip";
+import { HomeSteps } from "@/components/home/home-steps";
+import { HomeTestimonials } from "@/components/home/home-testimonials";
+import { HomeTrustStats } from "@/components/home/home-trust-stats";
 import {
   Card,
   CardContent,
@@ -18,19 +26,6 @@ import { api } from "@/lib/api";
 import { useAuthContext } from "@/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 
-const categories = [
-  "Writing",
-  "Coding",
-  "Research",
-  "Design",
-  "Analytics",
-  "Productivity",
-  "Education",
-  "Finance",
-];
-
-
-
 export default function Home() {
   const { isAuthenticated } = useAuthContext();
 
@@ -41,40 +36,48 @@ export default function Home() {
   });
 
   return (
-    <div className='flex flex-col items-center'>
-      {/* 1. Hero */}
-      <HeroSwiper />
+    <div className="flex flex-col items-center">
+      <HomeHero />
 
-      <FeatureStrip />
-
-      {/* 2. Agent Categories */}
-      <AgentCategories />
-
-      {/* 3. Recommended for You */}
       {recData?.recommendations?.length > 0 && (
-        <section className='w-full px-4 md:px-20 pb-16'>
-          <h2 className='text-2xl font-bold mb-6'>Recommended for You</h2>
-          <div className='grid gap-4 md:grid-cols-3'>
-            {recData.recommendations.map((agent: any) => (
-              <Card key={agent._id}>
-                <CardHeader>
-                  <CardTitle className='text-lg'>{agent.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>{agent.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+        <section className="w-full px-4 md:px-20 pb-16 border-b border-border">
+          <div className="mx-auto w-full max-w-7xl">
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              Recommended for You
+            </h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {recData.recommendations.map((agent: any) => (
+                <Card key={agent._id} className="border-border bg-card">
+                  <CardHeader>
+                    <CardTitle className="text-lg text-foreground">
+                      {agent.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground">
+                      {agent.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-
-      <HowItWorks />
-
-      <Testimonials />
-
-      <FaqSection />
+      <HomeStatsStrip />
+      <HomeFeatureGrid />
+      <HomeSteps />
+      <HomeIntegrations />
+      <HomeTestimonials />
+      <HomeTrustStats />
+      <HomeApiSection />
+      <HomeSecurity />
+      <HomePricing />
+      <HomeActivityStream />
+      <HomeClosingCta />
+      <HomeFaq />
+      <HomeBlog />
 
       <NewsletterSection />
     </div>
