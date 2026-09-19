@@ -422,7 +422,7 @@ export default function AIChatPage() {
             {messages.length === 0 && (
               <div className="msg-in max-w-2xl">
                 <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed">
-                  Hi! I&apos;m your MindAgent assistant. Ask me anything — I can help with research, explain concepts, draft content, or work through problems with you.
+                  Hi! I&apos;m your MindAgent assistant. Ask me anything - I can help with research, explain concepts, draft content, or work through problems with you.
                 </div>
                 <span className="text-[11px] text-muted-foreground mt-1 block">
                   {currentTime()}
