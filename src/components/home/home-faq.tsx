@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const faqs = [
   {
     q: "What is MindAgent?",
-    a: "MindAgent is a platform of specialized AI agents for content generation, data analysis, image understanding, research, coding, and everyday assistance — each scoped to a single job.",
+    a: "MindAgent is a platform of specialized AI agents for content generation, data analysis, image understanding, research, coding, and everyday assistance - each scoped to a single job.",
   },
   {
     q: "Do I need a credit card to start?",
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Can I use MindAgent programmatically?",
-    a: "Yes — the Developer API and webhooks let you create agents, run tasks, and listen to events from your own applications.",
+    a: "Yes - the Developer API and webhooks let you create agents, run tasks, and listen to events from your own applications.",
   },
 ];
 
