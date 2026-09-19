@@ -47,7 +47,7 @@ const integrations = [
 
 export function HomeIntegrations() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-16 md:py-24">
+    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
