@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Terminal } from "lucide-react";
 
 const LOG_POOL = [
-  { level: "INFO", text: "research-agent — started task #4821 (web-search)" },
-  { level: "OK", text: "research-agent — scraped 12 sources in 1.2s" },
-  { level: "INFO", text: "data-analyzer — parsing reports/q3.csv (2,431 rows)" },
-  { level: "OK", text: "image-analyst — detected chart type: line" },
-  { level: "WARN", text: "content-agent — retrying model call after timeout" },
-  { level: "OK", text: "content-agent — generated 4 draft variants" },
-  { level: "INFO", text: "coding-agent — reviewed pull request #118" },
-  { level: "OK", text: "data-analyzer — insights saved (3 trends, 2 risks)" },
-  { level: "INFO", text: "smart-assistant — summarizing 12 inbox threads" },
-  { level: "OK", text: "keyword-agent — cluster ready · 18 terms" },
+  { level: "INFO", text: "research-agent - started task #4821 (web-search)" },
+  { level: "OK", text: "research-agent - scraped 12 sources in 1.2s" },
+  { level: "INFO", text: "data-analyzer - parsing reports/q3.csv (2,431 rows)" },
+  { level: "OK", text: "image-analyst - detected chart type: line" },
+  { level: "WARN", text: "content-agent - retrying model call after timeout" },
+  { level: "OK", text: "content-agent - generated 4 draft variants" },
+  { level: "INFO", text: "coding-agent - reviewed pull request #118" },
+  { level: "OK", text: "data-analyzer - insights saved (3 trends, 2 risks)" },
+  { level: "INFO", text: "smart-assistant - summarizing 12 inbox threads" },
+  { level: "OK", text: "keyword-agent - cluster ready · 18 terms" },
 ];
 
 const VISIBLE_LINES = 11;
