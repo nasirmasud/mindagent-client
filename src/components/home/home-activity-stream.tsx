@@ -4,20 +4,21 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Terminal } from "lucide-react";
 
 const LOG_POOL = [
-  { time: "09:41:02", level: "INFO", text: "research-agent — started task #4821 (web-search)" },
-  { time: "09:41:03", level: "OK", text: "research-agent — scraped 12 sources in 1.2s" },
-  { time: "09:41:05", level: "INFO", text: "data-analyzer — parsing reports/q3.csv (2,431 rows)" },
-  { time: "09:41:07", level: "OK", text: "image-analyst — detected chart type: line" },
-  { time: "09:41:09", level: "WARN", text: "content-agent — retrying model call after timeout" },
-  { time: "09:41:12", level: "OK", text: "content-agent — generated 4 draft variants" },
-  { time: "09:41:14", level: "INFO", text: "coding-agent — reviewed pull request #118" },
-  { time: "09:41:16", level: "OK", text: "data-analyzer — insights saved (3 trends, 2 risks)" },
-  { time: "09:41:18", level: "INFO", text: "smart-assistant — summarizing 12 inbox threads" },
-  { time: "09:41:21", level: "OK", text: "keyword-agent — cluster ready · 18 terms" },
+  { level: "INFO", text: "research-agent — started task #4821 (web-search)" },
+  { level: "OK", text: "research-agent — scraped 12 sources in 1.2s" },
+  { level: "INFO", text: "data-analyzer — parsing reports/q3.csv (2,431 rows)" },
+  { level: "OK", text: "image-analyst — detected chart type: line" },
+  { level: "WARN", text: "content-agent — retrying model call after timeout" },
+  { level: "OK", text: "content-agent — generated 4 draft variants" },
+  { level: "INFO", text: "coding-agent — reviewed pull request #118" },
+  { level: "OK", text: "data-analyzer — insights saved (3 trends, 2 risks)" },
+  { level: "INFO", text: "smart-assistant — summarizing 12 inbox threads" },
+  { level: "OK", text: "keyword-agent — cluster ready · 18 terms" },
 ];
 
 const VISIBLE_LINES = 11;
 const INTERVAL_MS = 1600;
+const LINE_STEP_MS = 1500;
 
 function levelClass(level: string) {
   if (level === "OK") return "text-emerald-500 dark:text-emerald-400";
@@ -26,19 +27,34 @@ function levelClass(level: string) {
 }
 
 export function HomeActivityStream() {
-  const [line, setLine] = useState(0);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
+    setTick(1);
     const id = setInterval(() => {
-      setLine((l) => (l + 1) % LOG_POOL.length);
+      setTick((t) => t + 1);
     }, INTERVAL_MS);
     return () => clearInterval(id);
   }, []);
 
-  const visible = Array.from(
-    { length: VISIBLE_LINES },
-    (_, i) => LOG_POOL[(line - (VISIBLE_LINES - 1 - i) + LOG_POOL.length * 2) % LOG_POOL.length]
-  );
+  const live = tick > 0;
+  const line = live ? (tick - 1) % LOG_POOL.length : 0;
+  const now = live ? Date.now() : 0;
+
+  const visible = Array.from({ length: VISIBLE_LINES }, (_, i) => {
+    const poolIndex =
+      (line - (VISIBLE_LINES - 1 - i) + LOG_POOL.length * 2) % LOG_POOL.length;
+    const log = LOG_POOL[poolIndex];
+    const time = live
+      ? new Date(now - (VISIBLE_LINES - 1 - i) * LINE_STEP_MS).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      : "--:--:--";
+    return { key: `${poolIndex}-${i}`, time, level: log.level, text: log.text };
+  });
 
   return (
     <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-16 md:py-24">
@@ -78,8 +94,8 @@ export function HomeActivityStream() {
           </div>
 
           <div className="space-y-2 p-5 font-mono text-[13px] leading-relaxed">
-            {visible.map((log, i) => (
-              <p key={`${log.time}-${i}`} className="flex flex-wrap gap-x-2 whitespace-nowrap text-muted-foreground">
+            {visible.map((log) => (
+              <p key={log.key} className="flex flex-wrap gap-x-2 whitespace-nowrap text-muted-foreground">
                 <span className="text-muted-foreground/60">{log.time}</span>
                 <span className={`font-semibold ${levelClass(log.level)}`}>[{log.level}]</span>
                 <span className="truncate">{log.text}</span>
