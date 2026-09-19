@@ -13,7 +13,7 @@ const agents = [
 export function HomeHero() {
   return (
 <section
-      className="relative w-full overflow-hidden px-4 md:px-20 py-16 md:py-28"
+      className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36"
     >
       <div
         aria-hidden="true"
