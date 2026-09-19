@@ -12,13 +12,8 @@ const agents = [
 
 export function HomeHero() {
   return (
-    <section
-        className="relative w-full overflow-hidden px-4 md:px-20 py-16 md:py-28"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(124,92,255,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,255,0.10) 1px, transparent 1px), radial-gradient(rgba(124,92,255,0.25) 1px, transparent 1px)",
-          backgroundSize: "26px 26px, 26px 26px, 26px 26px",
-        }}
+<section
+      className="relative w-full overflow-hidden px-4 md:px-20 py-16 md:py-28"
     >
       {/* Ambient violet glows */}
       <div
