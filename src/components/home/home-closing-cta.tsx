@@ -23,7 +23,7 @@ export function HomeClosingCta() {
           </h2>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Join 15,000+ users who&apos;ve already put AI agents to work. Set up
-            your first agent in under a minute — free, no credit card required.
+            your first agent in under a minute - free, no credit card required.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
