@@ -409,7 +409,7 @@ function LoginPageInner() {
               <button
                 ref={loginTabRef}
                 onClick={() => setActiveTab("login")}
-                className={`relative pb-3 text-sm font-semibold transition-colors ${
+                className={`relative pb-3 text-sm font-semibold transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   activeTab === "login"
                     ? "text-indigo-600"
                     : "text-slate-400 dark:text-slate-500"
@@ -420,7 +420,7 @@ function LoginPageInner() {
               <button
                 ref={registerTabRef}
                 onClick={() => setActiveTab("register")}
-                className={`relative pb-3 text-sm font-semibold transition-colors ${
+                className={`relative pb-3 text-sm font-semibold transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   activeTab === "register"
                     ? "text-indigo-600"
                     : "text-slate-400 dark:text-slate-500"
