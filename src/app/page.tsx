@@ -48,7 +48,7 @@ export default function Home() {
       <HomeHero />
 
       {recommendations.length > 0 && (
-        <section className="w-full px-4 md:px-20 pb-16 border-b border-border">
+        <section className="w-full px-4 md:px-20 pb-24 border-b border-border">
           <div className="mx-auto w-full max-w-7xl">
             <h2 className="text-2xl font-bold text-foreground mb-6">
               Recommended for You
