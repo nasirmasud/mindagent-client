@@ -22,7 +22,7 @@ export function HomeTrustStats() {
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Real teams rely on MindAgent every day to automate research, content,
-            and data work — and the numbers keep climbing.
+            and data work - and the numbers keep climbing.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
