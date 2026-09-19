@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Check, FileText, Inbox, KeyRound, Lightbulb, Search, Sparkles, Workflow } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Inbox, KeyRound, Lightbulb, Search, Sparkles, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const agents = [
@@ -112,12 +112,6 @@ export function HomeHero() {
               </span>
               <span className="text-xs font-semibold text-primary">+18% vs yesterday</span>
             </div>
-          </div>
-
-          {/* Floating chip */}
-          <div className="home-float-delay absolute -right-4 top-6 hidden items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 shadow-lg shadow-primary/10 sm:flex">
-            <FileText className="h-4 w-4 text-primary" aria-hidden="true" />
-            <span className="text-xs font-medium text-foreground">Report ready</span>
           </div>
         </div>
       </div>
