@@ -38,7 +38,7 @@ export function HomeSecurity() {
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Your data is encrypted in transit and at rest, audited by third
-            parties, and governed by strict access controls — so you stay
+            parties, and governed by strict access controls - so you stay
             compliant while you ship.
           </p>
 
