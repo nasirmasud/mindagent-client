@@ -51,7 +51,7 @@ export default function NewsletterSection() {
               Stay Ahead with AI
             </h2>
             <p className="relative mt-3 text-white/80 text-base sm:text-lg max-w-xl mx-auto">
-              Get the latest AI news, product updates, and productivity tips — delivered straight to your inbox, once a week.
+              Get the latest AI news, product updates, and productivity tips - delivered straight to your inbox, once a week.
             </p>
 
             <form onSubmit={handleSubmit} className="relative mt-8 max-w-md mx-auto">
@@ -94,7 +94,7 @@ export default function NewsletterSection() {
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
-                <span>You&apos;re subscribed — welcome aboard!</span>
+                <span>You&apos;re subscribed - welcome aboard!</span>
               </div>
             </form>
 
