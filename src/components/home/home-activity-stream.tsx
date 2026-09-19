@@ -16,7 +16,7 @@ const LOG_POOL = [
   { time: "09:41:21", level: "OK", text: "keyword-agent — cluster ready · 18 terms" },
 ];
 
-const VISIBLE_LINES = 7;
+const VISIBLE_LINES = 11;
 const INTERVAL_MS = 1600;
 
 function levelClass(level: string) {
