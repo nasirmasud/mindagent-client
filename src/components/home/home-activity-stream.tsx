@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ArrowRight, Terminal } from "lucide-react";
 
 const LOG_POOL = [
