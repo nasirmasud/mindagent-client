@@ -5,7 +5,7 @@ import { WireframeGlobe } from "./globe";
 
 export function HomeClosingCta() {
   return (
-    <section className="relative w-full overflow-hidden px-4 md:px-20 py-16 md:py-28">
+    <section className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
