@@ -16,7 +16,7 @@ export default function NotFound() {
 
       <h2 className="text-2xl md:text-3xl font-bold mb-3">Agent Not Found</h2>
       <p className="text-muted-foreground max-w-md mb-8">
-        Looks like this page wandered off — maybe it&apos;s analyzing data
+        Looks like this page wandered off - maybe it&apos;s analyzing data
         somewhere else. Let&apos;s get you back on track.
       </p>
 
