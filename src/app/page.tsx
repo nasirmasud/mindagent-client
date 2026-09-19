@@ -26,27 +26,35 @@ import { api } from "@/lib/api";
 import { useAuthContext } from "@/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 
+interface Recommendation {
+  _id: string;
+  name: string;
+  description: string;
+}
+
 export default function Home() {
   const { isAuthenticated } = useAuthContext();
 
   const { data: recData } = useQuery({
     queryKey: ["recommendations"],
-    queryFn: () => api<any>("/recommendations"),
+    queryFn: () => api<{ recommendations: Recommendation[] }>("/recommendations"),
     enabled: isAuthenticated,
   });
+
+  const recommendations = recData?.recommendations ?? [];
 
   return (
     <div className="flex flex-col items-center">
       <HomeHero />
 
-      {recData?.recommendations?.length > 0 && (
+      {recommendations.length > 0 && (
         <section className="w-full px-4 md:px-20 pb-16 border-b border-border">
           <div className="mx-auto w-full max-w-7xl">
             <h2 className="text-2xl font-bold text-foreground mb-6">
               Recommended for You
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
-              {recData.recommendations.map((agent: any) => (
+              {recommendations.map((agent) => (
                 <Card key={agent._id} className="border-border bg-card">
                   <CardHeader>
                     <CardTitle className="text-lg text-foreground">
