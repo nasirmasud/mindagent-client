@@ -162,7 +162,7 @@ function LoginPageInner() {
         }),
       });
       login(data.token, data.user);
-      toast.success("Account created — welcome!");
+      toast.success("Account created - welcome!");
       router.push("/");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Registration failed");
@@ -204,7 +204,7 @@ function LoginPageInner() {
   const strengthColors = ["#ef4444", "#f59e0b", "#22c55e"];
   const strengthLabels = [
     "Too weak",
-    "Weak — add numbers or symbols",
+    "Weak - add numbers or symbols",
     "Good password strength",
     "Strong password",
   ];
@@ -360,7 +360,7 @@ function LoginPageInner() {
                       <path d='M13 2 3 14h9l-1 8 10-12h-9l1-8z' />
                     </svg>
                     <span className='text-sm text-white/90'>
-                      Free plan — no credit card required
+                      Free plan - no credit card required
                     </span>
                   </div>
                   <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
@@ -447,7 +447,7 @@ function LoginPageInner() {
               />
             </div>
 
-            {/* Form panels container — grid stacking keeps height consistent */}
+            {/* Form panels container - grid stacking keeps height consistent */}
             <div
               className='grid grid-cols-1'
               style={{ minHeight: panelMinHeight || undefined }}
