@@ -75,17 +75,17 @@ const pageCount = Math.ceil(testimonials.length / PER_PAGE);
 
 export function HomeTestimonials() {
   const [page, setPage] = useState(0);
-  const timerRef = useRef<any>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
       setPage((p) => (p + 1) % pageCount);
     }, 5000);
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(timerRef.current ?? undefined);
   }, []);
 
   const goTo = (i: number) => {
-    clearInterval(timerRef.current);
+    clearInterval(timerRef.current ?? undefined);
     setPage(i);
   };
 
