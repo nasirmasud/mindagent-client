@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { CardSkeleton } from "@/components/shared/loading-skeleton";
 import Link from "next/link";
-import { Search, FileText, HardDrive, Calendar, User, ExternalLink, ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
+import { Search, FileText, HardDrive, Calendar, User, ExternalLink, ChevronLeft, ChevronRight, ArrowUpDown, Star, StarHalf, Workflow, Lightbulb, KeyRound, Inbox } from "lucide-react";
 
 interface Item {
   _id: string;
@@ -38,11 +38,29 @@ interface ItemsResponse {
 }
 
 const agents = [
-  { name: "Content Creator", category: "Writing", desc: "Generate blogs, social posts, and product descriptions.", rating: 4.8 },
-  { name: "Chat Assistant", category: "Conversation", desc: "Intelligent chat with context-aware responses.", rating: 4.9 },
-  { name: "Data Analyzer", category: "Analytics", desc: "Analyze data with natural language.", rating: 4.6 },
-  { name: "Document Summarizer", category: "Productivity", desc: "Summarize long documents instantly.", rating: 4.7 },
+  { name: "Research Agent", category: "Research", icon: Search, desc: "Scrapes and synthesizes web sources into structured findings.", rating: 4.8 },
+  { name: "Data Alignment", category: "Data", icon: Workflow, desc: "Maps and reconciles schemas across connected data sources.", rating: 4.9 },
+  { name: "Content Ideas", category: "Writing", icon: Lightbulb, desc: "Generates blog angles, topics and draft outlines on demand.", rating: 4.7 },
+  { name: "Keyword Cluster", category: "SEO", icon: KeyRound, desc: "Groups topics into keyword clusters ready for search strategy.", rating: 4.6 },
+  { name: "Priority Inbox", category: "Email", icon: Inbox, desc: "Summarizes incoming email and surfaces what matters first.", rating: 4.8 },
 ];
+
+function StarRating({ rating }: { rating: number }) {
+  const full = Math.floor(rating);
+  const hasHalf = rating - full >= 0.5 && full < 5;
+  return (
+    <div className="flex items-center gap-1.5">
+      <span className="flex" aria-hidden="true">
+        {Array.from({ length: 5 }).map((_, i) => {
+          if (i < full) return <Star key={i} className="h-3.5 w-3.5 fill-current text-amber-400" />;
+          if (i === full && hasHalf) return <StarHalf key={i} className="h-3.5 w-3.5 fill-current text-amber-400" />;
+          return <Star key={i} className="h-3.5 w-3.5 text-muted-foreground/40" />;
+        })}
+      </span>
+      <span className="text-xs font-medium text-muted-foreground">{rating.toFixed(1)}</span>
+    </div>
+  );
+}
 
 export default function ExplorePage() {
   const { isAuthenticated } = useAuthContext();
@@ -122,9 +140,12 @@ export default function ExplorePage() {
         <h1 className="text-3xl font-bold mb-6">Explore Analysis Reports</h1>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-wrap items-center gap-3 mb-8">
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            />
             <Input
               placeholder="Search reports..."
               value={search}
@@ -158,20 +179,26 @@ export default function ExplorePage() {
             </SelectContent>
           </Select>
 
-          <Input
-            type="date"
-            value={dateFrom}
-            onChange={(e) => handleFilterChange({ dateFrom: e.target.value })}
-            className="w-[150px]"
-            placeholder="From"
-          />
-          <Input
-            type="date"
-            value={dateTo}
-            onChange={(e) => handleFilterChange({ dateTo: e.target.value })}
-            className="w-[150px]"
-            placeholder="To"
-          />
+          <div className="flex h-10 w-[150px] items-center gap-1.5 rounded-md border border-input bg-background px-3 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+            <span className="text-xs font-medium text-muted-foreground">From</span>
+            <input
+              id="filter-from"
+              type="date"
+              value={dateFrom}
+              onChange={(e) => handleFilterChange({ dateFrom: e.target.value })}
+              className="h-full min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none dark:[color-scheme:dark]"
+            />
+          </div>
+          <div className="flex h-10 w-[150px] items-center gap-1.5 rounded-md border border-input bg-background px-3 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+            <span className="text-xs font-medium text-muted-foreground">To</span>
+            <input
+              id="filter-to"
+              type="date"
+              value={dateTo}
+              onChange={(e) => handleFilterChange({ dateTo: e.target.value })}
+              className="h-full min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none dark:[color-scheme:dark]"
+            />
+          </div>
         </div>
 
         {/* Results */}
@@ -267,17 +294,25 @@ export default function ExplorePage() {
       <section>
         <h2 className="text-2xl font-bold mb-6">Explore AI Agents</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {agents.map((agent) => (
-            <Card key={agent.name}>
+          {agents.map(({ icon: Icon, name, category, desc, rating }) => (
+            <Card
+              key={name}
+              className="transition-colors duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+            >
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{agent.name}</CardTitle>
-                  <Badge>{agent.category}</Badge>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <CardTitle className="text-lg">{name}</CardTitle>
+                  </div>
+                  <Badge>{category}</Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription className="mb-2">{agent.desc}</CardDescription>
-                <p className="text-sm text-muted-foreground">Rating: {agent.rating}/5</p>
+                <CardDescription className="mb-3">{desc}</CardDescription>
+                <StarRating rating={rating} />
               </CardContent>
             </Card>
           ))}

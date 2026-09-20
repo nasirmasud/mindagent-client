@@ -30,7 +30,7 @@ const posts = [
 
 export function HomeBlog() {
   return (
-    <section className="w-full border-t border-border px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-end md:justify-center">
           <div>

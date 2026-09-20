@@ -44,7 +44,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex-1 bg-gray-50 text-gray-900 dark:bg-[#0B0B1F] dark:text-white">
+    <div className="flex-1 text-gray-900 dark:text-white">
       {/* HEADER */}
       <section className="mx-auto max-w-3xl px-4 pt-10 text-center">
         <h1 className="text-[32px] font-bold leading-[1.2] md:text-[38px]">

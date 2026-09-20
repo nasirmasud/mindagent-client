@@ -167,7 +167,7 @@ export default function ContentGeneratorPage() {
         }
       `}</style>
 
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col bg-background">
+      <div className="min-h-[calc(100vh-4rem)] flex flex-col">
         {/* Top bar */}
         <header className="flex items-center gap-3 px-4 sm:px-6 h-16 border-b border-border flex-shrink-0 sticky top-0 bg-background z-10">
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">

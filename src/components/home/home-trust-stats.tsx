@@ -10,7 +10,7 @@ const pills = [
 
 export function HomeTrustStats() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-1">
+    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-1">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
           <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">

@@ -290,7 +290,7 @@ export default function DataAnalyzerPage() {
   if (loading || !isAuthenticated) return <PageSkeleton />;
 
   return (
-    <div className="bg-background text-foreground min-h-[calc(100vh-4rem)]">
+    <div className="text-foreground min-h-[calc(100vh-4rem)]">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
         <div className="absolute inset-0 pointer-events-none">

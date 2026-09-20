@@ -44,6 +44,12 @@ function escapeHtml(str: string) {
   return d.innerHTML;
 }
 
+const INITIAL_PROMPTS = [
+  "Help me brainstorm 5 ideas for a startup landing page",
+  "Explain the pros and cons of React vs Vue in simple terms",
+  "Draft a weekly content schedule for a small agency",
+];
+
 /* ───── component ───── */
 export default function AIChatPage() {
   const { isAuthenticated, loading, user } = useAuthContext();
@@ -124,7 +130,7 @@ export default function AIChatPage() {
   const autoGrow = useCallback(() => {
     if (inputRef.current) {
       inputRef.current.style.height = "auto";
-      inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 128) + "px";
+      inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 180) + "px";
     }
   }, []);
 
@@ -301,14 +307,19 @@ export default function AIChatPage() {
         .chat-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .chat-scrollbar::-webkit-scrollbar-thumb { background: hsl(var(--muted-foreground) / 0.3); border-radius: 10px; }
         .chat-scrollbar::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.45); }
+
+        .chat-textarea { scrollbar-width: none; }
+        .chat-textarea::-webkit-scrollbar { display: none; }
       `}</style>
 
-      <div className="fixed inset-0 top-16 flex overflow-hidden bg-background">
+      <div
+        className="fixed inset-x-0 top-16 bottom-0 flex overflow-hidden bg-background/40"
+      >
         {/* ─── SIDEBAR ─── */}
         <aside
-          className={`mobile-sidebar fixed lg:static z-30 ${
+          className={`mobile-sidebar absolute lg:static z-30 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 w-72 h-full bg-muted/50 border-r border-border flex flex-col transition-transform duration-350`}
+          } lg:translate-x-0 w-72 inset-y-0 lg:h-full bg-card/60 dark:bg-[#0D0B22]/85 backdrop-blur-sm border-r border-border dark:border-white/5 flex flex-col transition-transform duration-350`}
         >
           {/* logo + new chat */}
           <div className="p-4 border-b border-border">
@@ -336,7 +347,7 @@ export default function AIChatPage() {
               <input
                 type="text"
                 placeholder="Search chats"
-                className="w-full h-9 pl-8 pr-3 rounded-lg bg-card border border-border text-xs outline-none text-foreground placeholder:text-muted-foreground focus:border-primary transition-colors"
+                className="w-full h-9 pl-8 pr-3 rounded-lg bg-background/60 dark:bg-black/20 border border-border dark:border-white/10 text-xs outline-none text-foreground placeholder:text-muted-foreground focus:border-primary transition-colors"
               />
             </div>
           </div>
@@ -355,9 +366,9 @@ export default function AIChatPage() {
                     <div
                       key={s._id}
                       onClick={() => loadSession(s._id)}
-                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-accent hover:translate-x-0.5 group ${
+                      className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-accent dark:hover:bg-primary/10 hover:translate-x-0.5 group ${
                         activeSessionId === s._id
-                          ? "bg-accent"
+                          ? "bg-accent dark:bg-primary/15"
                           : ""
                       }`}
                     >
@@ -386,7 +397,7 @@ export default function AIChatPage() {
           {/* user profile */}
           <div className="p-3 border-t border-border">
             <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer hover:bg-accent transition-colors">
-              <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-xs font-semibold text-primary">
+              <div className="w-7 h-7 rounded-full bg-accent dark:bg-primary/20 flex items-center justify-center text-xs font-semibold text-primary">
                 {userInitial}
               </div>
               <div className="flex-1 min-w-0">
@@ -409,10 +420,10 @@ export default function AIChatPage() {
         )}
 
         {/* ─── MAIN CHAT AREA ─── */}
-        <main className="flex-1 flex flex-col h-full min-w-0">
+        <main className="flex-1 flex flex-col min-w-0 min-h-0">
           {/* messages */}
-          <div className="flex-1 overflow-y-auto chat-scrollbar px-4 sm:px-8 py-6 relative">
-            <div className="max-w-4xl mx-auto space-y-6">
+          <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain chat-scrollbar px-4 sm:px-8 py-6 relative">
+            <div className="w-full max-w-3xl mx-auto space-y-6">
             <button
               onClick={() => setSidebarOpen(true)}
               className="lg:hidden absolute top-2 left-4 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors z-10"
@@ -421,12 +432,23 @@ export default function AIChatPage() {
             </button>
             {messages.length === 0 && (
               <div className="msg-in max-w-2xl">
-                <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed">
+                <div className="bg-muted dark:bg-[#181538] border border-border dark:border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed">
                   Hi! I&apos;m your MindAgent assistant. Ask me anything - I can help with research, explain concepts, draft content, or work through problems with you.
                 </div>
                 <span className="text-[11px] text-muted-foreground mt-1 block">
                   {currentTime()}
                 </span>
+                <div className="flex flex-wrap gap-2 mt-4 max-w-2xl">
+                  {INITIAL_PROMPTS.map((p, i) => (
+                    <button
+                      key={i}
+                      onClick={() => sendMessage(p)}
+                      className="msg-in text-xs font-medium text-muted-foreground dark:text-[#C3BCE8] text-left border border-border dark:border-primary/20 bg-card dark:bg-[#181538]/70 px-3.5 py-2 rounded-xl hover:border-primary hover:bg-accent dark:hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -439,8 +461,8 @@ export default function AIChatPage() {
                   <div
                     className={
                       msg.role === "user"
-                        ? "rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-primary-foreground leading-relaxed"
-                        : "bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed"
+                        ? "rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-primary-foreground leading-relaxed dark:shadow-[0_8px_24px_-12px_hsl(var(--primary)/0.6)]"
+                        : "bg-muted dark:bg-[#181538] border border-border dark:border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground leading-relaxed"
                     }
                     style={
                       msg.role === "user"
@@ -475,7 +497,7 @@ export default function AIChatPage() {
                           <button
                             key={si}
                             onClick={() => sendMessage(s)}
-                            className="text-xs font-medium text-muted-foreground border border-border bg-card px-3 py-1.5 rounded-full hover:border-primary hover:bg-accent hover:-translate-y-0.5 transition-all duration-200"
+                            className="text-xs font-medium text-muted-foreground border border-border dark:border-white/10 bg-card px-3 py-1.5 rounded-full hover:border-primary hover:bg-accent dark:hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-200"
                           >
                             {s}
                           </button>
@@ -488,7 +510,7 @@ export default function AIChatPage() {
             <div ref={messagesEndRef} />
             {showTyping && (
               <div className="msg-in max-w-2xl">
-                <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5 w-fit">
+                <div className="bg-muted dark:bg-[#181538] border border-border dark:border-white/5 rounded-2xl rounded-tl-sm px-4 py-3.5 flex items-center gap-1.5 w-fit">
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
                   <span className="typing-dot w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
@@ -500,8 +522,8 @@ export default function AIChatPage() {
 
           {/* input bar */}
           <div className="px-4 sm:px-8 pb-5 pt-2 flex-shrink-0">
-            <div className="max-w-3xl mx-auto">
-              <div className="flex items-end gap-2 rounded-2xl border border-border bg-muted px-3 py-2.5 transition-all duration-250 focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
+            <div className="w-full max-w-3xl mx-auto">
+              <div className="flex items-end gap-2 w-full rounded-2xl border border-border dark:border-white/10 bg-background/60 dark:bg-[#0F0D26]/70 px-3 py-2.5 transition-all duration-250 focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors flex-shrink-0"
@@ -521,7 +543,7 @@ export default function AIChatPage() {
                     }
                   }}
                   placeholder="Message MindAgent Assistant..."
-                  className="flex-1 resize-none bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground py-1.5 max-h-32"
+                  className="chat-textarea flex-1 w-full min-w-0 resize-none bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground py-3 leading-relaxed max-h-[180px]"
                 />
                 <Button
                   onClick={() => sendMessage()}

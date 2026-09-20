@@ -31,7 +31,7 @@ export function HomeFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="w-full border-t border-border px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-3xl">
         <div className="text-center">
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">

@@ -2,111 +2,83 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Rocket, Box, Star, Briefcase, Check, X } from "lucide-react";
+import { ArrowRight, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { glowCard, glowCardTopGlow, primaryActionButton } from "@/components/shared/brand-styles";
+import { PriceCardShell, usePriceCardHover } from "@/components/shared/price-card-shell";
 
 const PLANS = [
   {
     name: "Free",
-    icon: Rocket,
-    tagline: "For individuals getting started with AI.",
-    monthly: 0,
+    price: 0,
     yearly: 0,
-    cta: "Get Started Free",
-    href: "/login?tab=register",
+    tagline: "For individuals getting started with AI.",
+    cta: "Get Started",
+    href: "/login?tab=register&plan=free",
     highlighted: false,
     features: [
-      { label: "3 AI Agents", included: true },
-      { label: "5,000 Words / month", included: true },
-      { label: "Basic AI Models", included: true },
-      { label: "Community Support", included: true },
-      { label: "No Custom Tools", included: false },
-    ],
-  },
-  {
-    name: "Starter",
-    icon: Box,
-    tagline: "For professionals who want more power.",
-    monthly: 19,
-    yearly: 228,
-    cta: "Start Starter",
-    href: "/login?tab=register&plan=starter",
-    highlighted: false,
-    features: [
-      { label: "15 AI Agents", included: true },
-      { label: "50,000 Words / month", included: true },
-      { label: "Advanced AI Models", included: true },
-      { label: "Priority Support", included: true },
-      { label: "Custom Tools (5)", included: true },
-      { label: "Export & Share", included: true },
+      "3 AI agents",
+      "5,000 words / month",
+      "Basic AI models",
+      "Community support",
     ],
   },
   {
     name: "Pro",
-    icon: Star,
-    tagline: "For teams and power users who need more.",
-    monthly: 49,
-    yearly: 588,
-    cta: "Get Pro",
+    price: 12,
+    yearly: 115.2,
+    tagline: "For power users who need speed and scale.",
+    cta: "Upgrade to Pro",
     href: "/login?tab=register&plan=pro",
     highlighted: true,
     badge: "Most Popular",
     features: [
-      { label: "Unlimited AI Agents", included: true },
-      { label: "200,000 Words / month", included: true },
-      { label: "All AI Models", included: true },
-      { label: "Priority Support", included: true },
-      { label: "Custom Tools (Unlimited)", included: true },
-      { label: "Export & Share", included: true },
-      { label: "API Access", included: true },
-      { label: "Team Collaboration", included: true },
+      "Unlimited AI agents",
+      "200,000 words / month",
+      "All AI models",
+      "Priority support",
+      "API access",
     ],
   },
   {
-    name: "Enterprise",
-    icon: Briefcase,
-    tagline: "For businesses with advanced security and scale.",
-    custom: true,
-    monthly: 0,
-    yearly: 0,
+    name: "Business",
+    price: 49,
+    yearly: 470.4,
+    tagline: "For teams with advanced security and scale.",
     cta: "Contact Sales",
     href: "/contact",
     highlighted: false,
     features: [
-      { label: "Everything in Pro", included: true },
-      { label: "Unlimited Words", included: true },
-      { label: "SLA & Dedicated Support", included: true },
-      { label: "Advanced Security", included: true },
-      { label: "SSO & Compliance", included: true },
-      { label: "Custom Integrations", included: true },
-      { label: "Onboarding & Training", included: true },
+      "Everything in Pro",
+      "Unlimited words",
+      "SSO & compliance",
+      "Dedicated support",
     ],
   },
 ];
 
 const COMPARE_ROWS = [
-  { label: "AI Agents", free: "3", starter: "15", pro: "Unlimited", enterprise: "Unlimited" },
-  { label: "Monthly Words", free: "5,000", starter: "50,000", pro: "200,000", enterprise: "Unlimited" },
-  { label: "Access to All Models", free: false, starter: true, pro: true, enterprise: true },
-  { label: "Custom Tools", free: false, starter: "5", pro: "Unlimited", enterprise: "Unlimited" },
-  { label: "API Access", free: false, starter: false, pro: true, enterprise: true },
-  { label: "Team Collaboration", free: false, starter: false, pro: true, enterprise: true },
-  { label: "Support", free: "Community", starter: "Priority", pro: "Priority", enterprise: "Dedicated" },
+  { label: "AI Agents", free: "3", pro: "Unlimited", business: "Unlimited" },
+  { label: "Monthly Words", free: "5,000", pro: "200,000", business: "Unlimited" },
+  { label: "Access to All Models", free: false, pro: true, business: true },
+  { label: "API Access", free: false, pro: true, business: true },
+  { label: "SSO & Compliance", free: false, pro: false, business: true },
+  { label: "Support", free: "Community", pro: "Priority", business: "Dedicated" },
 ];
 
 function CompareCell({ value }: { value: boolean | string | number }) {
   if (value === true)
     return (
       <>
-        <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
+        <Check className="w-4 h-4 text-primary mx-auto" strokeWidth={3} aria-hidden="true" />
         <span className="sr-only">Included</span>
       </>
     );
   if (value === false)
     return (
       <>
-        <X className="w-4 h-4 text-muted-foreground/50 mx-auto" aria-hidden="true" />
+        <X className="w-4 h-4 text-muted-foreground/80 mx-auto" aria-hidden="true" />
         <span className="sr-only">Not included</span>
       </>
     );
@@ -115,17 +87,11 @@ function CompareCell({ value }: { value: boolean | string | number }) {
 
 export default function PricingPage() {
   const [yearly, setYearly] = useState(false);
+  const { shellProps } = usePriceCardHover();
 
   return (
-    <section className="bg-background text-foreground py-20 px-4 md:px-20">
+    <section className="text-foreground py-20 px-4 md:px-20">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center gap-1.5 bg-accent border border-border text-accent-foreground text-xs font-medium px-3 py-1 rounded-full">
-            <Star className="w-3 h-3" aria-hidden="true" />
-            PRICING PLAN
-          </span>
-        </div>
-
         <h1 className="text-center text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-4">
           Simple, Transparent Pricing
           <br />
@@ -136,11 +102,11 @@ export default function PricingPage() {
         </h1>
         <p className="text-center text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10">
           Choose the perfect plan to power your productivity with AI agents.
-          Upgrade, downgrade, or cancel anytime.
+          Start free, upgrade anytime.
         </p>
 
         {/* Billing toggle */}
-        <div className="flex items-center justify-center gap-3 mb-12">
+        <div className="flex items-center justify-center gap-4 mb-12">
           <span className={cn("text-sm font-medium", !yearly ? "text-foreground" : "text-muted-foreground")}>
             Monthly
           </span>
@@ -153,8 +119,8 @@ export default function PricingPage() {
           >
             <span
               className={cn(
-                "absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform",
-                yearly ? "translate-x-6" : "translate-x-0.5"
+                "absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white transition-transform",
+                yearly ? "translate-x-6" : "translate-x-0"
               )}
             />
           </button>
@@ -167,83 +133,53 @@ export default function PricingPage() {
         </div>
 
         {/* Plan cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
-          {PLANS.map((plan) => {
-            const Icon = plan.icon;
-            return (
-              <div
-                key={plan.name}
-                className={cn(
-                  "relative flex flex-col bg-card text-card-foreground rounded-2xl border p-6",
-                  plan.highlighted ? "border-primary shadow-lg shadow-primary/10" : "border-border"
-                )}
-              >
-                {plan.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                    {plan.badge}
-                  </span>
-                )}
+        <div className="mt-14 grid gap-6 mb-12 lg:grid-cols-3 lg:items-stretch">
+          {PLANS.map((plan) => (
+            <PriceCardShell
+              key={plan.name}
+              {...shellProps(plan.name, plan.highlighted)}
+            >
+              {plan.badge && (
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
+                  {plan.badge}
+                </span>
+              )}
 
-                <div className="flex items-start gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-lg bg-accent border border-border flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">{plan.name}</h3>
-                    <p className="text-xs text-muted-foreground leading-snug mt-0.5">
-                      {plan.tagline}
-                    </p>
-                  </div>
-                </div>
+              <h3 className="text-lg font-bold text-foreground">{plan.name}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{plan.tagline}</p>
 
-                <div className="mb-6">
-                  {plan.custom ? (
-                    <div className="text-3xl font-bold">Custom</div>
-                  ) : (
-                    <>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-bold">
-                          ${yearly ? Math.round(plan.yearly / 12) : plan.monthly}
-                        </span>
-                        <span className="text-muted-foreground text-sm">/month</span>
-                      </div>
-                      {yearly && plan.yearly > 0 && (
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Billed yearly ${plan.yearly}
-                        </p>
-                      )}
-                    </>
-                  )}
-                  {plan.custom && (
-                    <p className="text-xs text-muted-foreground mt-1">Tailored pricing</p>
-                  )}
-                </div>
-
-                <Button
-                  asChild
-                  variant={plan.highlighted ? "default" : "outline"}
-                  className="w-full mb-6"
-                >
-                  <Link href={plan.href}>{plan.cta}</Link>
-                </Button>
-
-                <ul className="space-y-3 mt-auto">
-                  {plan.features.map((f) => (
-                    <li key={f.label} className="flex items-center gap-2 text-sm">
-                      {f.included ? (
-                        <Check className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
-                      ) : (
-                        <X className="w-4 h-4 text-muted-foreground/40 shrink-0" aria-hidden="true" />
-                      )}
-                      <span className={f.included ? "text-foreground" : "text-muted-foreground/60"}>
-                        {f.label}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="mt-6 flex items-baseline gap-1">
+                <span className="text-4xl font-bold tracking-tight text-foreground">
+                  ${yearly ? (plan.yearly > 0 ? (plan.yearly / 12).toFixed(2) : plan.price) : plan.price}
+                </span>
+                <span className="text-sm text-muted-foreground">/month</span>
               </div>
-            );
-          })}
+              <p className="mt-1 text-xs text-muted-foreground">
+                {yearly && plan.yearly > 0 ? `Billed yearly $${Math.round(plan.yearly)}` : "\u00A0"}
+              </p>
+
+              <Button
+                asChild
+                variant={plan.highlighted ? "default" : "outline"}
+                size="lg"
+                className="mt-8 w-full gap-2"
+              >
+                <Link href={plan.href}>
+                  {plan.cta}
+                  {plan.highlighted && <ArrowRight className="h-4 w-4" />}
+                </Link>
+              </Button>
+
+              <ul className="mt-6 space-y-3">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm">
+                    <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
+                    <span className="text-foreground">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </PriceCardShell>
+          ))}
         </div>
 
         {/* Compare table */}
@@ -253,14 +189,13 @@ export default function PricingPage() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <caption className="sr-only">Feature comparison across Free, Starter, Pro and Enterprise plans</caption>
+              <caption className="sr-only">Feature comparison across Free, Pro and Business plans</caption>
               <thead>
                 <tr className="border-b border-border">
                   <th scope="col" className="text-left font-medium text-muted-foreground px-5 py-3">Feature</th>
                   <th scope="col" className="font-medium text-muted-foreground px-5 py-3">Free</th>
-                  <th scope="col" className="font-medium text-muted-foreground px-5 py-3">Starter</th>
-                  <th scope="col" className="font-medium text-muted-foreground px-5 py-3">Pro</th>
-                  <th scope="col" className="font-medium text-muted-foreground px-5 py-3">Enterprise</th>
+                  <th scope="col" className="font-semibold text-primary bg-accent/50 px-5 py-3">Pro</th>
+                  <th scope="col" className="font-medium text-muted-foreground px-5 py-3">Business</th>
                 </tr>
               </thead>
               <tbody>
@@ -271,9 +206,8 @@ export default function PricingPage() {
                   >
                     <th scope="row" className="px-5 py-3 text-left font-normal text-foreground">{row.label}</th>
                     <td className="px-5 py-3 text-center"><CompareCell value={row.free} /></td>
-                    <td className="px-5 py-3 text-center"><CompareCell value={row.starter} /></td>
-                    <td className="px-5 py-3 text-center"><CompareCell value={row.pro} /></td>
-                    <td className="px-5 py-3 text-center"><CompareCell value={row.enterprise} /></td>
+                    <td className="px-5 py-3 text-center bg-accent/40"><CompareCell value={row.pro} /></td>
+                    <td className="px-5 py-3 text-center"><CompareCell value={row.business} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -282,19 +216,22 @@ export default function PricingPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-accent border border-border rounded-2xl px-8 py-6">
-          <div className="flex items-center gap-4">
-            <img src="/favicon.ico" alt="" className="h-14 w-14 object-contain shrink-0" />
+        <div className={`w-full px-6 py-10 ${glowCard}`}>
+          <div aria-hidden="true" className={glowCardTopGlow} />
+          <div className="relative flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
             <div>
-              <p className="font-semibold">Still not sure which plan is right for you?</p>
-              <p className="text-sm text-muted-foreground">
-                Try MindAgent free for 7 days. No credit card required.
+              <p className="font-semibold text-lg text-foreground">
+                Still not sure which plan is right for you?
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Start free, upgrade anytime. No credit card required.
               </p>
             </div>
+            <Link href="/login?tab=register" className={cn(primaryActionButton, "whitespace-nowrap")}>
+              Get Started Free
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
-          <Button asChild className="whitespace-nowrap">
-            <Link href="/login?tab=register">Start Free Trial</Link>
-          </Button>
         </div>
       </div>
     </section>

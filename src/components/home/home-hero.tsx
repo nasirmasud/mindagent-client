@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Check, Inbox, KeyRound, Lightbulb, Search, Sparkles, Workflow } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Inbox, KeyRound, Lightbulb, Search, Workflow } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { HeroDotGrid } from "@/components/home/home-hero-dots";
+import { waitForSignal } from "@/lib/load-signals";
 
 const agents = [
   { icon: Search, color: "bg-primary/15 text-primary", name: "Research Agent", status: "scraping 12 sources" },
@@ -12,6 +16,18 @@ const agents = [
 ];
 
 export function HomeHero() {
+  const [revealRows, setRevealRows] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void waitForSignal("home-loadout").then(() => {
+      if (!cancelled) setRevealRows(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
 <section
       className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36"
@@ -73,23 +89,23 @@ export function HomeHero() {
             className="absolute inset-0 -z-10 scale-90 rounded-full bg-primary/15 blur-3xl"
           />
 
-          <div className="home-float rounded-2xl border border-border bg-card/90 p-5 shadow-2xl shadow-primary/20 backdrop-blur-sm">
+          <div className="rounded-2xl border border-border bg-card/90 p-5 shadow-2xl shadow-primary/20 backdrop-blur-sm">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true" />
-                <span className="text-xs font-medium text-foreground">@MindAgent / cron</span>
+                <span className="text-xs font-medium text-foreground">Agent activity</span>
               </div>
-              <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
-                <Sparkles className="h-3 w-3 text-primary" aria-hidden="true" />
-                every 5 min
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground">
+                <span className="live-dot h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
+                Live
               </span>
             </div>
 
-            <ul className="mt-3 space-y-1.5">
+            <ul className={`mt-3 space-y-1.5${revealRows ? " rows-animating" : ""}`}>
               {agents.map(({ icon: Icon, color, name, status }) => (
                 <li
                   key={name}
-                  className="flex items-center gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-accent/60"
+                  className="agent-row flex items-center gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-accent/60"
                 >
                   <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${color}`}>
                     <Icon className="h-4 w-4" aria-hidden="true" />
@@ -98,7 +114,7 @@ export function HomeHero() {
                     <span className="block truncate text-sm font-medium text-foreground">{name}</span>
                     <span className="block truncate text-xs text-muted-foreground">{status}</span>
                   </span>
-                  <Check className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                  <Check className="agent-check h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                 </li>
               ))}
             </ul>
