@@ -6,7 +6,7 @@ import { ChevronDown, MessageCircleQuestion } from "lucide-react";
 const faqs = [
   {
     q: "What is MindAgent and how does it work?",
-    a: "MindAgent is an all-in-one AI productivity platform. It gives you a team of specialized AI agents — for content, data, research, and more — that understand your input and deliver accurate results in seconds, all from one simple interface.",
+    a: "MindAgent is an all-in-one AI productivity platform. It gives you a team of specialized AI agents - for content, data, research, and more - that understand your input and deliver accurate results in seconds, all from one simple interface.",
   },
   {
     q: "Is my data safe and private?",
@@ -18,11 +18,11 @@ const faqs = [
   },
   {
     q: "Can I cancel or change my plan anytime?",
-    a: "Absolutely. You can upgrade, downgrade, or cancel your subscription at any time from your account settings — no long-term contracts, and no cancellation fees.",
+    a: "Absolutely. You can upgrade, downgrade, or cancel your subscription at any time from your account settings - no long-term contracts, and no cancellation fees.",
   },
   {
     q: "Do I need any technical skills to use MindAgent?",
-    a: "None at all. MindAgent is built for everyone — just choose an agent, describe what you need in plain language, and get results. No coding or prompt-writing experience required.",
+    a: "None at all. MindAgent is built for everyone - just choose an agent, describe what you need in plain language, and get results. No coding or prompt-writing experience required.",
   },
   {
     q: "Is there a free trial available?",

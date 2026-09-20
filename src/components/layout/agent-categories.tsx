@@ -62,7 +62,7 @@ export default function AgentCategories() {
         {/* Subheading */}
         <p className="mx-auto mt-4 max-w-xl text-center text-lg text-slate-500 dark:text-slate-400">
           Explore specialized AI agents designed to help you write, analyze,
-          research, and create — faster than ever.
+          research, and create - faster than ever.
         </p>
 
         {/* Grid */}

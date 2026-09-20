@@ -216,7 +216,7 @@ export function HeroSwiper() {
                 </h1>
 
                 <p className="reveal reveal-3 mt-6 text-lg text-[var(--sub)] leading-relaxed">
-                  MindAgent helps you write, analyze, research, and automate tasks with powerful AI agents — all in one place.
+                  MindAgent helps you write, analyze, research, and automate tasks with powerful AI agents - all in one place.
                 </p>
 
                 <div className="reveal reveal-4 mt-9 flex flex-wrap items-center gap-4">

@@ -32,8 +32,8 @@ export default function NewsletterSection() {
         .float-orb-delay { animation: floatSlow 8s ease-in-out infinite; animation-delay: 1.5s; }
       `}</style>
 
-      <section className="w-full dark:bg-[#0A0820]">
-        <div className="newsletter-card relative overflow-hidden px-8 sm:px-14 py-14 text-center dark:[background:radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.08),transparent_45%),linear-gradient(135deg,#2a1f8e_0%,#4f3fd6_55%,#7c3aed_100%)]" style={{
+      <section className="w-full">
+        <div className="newsletter-card relative overflow-hidden px-8 sm:px-14 py-14 text-center" style={{
               background: "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.14), transparent 45%), linear-gradient(135deg, #4f3fd6 0%, #6c4ee6 55%, #8b5cf6 100%)",
             }}>
             <div className="pointer-events-none absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/10 blur-2xl float-orb" />
@@ -51,7 +51,7 @@ export default function NewsletterSection() {
               Stay Ahead with AI
             </h2>
             <p className="relative mt-3 text-white/80 text-base sm:text-lg max-w-xl mx-auto">
-              Get the latest AI news, product updates, and productivity tips — delivered straight to your inbox, once a week.
+              Get the latest AI news, product updates, and productivity tips - delivered straight to your inbox, once a week.
             </p>
 
             <form onSubmit={handleSubmit} className="relative mt-8 max-w-md mx-auto">
@@ -94,7 +94,7 @@ export default function NewsletterSection() {
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
-                <span>You&apos;re subscribed — welcome aboard!</span>
+                <span>You&apos;re subscribed - welcome aboard!</span>
               </div>
             </form>
 

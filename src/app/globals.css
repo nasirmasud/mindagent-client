@@ -76,6 +76,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      linear-gradient(rgba(124, 92, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 92, 255, 0.08) 1px, transparent 1px);
+    background-size: 26px 26px;
   }
 }
 
@@ -177,3 +181,29 @@
 
 .nav-btn { transition: background-color .2s ease, transform .2s ease, opacity .2s ease; }
 .nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+
+/* ========== Homepage (Phase G3) ambient motion ========== */
+.home-float { animation: homeFloat 6s ease-in-out infinite; }
+.home-float-delay { animation: homeFloat 7s ease-in-out 1.2s infinite; }
+@keyframes homeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.home-spin-slow { animation: spinSlow 60s linear infinite; transform-origin: center; }
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+.home-pulse-glow { animation: homePulse 4s ease-in-out infinite; }
+@keyframes homePulse {
+  0%, 100% { opacity: .7; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-float,
+  .home-float-delay,
+  .home-spin-slow,
+  .home-pulse-glow {
+    animation: none !important;
+  }
+}

@@ -9,6 +9,16 @@ import { toast } from "sonner";
 
 const IMAGEBB_KEY = process.env.NEXT_PUBLIC_IMAGEBB_API_KEY;
 
+interface AuthResponse {
+  token: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+  };
+}
+
 async function uploadToImageBB(base64: string): Promise<string> {
   if (!IMAGEBB_KEY) throw new Error("ImageBB API key is not configured");
   const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMAGEBB_KEY}`, {
@@ -98,15 +108,15 @@ function LoginPageInner() {
 
     setLoginLoading(true);
     try {
-      const data: any = await api("/auth/login", {
+      const data = await api<AuthResponse>("/auth/login", {
         method: "POST",
         body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       });
       login(data.token, data.user);
       toast.success("Logged in successfully!");
       router.push("/");
-    } catch (err: any) {
-      toast.error(err.message || "Login failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Login failed");
     } finally {
       setLoginLoading(false);
     }
@@ -142,7 +152,7 @@ function LoginPageInner() {
         const base64 = avatarPreview.split(",")[1];
         avatarUrl = await uploadToImageBB(base64);
       }
-      const data: any = await api("/auth/register", {
+      const data = await api<AuthResponse>("/auth/register", {
         method: "POST",
         body: JSON.stringify({
           name: regName.trim(),
@@ -152,10 +162,10 @@ function LoginPageInner() {
         }),
       });
       login(data.token, data.user);
-      toast.success("Account created — welcome!");
+      toast.success("Account created - welcome!");
       router.push("/");
-    } catch (err: any) {
-      toast.error(err.message || "Registration failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Registration failed");
     } finally {
       setRegLoading(false);
     }
@@ -164,12 +174,12 @@ function LoginPageInner() {
   const handleDemoLogin = async () => {
     setLoginLoading(true);
     try {
-      const data: any = await api("/auth/demo-login", { method: "POST" });
+      const data = await api<AuthResponse>("/auth/demo-login", { method: "POST" });
       login(data.token, data.user);
       toast.success("Logged in as demo user");
       router.push("/");
-    } catch (err: any) {
-      toast.error(err.message || "Demo login failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Demo login failed");
     } finally {
       setLoginLoading(false);
     }
@@ -194,7 +204,7 @@ function LoginPageInner() {
   const strengthColors = ["#ef4444", "#f59e0b", "#22c55e"];
   const strengthLabels = [
     "Too weak",
-    "Weak — add numbers or symbols",
+    "Weak - add numbers or symbols",
     "Good password strength",
     "Strong password",
   ];
@@ -350,7 +360,7 @@ function LoginPageInner() {
                       <path d='M13 2 3 14h9l-1 8 10-12h-9l1-8z' />
                     </svg>
                     <span className='text-sm text-white/90'>
-                      Free plan — no credit card required
+                      Free plan - no credit card required
                     </span>
                   </div>
                   <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
@@ -409,7 +419,7 @@ function LoginPageInner() {
               <button
                 ref={loginTabRef}
                 onClick={() => setActiveTab("login")}
-                className={`relative pb-3 text-sm font-semibold transition-colors ${
+                className={`relative pb-3 text-sm font-semibold transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   activeTab === "login"
                     ? "text-indigo-600"
                     : "text-slate-400 dark:text-slate-500"
@@ -420,7 +430,7 @@ function LoginPageInner() {
               <button
                 ref={registerTabRef}
                 onClick={() => setActiveTab("register")}
-                className={`relative pb-3 text-sm font-semibold transition-colors ${
+                className={`relative pb-3 text-sm font-semibold transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   activeTab === "register"
                     ? "text-indigo-600"
                     : "text-slate-400 dark:text-slate-500"
@@ -437,7 +447,7 @@ function LoginPageInner() {
               />
             </div>
 
-            {/* Form panels container — grid stacking keeps height consistent */}
+            {/* Form panels container - grid stacking keeps height consistent */}
             <div
               className='grid grid-cols-1'
               style={{ minHeight: panelMinHeight || undefined }}
