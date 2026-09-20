@@ -199,7 +199,7 @@ export default function ImageAnalyzerPage() {
   if (authLoading || !isAuthenticated) return <PageSkeleton />;
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-background text-foreground">
+    <div className="min-h-[calc(100vh-4rem)] text-foreground">
       <style>{`
         @keyframes scanY {
           0% { top: 0%; }
