@@ -7,6 +7,7 @@ import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import {
   Bot,
   Plus,
@@ -312,9 +313,8 @@ export default function AIChatPage() {
         .chat-textarea::-webkit-scrollbar { display: none; }
       `}</style>
 
-      <div
-        className="fixed inset-x-0 top-16 bottom-0 flex overflow-hidden bg-background/40"
-      >
+      <DashboardLayout fill>
+        <div className="relative h-full flex overflow-hidden bg-background/40">
         {/* ─── SIDEBAR ─── */}
         <aside
           className={`mobile-sidebar absolute lg:static z-30 ${
@@ -561,7 +561,8 @@ export default function AIChatPage() {
             </div>
           </div>
         </main>
-      </div>
+        </div>
+      </DashboardLayout>
     </>
   );
 }
