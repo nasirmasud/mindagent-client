@@ -1,5 +1,5 @@
 import { Activity, Bot, Gauge, Star } from "lucide-react";
-import { WireframeGlobe } from "./globe";
+import { GlobePulse } from "@/components/lightswind/globe-pulse";
 
 const pills = [
   { icon: Bot, value: "15,000+", label: "Agents deployed" },
@@ -10,13 +10,9 @@ const pills = [
 
 export function HomeTrustStats() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-1">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
-          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-            Stats
-          </p>
           <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Trusted by 15,000+ Users
           </h2>
@@ -39,8 +35,8 @@ export function HomeTrustStats() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md">
-          <WireframeGlobe className="home-spin-slow mx-auto h-72 w-72 md:h-80 md:w-80" />
+        <div className="relative mx-auto flex w-full items-center justify-center">
+          <GlobePulse className="mx-auto h-[576px] w-[576px] md:h-[640px] md:w-[640px]" />
         </div>
       </div>
     </section>
