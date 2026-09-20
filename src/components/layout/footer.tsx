@@ -23,11 +23,17 @@ const supportLinks = [
 ];
 
 const socialIconClass =
-  "w-8 h-8 rounded-lg bg-accent/60 hover:bg-accent text-muted-foreground hover:text-primary flex items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+  "w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background text-muted-foreground">
+    <footer
+      className="relative overflow-hidden border-t border-white/10 text-white/75"
+      style={{
+        background:
+          "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.09), transparent 45%), linear-gradient(135deg, #3A2FB0 0%, #5338C4 55%, #6E3FD4 100%)",
+      }}
+    >
       <div className="w-full px-4 md:px-20 pt-14 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Brand */}
@@ -38,11 +44,11 @@ export function Footer() {
                 alt="MindAgent"
                 className="h-[3.75rem] w-[3.75rem] -mt-2"
               />
-              <span className="text-xl font-bold text-foreground">
-                Mind<span className="text-primary">Agent</span>
+              <span className="text-xl font-bold text-white">
+                Mind<span className="text-[#CDB9FF]">Agent</span>
               </span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed max-w-xs text-muted-foreground">
+            <p className="mt-4 text-sm leading-relaxed max-w-xs">
               Your all-in-one AI platform to create, analyze, and automate
               anything with intelligent agents.
             </p>
@@ -92,13 +98,13 @@ export function Footer() {
 
           {/* Platform */}
           <div>
-            <h4 className="font-semibold text-sm text-foreground mb-4">Platform</h4>
+            <h4 className="font-semibold text-sm text-white mb-4">Platform</h4>
             <ul className="space-y-3 text-sm">
               {platformLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="transition-colors hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="transition-colors hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     {link.label}
                   </Link>
@@ -109,13 +115,13 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold text-sm text-foreground mb-4">Company</h4>
+            <h4 className="font-semibold text-sm text-white mb-4">Company</h4>
             <ul className="space-y-3 text-sm">
               {companyLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="transition-colors hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="transition-colors hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     {link.label}
                   </Link>
@@ -126,13 +132,13 @@ export function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="font-semibold text-sm text-foreground mb-4">Support</h4>
+            <h4 className="font-semibold text-sm text-white mb-4">Support</h4>
             <ul className="space-y-3 text-sm">
               {supportLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="transition-colors hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="transition-colors hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     {link.label}
                   </Link>
@@ -143,7 +149,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-sm text-foreground mb-4">
+            <h4 className="font-semibold text-sm text-white mb-4">
               Contact Us
             </h4>
             <ul className="space-y-3 text-sm">
@@ -154,7 +160,7 @@ export function Footer() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-4 h-4 mt-0.5 shrink-0 text-muted-foreground/70"
+                  className="w-4 h-4 mt-0.5 shrink-0 text-white/60"
                 >
                   <path d="M3 6h18v12H3z" />
                   <path d="m3 7 9 6 9-6" />
@@ -168,7 +174,7 @@ export function Footer() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-4 h-4 mt-0.5 shrink-0 text-muted-foreground/70"
+                  className="w-4 h-4 mt-0.5 shrink-0 text-white/60"
                 >
                   <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2Z" />
                 </svg>
@@ -181,7 +187,7 @@ export function Footer() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-4 h-4 mt-0.5 shrink-0 text-muted-foreground/70"
+                  className="w-4 h-4 mt-0.5 shrink-0 text-white/60"
                 >
                   <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0Z" />
                   <circle cx="12" cy="10" r="3" />
@@ -192,7 +198,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-10 pt-6 text-center text-xs text-muted-foreground/70">
+        <div className="border-t border-white/15 mt-10 pt-6 text-center text-xs text-white/60">
           &copy; {new Date().getFullYear()} MindAgent. All rights reserved.
         </div>
       </div>
