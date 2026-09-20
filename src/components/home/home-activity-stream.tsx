@@ -59,12 +59,8 @@ export function HomeActivityStream() {
   return (
     <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col items-center gap-6 md:flex-row md:items-end md:justify-center">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-              How
-            </p>
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               Live Agent Activity Stream
             </h2>
