@@ -14,14 +14,17 @@ interface Dot {
 
 const SIZE_FALLBACK = 26;
 const CURSOR_RADIUS = 150;
-const BASE_ALPHA = 0.25;
-const BRIGHT_ALPHA = 0.7;
+const DARK_COLOR = "124, 92, 255";
+const LIGHT_COLOR = "90, 56, 234";
+const DARK_BASE_ALPHA = 0.25;
+const LIGHT_BASE_ALPHA = 0.45;
+const DARK_BRIGHT_ALPHA = 0.7;
+const LIGHT_BRIGHT_ALPHA = 0.85;
 const BASE_RADIUS = 1; // matches old CSS dot: a 2px-diameter disc (hard stop at radius 1px)
 const MAX_RADIUS = 2.25;
 const EASE = 0.15;
 const POS_EPSILON = 0.05;
 const VISUAL_EPSILON = 0.01;
-const COLOR = "124, 92, 255";
 
 export function HeroDotGrid() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -51,6 +54,16 @@ export function HeroDotGrid() {
     let mouseY: number | null = null;
     let rafId: number | null = null;
     let dprMedia: MediaQueryList | null = null;
+    let color = DARK_COLOR;
+    let baseAlpha = DARK_BASE_ALPHA;
+    let brightAlpha = DARK_BRIGHT_ALPHA;
+
+    function readTheme() {
+      const isDark = document.documentElement.classList.contains("dark");
+      color = isDark ? DARK_COLOR : LIGHT_COLOR;
+      baseAlpha = isDark ? DARK_BASE_ALPHA : LIGHT_BASE_ALPHA;
+      brightAlpha = isDark ? DARK_BRIGHT_ALPHA : LIGHT_BRIGHT_ALPHA;
+    }
 
     function readSize() {
       const value = parseFloat(
@@ -86,7 +99,7 @@ export function HeroDotGrid() {
             x: homeX,
             y: homeY,
             radius: BASE_RADIUS,
-            alpha: BASE_ALPHA,
+            alpha: baseAlpha,
           };
         }
       }
@@ -97,7 +110,7 @@ export function HeroDotGrid() {
       for (const dot of dots) {
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${COLOR}, ${dot.alpha.toFixed(3)})`;
+        ctx.fillStyle = `rgba(${color}, ${dot.alpha.toFixed(3)})`;
         ctx.fill();
       }
     }
@@ -136,7 +149,7 @@ export function HeroDotGrid() {
         let targetX = dot.homeX;
         let targetY = dot.homeY;
         let targetRadius = BASE_RADIUS;
-        let targetAlpha = BASE_ALPHA;
+        let targetAlpha = baseAlpha;
 
         if (mouseX !== null && mouseY !== null) {
           const dx = mouseX - dot.homeX;
@@ -148,7 +161,7 @@ export function HeroDotGrid() {
             targetX = dot.homeX + dx * scale;
             targetY = dot.homeY + dy * scale;
             targetRadius = BASE_RADIUS + strength * (MAX_RADIUS - BASE_RADIUS);
-            targetAlpha = BASE_ALPHA + strength * (BRIGHT_ALPHA - BASE_ALPHA);
+            targetAlpha = baseAlpha + strength * (brightAlpha - baseAlpha);
           }
         }
 
@@ -219,8 +232,19 @@ export function HeroDotGrid() {
     bodyObserver.observe(document.body);
     window.addEventListener("scroll", sync, { passive: true });
     window.addEventListener("resize", sync, { passive: true });
+    readTheme();
     resize();
     signalReady("hero-dots");
+
+    const themeObserver = new MutationObserver(() => {
+      readTheme();
+      for (const dot of dots) dot.alpha = baseAlpha;
+      draw();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     if (!isStatic) {
       host.addEventListener("pointermove", onPointerMove);
@@ -234,6 +258,7 @@ export function HeroDotGrid() {
       }
       resizeObserver.disconnect();
       bodyObserver.disconnect();
+      themeObserver.disconnect();
       window.removeEventListener("scroll", sync);
       window.removeEventListener("resize", sync);
       host.removeEventListener("pointermove", onPointerMove);
