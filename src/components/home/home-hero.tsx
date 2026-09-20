@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Check, Inbox, KeyRound, Lightbulb, Search, Sparkles, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeroDotGrid } from "@/components/home/home-hero-dots";
 
 const agents = [
   { icon: Search, color: "bg-primary/15 text-primary", name: "Research Agent", status: "scraping 12 sources" },
@@ -15,20 +16,12 @@ export function HomeHero() {
 <section
       className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "radial-gradient(rgba(124,92,255,0.25) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-          backgroundPosition: "0 13px",
-        }}
-      />
+      <HeroDotGrid />
 
       {/* Ambient violet glows */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-[-10%] h-[480px] w-[480px] rounded-full bg-primary/10 blur-3xl"
+        className="pointer-events-none absolute -top-32 right-[-10%] h-[480px] w-[480px] rounded-full bg-primary/10 blur-3xl [mask-image:linear-gradient(to_bottom,black_0%,black_50%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_50%,transparent_100%)]"
       />
       <div
         aria-hidden="true"

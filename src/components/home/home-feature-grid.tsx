@@ -48,19 +48,13 @@ const features = [
 
 export function HomeFeatureGrid() {
   return (
-    <section className="w-full px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full border-t border-border px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-              Users
-            </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Every agent, scoped to one job.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+        <div className="flex flex-col items-center text-center">
+          <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Every agent, scoped to one job.
+          </h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
             No one-size-fits-all chatbots. Pick a focused agent, give it your
             input, and get a result built for exactly that task.
           </p>

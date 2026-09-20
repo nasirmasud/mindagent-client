@@ -32,10 +32,6 @@ export function HomeSteps() {
     <section className="w-full border-t border-border px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
-          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-            How it works
-          </p>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Simple Steps to Get Started
           </h2>

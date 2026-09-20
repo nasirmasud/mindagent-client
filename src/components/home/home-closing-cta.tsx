@@ -1,21 +1,41 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WireframeGlobe } from "./globe";
+
+const Globe = dynamic(() => import("@/components/lightswind/globe"), { ssr: false });
 
 export function HomeClosingCta() {
   return (
-    <section className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36">
+    <section className="relative w-full overflow-hidden border-t border-border">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[130vmax] w-[130vmax] -translate-x-1/2 -translate-y-1/2"
+      >
+        <Globe
+          className="h-full w-full !min-h-0"
+          dark={0}
+          scale={0.83}
+          diffuse={1.2}
+          mapBrightness={10}
+          mapSamples={24000}
+          baseColor="#6C4CF1"
+          markerColor="#8B5CF6"
+          glowColor="#B79CFF"
+          autoRotateSpeed={0.0015}
+          enableZoom={false}
+        />
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 z-10 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
       />
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
-        <div>
-          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-            2026
-          </p>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-background via-background/70 to-transparent"
+      />
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-4 py-32 md:px-20 md:py-44">
+        <div className="max-w-2xl">
           <h2 className="mt-4 max-w-lg text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
             Your AI Journey
             <br />
@@ -40,10 +60,6 @@ export function HomeClosingCta() {
               </Link>
             </Button>
           </div>
-        </div>
-
-        <div className="relative mx-auto w-full max-w-md">
-          <WireframeGlobe className="home-spin-slow mx-auto h-72 w-72 md:h-80 md:w-80" />
         </div>
       </div>
     </section>

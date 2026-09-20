@@ -2,7 +2,6 @@
 
 import NewsletterSection from "@/components/layout/newsletter-section";
 import { HomeActivityStream } from "@/components/home/home-activity-stream";
-import { HomeApiSection } from "@/components/home/home-api-section";
 import { HomeBlog } from "@/components/home/home-blog";
 import { HomeClosingCta } from "@/components/home/home-closing-cta";
 import { HomeFaq } from "@/components/home/home-faq";
@@ -15,6 +14,7 @@ import { HomeStatsStrip } from "@/components/home/home-stats-strip";
 import { HomeSteps } from "@/components/home/home-steps";
 import { HomeTestimonials } from "@/components/home/home-testimonials";
 import { HomeTrustStats } from "@/components/home/home-trust-stats";
+import { HomeLoader } from "@/components/layout/home-loader";
 import {
   Card,
   CardContent,
@@ -45,6 +45,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
+      <HomeLoader />
       <HomeHero />
 
       {recommendations.length > 0 && (
@@ -79,12 +80,11 @@ export default function Home() {
       <HomeIntegrations />
       <HomeTestimonials />
       <HomeTrustStats />
-      <HomeApiSection />
       <HomeSecurity />
       <HomePricing />
       <HomeActivityStream />
-      <HomeClosingCta />
       <HomeFaq />
+      <HomeClosingCta />
       <HomeBlog />
 
       <NewsletterSection />
