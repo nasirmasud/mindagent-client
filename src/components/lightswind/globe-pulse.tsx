@@ -26,7 +26,7 @@ const defaultMarkers: PulseMarker[] = [
   { id: "pulse-2", location: [40.71, -74.01], delay: 0.5 },
   { id: "pulse-3", location: [35.68, 139.65], delay: 1 },
   { id: "pulse-4", location: [-33.87, 151.21], delay: 1.5 },
-  { id: "pulse-5", location: [23.81, 90.41], delay: 0.75, color: "#22c55e", size: 1.35 },
+  { id: "pulse-5", location: [23.81, 90.41], delay: 0.75, color: "#A78BFA", size: 1.35 },
 ]
 
 export function GlobePulse({
@@ -109,12 +109,12 @@ export function GlobePulse({
           width, height: width,
           phi: 0, theta: 0.2, dark: 1, diffuse: 1.5,
           mapSamples: 16000, mapBrightness: 10,
-          baseColor: [0.5, 0.5, 0.5],
-          markerColor: [0.2, 0.8, 0.9],
-          glowColor: [0.05, 0.05, 0.05],
+          baseColor: [0.42, 0.3, 0.81],
+          markerColor: [0.718, 0.612, 1],
+          glowColor: [0.718, 0.612, 1],
           markerElevation: 0,
           markers: markers.map((m) => ({ location: m.location, size: 0.025 * (m.size ?? 1), id: m.id })),
-          arcs: [], arcColor: [0.3, 0.85, 0.95],
+          arcs: [], arcColor: [0.718, 0.612, 1],
           arcWidth: 0.5, arcHeight: 0.25, opacity: 0.7,
         })
       } catch (err) {
@@ -178,7 +178,7 @@ export function GlobePulse({
       )}
       {markers.map((m) => {
         const pSize = m.size ?? 1
-        const pColor = m.color ?? "#33ccdd"
+        const pColor = m.color ?? "#8B5CF6"
         return (
           <div
             key={m.id}
@@ -211,7 +211,7 @@ export function GlobePulse({
             <span style={{
               width: 10 * pSize, height: 10 * pSize,
               background: pColor, borderRadius: "50%",
-              boxShadow: `0 0 0 ${3 * pSize}px #111, 0 0 0 ${5 * pSize}px ${pColor}`,
+              boxShadow: `0 0 0 ${3 * pSize}px rgba(14,11,31,0.55), 0 0 0 ${5 * pSize}px ${pColor}`,
             }} />
           </div>
         )
