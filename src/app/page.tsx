@@ -11,6 +11,7 @@ import { HomeIntegrations } from "@/components/home/home-integrations";
 import { HomePricing } from "@/components/home/home-pricing";
 import { HomeSecurity } from "@/components/home/home-security";
 import { HomeStatsStrip } from "@/components/home/home-stats-strip";
+import { SectionDivider } from "@/components/home/section-divider";
 import { HomeSteps } from "@/components/home/home-steps";
 import { HomeTestimonials } from "@/components/home/home-testimonials";
 import { HomeTrustStats } from "@/components/home/home-trust-stats";
@@ -76,6 +77,7 @@ export default function Home() {
 
       <HomeStatsStrip />
       <HomeFeatureGrid />
+      <SectionDivider />
       <HomeSteps />
       <HomeIntegrations />
       <HomeTestimonials />
@@ -84,7 +86,9 @@ export default function Home() {
       <HomePricing />
       <HomeActivityStream />
       <HomeFaq />
+      <SectionDivider />
       <HomeBlog />
+      <SectionDivider />
       <HomeClosingCta />
 
       <NewsletterSection />
