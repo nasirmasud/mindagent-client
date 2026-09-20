@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
+import { glowCard, glowCardTopGlow, primaryActionButton } from "@/components/shared/brand-styles";
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -16,11 +17,8 @@ export default function NewsletterSection() {
 
   return (
     <section className="w-full px-4 md:px-20 py-16 md:py-24">
-      <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-primary/30 bg-card px-6 py-12 text-center shadow-[0_0_80px_-20px_rgba(124,92,255,0.45)] sm:px-12 sm:py-14">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-24 left-1/2 h-48 w-[28rem] max-w-full -translate-x-1/2 rounded-full bg-primary/20 blur-3xl"
-        />
+      <div className={`relative mx-auto w-full max-w-3xl px-6 py-12 text-center sm:px-12 sm:py-14 ${glowCard}`}>
+        <div aria-hidden="true" className={glowCardTopGlow} />
 
         <h2 className="relative text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Stay Ahead with AI
@@ -45,7 +43,7 @@ export default function NewsletterSection() {
             </div>
             <button
               type="submit"
-              className="flex-shrink-0 h-12 px-6 rounded-xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98]"
+              className={primaryActionButton}
             >
               Subscribe
               <ArrowRight className="h-4 w-4 transition-transform duration-250" aria-hidden="true" />
