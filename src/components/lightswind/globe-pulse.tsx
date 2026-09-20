@@ -1,8 +1,11 @@
 "use client"
 
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useState } from "react"
 import type React from "react"
 import createGlobe from "cobe"
+import { signalReady } from "@/lib/load-signals"
+import { hasWebGL } from "@/lib/webgl"
+import { StaticGlobe } from "./static-globe"
 
 interface PulseMarker {
   id: string
@@ -37,6 +40,16 @@ export function GlobePulse({
   const phiOffsetRef = useRef(0)
   const thetaOffsetRef = useRef(0)
   const isPausedRef = useRef(false)
+  const failedRef = useRef(false)
+  const [failed, setFailed] = useState(false)
+
+  const fail = useCallback((msg: string) => {
+    if (failedRef.current) return
+    failedRef.current = true
+    console.warn(`[globe-pulse] ${msg}`)
+    setFailed(true)
+    signalReady("globe")
+  }, [])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     pointerInteracting.current = { x: e.clientX, y: e.clientY }
@@ -83,29 +96,46 @@ export function GlobePulse({
       const width = canvas.offsetWidth
       if (width === 0 || globe) return
 
-      globe = createGlobe(canvas, {
-      devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-      width, height: width,
-      phi: 0, theta: 0.2, dark: 1, diffuse: 1.5,
-      mapSamples: 16000, mapBrightness: 10,
-      baseColor: [0.5, 0.5, 0.5],
-      markerColor: [0.2, 0.8, 0.9],
-      glowColor: [0.05, 0.05, 0.05],
-      markerElevation: 0,
-      markers: markers.map((m) => ({ location: m.location, size: 0.025 * (m.size ?? 1), id: m.id })),
-      arcs: [], arcColor: [0.3, 0.85, 0.95],
-      arcWidth: 0.5, arcHeight: 0.25, opacity: 0.7,
-    })
-    function animate() {
-      if (!isPausedRef.current) phi += speed
-      globe!.update({
-        phi: phi + phiOffsetRef.current + dragOffset.current.phi,
-        theta: 0.2 + thetaOffsetRef.current + dragOffset.current.theta,
-      })
-      animationId = requestAnimationFrame(animate)
-    }
+      if (failedRef.current) return
+
+      if (!hasWebGL()) {
+        fail("WebGL is not available; showing static globe fallback.")
+        return
+      }
+
+      try {
+        globe = createGlobe(canvas, {
+          devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+          width, height: width,
+          phi: 0, theta: 0.2, dark: 1, diffuse: 1.5,
+          mapSamples: 16000, mapBrightness: 10,
+          baseColor: [0.5, 0.5, 0.5],
+          markerColor: [0.2, 0.8, 0.9],
+          glowColor: [0.05, 0.05, 0.05],
+          markerElevation: 0,
+          markers: markers.map((m) => ({ location: m.location, size: 0.025 * (m.size ?? 1), id: m.id })),
+          arcs: [], arcColor: [0.3, 0.85, 0.95],
+          arcWidth: 0.5, arcHeight: 0.25, opacity: 0.7,
+        })
+      } catch (err) {
+        globe = null
+        fail(
+          `cobe initialization failed (${err instanceof Error ? err.message : String(err)}); showing static globe fallback.`
+        )
+        return
+      }
+
+      function animate() {
+        if (!isPausedRef.current) phi += speed
+        globe!.update({
+          phi: phi + phiOffsetRef.current + dragOffset.current.phi,
+          theta: 0.2 + thetaOffsetRef.current + dragOffset.current.theta,
+        })
+        animationId = requestAnimationFrame(animate)
+      }
       animate()
-      setTimeout(() => canvas && (canvas.style.opacity = "1"))
+      canvas.style.opacity = "1"
+      signalReady("globe")
     }
 
     if (canvas.offsetWidth > 0) {
@@ -124,7 +154,7 @@ export function GlobePulse({
       if (animationId) cancelAnimationFrame(animationId)
       if (globe) globe.destroy()
     }
-  }, [markers, speed])
+  }, [markers, speed, fail])
 
   return (
     <div className={`relative aspect-square select-none ${className}`}>
@@ -134,14 +164,18 @@ export function GlobePulse({
           100% { transform: scaleX(1.5) scaleY(1.5); opacity: 0; }
         }
       `}</style>
-      <canvas
-        ref={canvasRef}
-        onPointerDown={handlePointerDown}
-        style={{
-          width: "100%", height: "100%", cursor: "grab", opacity: 0,
-          transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "none",
-        }}
-      />
+      {failed ? (
+        <StaticGlobe className="h-full w-full cursor-default" />
+      ) : (
+        <canvas
+          ref={canvasRef}
+          onPointerDown={handlePointerDown}
+          style={{
+            width: "100%", height: "100%", cursor: "grab", opacity: 1,
+            transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "none",
+          }}
+        />
+      )}
       {markers.map((m) => {
         const pSize = m.size ?? 1
         const pColor = m.color ?? "#33ccdd"
