@@ -36,24 +36,40 @@ function ZapierIcon({ className }: { className?: string }) {
   );
 }
 
+function ExcelIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="#217346" />
+      <text
+        x="12"
+        y="17"
+        textAnchor="middle"
+        fontSize="11"
+        fontWeight="700"
+        fill="white"
+        fontFamily="Arial, sans-serif"
+      >
+        X
+      </text>
+    </svg>
+  );
+}
+
 const integrations = [
-  { name: "Slack", icon: <Slack className="h-6 w-6" />, x: "50%", y: "8%" },
-  { name: "GitHub", icon: <Github className="h-6 w-6" />, x: "88%", y: "26%" },
-  { name: "Figma", icon: <Figma className="h-6 w-6" />, x: "88%", y: "74%" },
-  { name: "Notion", icon: <NotionIcon className="h-6 w-6" />, x: "50%", y: "92%" },
-  { name: "Discord", icon: <DiscordIcon className="h-6 w-6" />, x: "12%", y: "74%" },
-  { name: "Zapier", icon: <ZapierIcon className="h-6 w-6" />, x: "12%", y: "26%" },
+  { name: "Excel", icon: <ExcelIcon className="h-6 w-6" />, x: "50%", y: "7%" },
+  { name: "GitHub", icon: <Github className="h-6 w-6" />, x: "85%", y: "22%" },
+  { name: "Slack", icon: <Slack className="h-6 w-6" />, x: "94%", y: "60%" },
+  { name: "Figma", icon: <Figma className="h-6 w-6" />, x: "70%", y: "91%" },
+  { name: "Discord", icon: <DiscordIcon className="h-6 w-6" />, x: "30%", y: "91%" },
+  { name: "Notion", icon: <NotionIcon className="h-6 w-6" />, x: "6%", y: "60%" },
+  { name: "Zapier", icon: <ZapierIcon className="h-6 w-6" />, x: "15%", y: "22%" },
 ];
 
 export function HomeIntegrations() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-12 md:py-16">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
-          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-            New
-          </p>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Integrate Seamlessly with Your Tools
           </h2>
@@ -64,7 +80,7 @@ export function HomeIntegrations() {
         </div>
 
         {/* Hub-and-spoke diagram */}
-        <div className="relative mx-auto mt-14 aspect-square w-full max-w-[420px]" role="img" aria-label="MindAgent connects with Slack, GitHub, Figma, Notion, Discord and Zapier">
+        <div className="relative mx-auto mt-10 aspect-square w-full max-w-[820px]" role="img" aria-label="MindAgent connects with Excel, Slack, GitHub, Figma, Notion, Discord and Zapier">
           {/* Connector lines */}
           <svg
             viewBox="0 0 100 100"
@@ -91,11 +107,14 @@ export function HomeIntegrations() {
           {integrations.map((i) => (
             <div
               key={i.name}
-              className="absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-border bg-card text-foreground shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110"
+              className="absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-xl border border-border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 md:h-[72px] md:w-16"
               style={{ left: i.x, top: i.y }}
             >
               {i.icon}
-              <span className="sr-only">{i.name}</span>
+              <span className="max-w-full truncate text-[11px] font-medium leading-none">
+                {i.name}
+              </span>
+              <span className="sr-only">MindAgent connects with {i.name}</span>
             </div>
           ))}
 
