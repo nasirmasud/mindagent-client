@@ -84,8 +84,8 @@ export default function Home() {
       <HomePricing />
       <HomeActivityStream />
       <HomeFaq />
-      <HomeClosingCta />
       <HomeBlog />
+      <HomeClosingCta />
 
       <NewsletterSection />
     </div>
