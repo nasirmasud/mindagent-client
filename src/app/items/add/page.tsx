@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { toast } from "sonner";
 import { Loader2, PlusCircle } from "lucide-react";
 
@@ -66,8 +67,9 @@ export default function AddItemPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="w-full px-4 md:px-20 py-10">
-      <Card>
+    <DashboardLayout>
+      <div className="w-full px-4 md:px-20 py-10">
+        <Card>
         <CardHeader>
           <CardTitle>Add New Item</CardTitle>
           <CardDescription>Create a new item with details and metadata.</CardDescription>
@@ -137,6 +139,7 @@ export default function AddItemPage() {
           </Button>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
