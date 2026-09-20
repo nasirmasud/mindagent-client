@@ -36,6 +36,7 @@
     --panel: #FFFFFF;
     --ring-custom: #E7E4F5;
     --bot-face: #1B1533;
+    --grid-size: 26px;
   }
 
   .dark {
@@ -79,7 +80,7 @@
     background-image:
       linear-gradient(rgba(124, 92, 255, 0.08) 1px, transparent 1px),
       linear-gradient(90deg, rgba(124, 92, 255, 0.08) 1px, transparent 1px);
-    background-size: 26px 26px;
+    background-size: var(--grid-size) var(--grid-size);
   }
 }
 
