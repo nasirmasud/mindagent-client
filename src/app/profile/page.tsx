@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { api } from "@/lib/api";
-import { toast } from "sonner";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import {
   PieChart,
   Pie,
@@ -19,23 +20,15 @@ import {
   MessageSquare,
   ImageIcon,
   Sparkles,
-  Settings as SettingsIcon,
-  LogOut,
   Pencil,
   Mail,
   Calendar,
   ChevronDown,
   ChevronRight,
   TrendingUp,
-  Crown,
-  KeyRound,
-  Trash2,
   Camera,
-  Loader2,
-  ExternalLink,
   Clock,
 } from "lucide-react";
-import Link from "next/link";
 
 interface Item {
   _id: string;
@@ -79,29 +72,22 @@ function StatCard({
   icon: Icon,
   label,
   value,
-  change,
 }: {
   icon: any;
   label: string;
   value: number;
-  change: string;
 }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-      <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center mb-4">
+    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+      <div className="w-9 h-9 rounded-lg bg-[#7C5CFC] flex items-center justify-center mb-4">
         <Icon className="w-4 h-4 text-white" />
       </div>
-      <p className="text-xs text-slate-400 whitespace-pre-line leading-snug mb-3">
+      <p className="text-sm text-[#A09BB5] whitespace-pre-line leading-snug mb-3">
         {label}
       </p>
       <div className="flex items-end justify-between">
         <span className="text-2xl font-bold text-white">{value}</span>
-        <span className="flex items-center gap-1 text-emerald-400 text-xs font-medium">
-          <TrendingUp className="w-3 h-3" />
-          {change}
-        </span>
       </div>
-      <p className="text-[11px] text-slate-500 mt-1">from last month</p>
     </div>
   );
 }
@@ -117,9 +103,9 @@ function DonutCard({
 }) {
   if (data.length === 0) {
     return (
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
         <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
-        <div className="flex items-center justify-center h-28 text-slate-500 text-xs">
+        <div className="flex items-center justify-center h-28 text-[#9C97B5] text-xs">
           No data yet
         </div>
       </div>
@@ -127,7 +113,7 @@ function DonutCard({
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
       <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
       <div className="flex items-center gap-4">
         <div className="relative w-28 h-28 shrink-0">
@@ -153,7 +139,7 @@ function DonutCard({
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-lg font-bold text-white">{total}</span>
-            <span className="text-[10px] text-slate-500">Total</span>
+            <span className="text-xs text-[#9C97B5]">Total</span>
           </div>
         </div>
         <ul className="flex-1 space-y-1.5">
@@ -164,7 +150,7 @@ function DonutCard({
                 key={d.name}
                 className="flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-1.5 text-slate-300">
+                <span className="flex items-center gap-1.5 text-[#C9C3EA]">
                   <span
                     className="w-2 h-2 rounded-full shrink-0"
                     style={{
@@ -174,9 +160,9 @@ function DonutCard({
                   />
                   {d.name}
                 </span>
-                <span className="text-slate-500">
+                <span className="text-[#9C97B5]">
                   {d.value}{" "}
-                  <span className="text-slate-600">({pct}%)</span>
+                  <span className="text-[#8B86A3]">({pct}%)</span>
                 </span>
               </li>
             );
@@ -197,22 +183,13 @@ function groupByKey<T>(items: T[], keyFn: (item: T) => string) {
 }
 
 export default function ProfilePage() {
-  const { isAuthenticated, loading: authLoading, user, logout } =
-    useAuthContext();
+  const { isAuthenticated, loading: authLoading, user } = useAuthContext();
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const [name, setName] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [provider, setProvider] = useState("OpenAI");
+  const [provider] = useState("OpenAI");
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) router.push("/login");
   }, [isAuthenticated, authLoading, router]);
-
-  useEffect(() => {
-    if (user) setName(user.name);
-  }, [user]);
 
   const { data: reportsData } = useQuery({
     queryKey: ["my-items"],
@@ -244,40 +221,13 @@ export default function ProfilePage() {
     enabled: isAuthenticated,
   });
 
-  const updateMutation = useMutation({
-    mutationFn: (body: { name?: string; avatar?: string }) =>
-      api("/auth/me", {
-        method: "PUT",
-        body: JSON.stringify(body),
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["auth"] });
-      toast.success("Profile updated");
-    },
-    onError: (err: any) => toast.error(err.message),
-  });
-
-  const passwordMutation = useMutation({
-    mutationFn: (body: {
-      currentPassword: string;
-      newPassword: string;
-    }) =>
-      api("/auth/password", {
-        method: "PUT",
-        body: JSON.stringify(body),
-      }),
-    onSuccess: () => {
-      setCurrentPassword("");
-      setNewPassword("");
-      toast.success("Password changed");
-    },
-    onError: (err: any) => toast.error(err.message),
-  });
-
   const reports = reportsData?.items ?? [];
   const sessions = sessionsData?.sessions ?? [];
   const images = imagesData?.items ?? [];
   const history = historyData?.items ?? [];
+
+  const hasAnyData =
+    reports.length + sessions.length + images.length + history.length > 0;
 
   const stats = useMemo(
     () => [
@@ -285,56 +235,53 @@ export default function ProfilePage() {
         icon: FileText,
         label: "Total Reports\nAnalyzed",
         value: reports.length,
-        change: "+12%",
       },
       {
         icon: MessageSquare,
         label: "Total Chat\nSessions",
         value: sessions.length,
-        change: "+18%",
       },
       {
         icon: ImageIcon,
         label: "Total Image\nAnalyses",
         value: images.length,
-        change: "+7%",
       },
       {
         icon: Sparkles,
         label: "Total AI\nGenerations",
         value: history.length,
-        change: "+22%",
       },
     ],
     [reports.length, sessions.length, images.length, history.length]
   );
 
   const donuts = useMemo(
-    () => [
-      {
-        title: "Reports by Type",
-        total: reports.length,
-        data: groupByKey(reports, (r) => r.sourceFileType.toUpperCase()),
-      },
-      {
-        title: "Chat Sessions by Model",
-        total: sessions.length,
-        data: groupByKey(sessions, (s) => s.agentType),
-      },
-      {
-        title: "Image Analyses",
-        total: images.length,
-        data:
-          images.length > 0
-            ? [{ name: "Images", value: images.length }]
-            : [],
-      },
-      {
-        title: "AI Generations by Type",
-        total: history.length,
-        data: groupByKey(history, (h) => h.contentType),
-      },
-    ],
+    () =>
+      [
+        {
+          title: "Reports by Type",
+          total: reports.length,
+          data: groupByKey(reports, (r) => r.sourceFileType.toUpperCase()),
+        },
+        {
+          title: "Chat Sessions by Model",
+          total: sessions.length,
+          data: groupByKey(sessions, (s) => s.agentType),
+        },
+        {
+          title: "Image Analyses",
+          total: images.length,
+          data:
+            images.length > 0
+              ? [{ name: "Images", value: images.length }]
+              : [],
+        },
+        {
+          title: "AI Generations by Type",
+          total: history.length,
+          data: groupByKey(history, (h) => h.contentType),
+        },
+      ].filter((d) => d.data.length > 0),
     [reports, sessions, images, history]
   );
 
@@ -430,152 +377,69 @@ export default function ProfilePage() {
     : "";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex">
-      {/* Sidebar */}
-      <aside className="w-64 shrink-0 border-r border-slate-800 flex flex-col p-4 hidden lg:flex">
-        <nav className="space-y-1">
-          {[
-            { label: "Profile", icon: UserCircle2, active: true },
-            { label: "My Reports", icon: FileText, href: "/items/manage" },
-            {
-              label: "AI Chat Sessions",
-              icon: MessageSquare,
-              href: "/ai-chat",
-            },
-            {
-              label: "Image Analyses",
-              icon: ImageIcon,
-              href: "/image-analyzer",
-            },
-            {
-              label: "AI Generations",
-              icon: Sparkles,
-              href: "/content-generator",
-            },
-            { label: "Settings", icon: SettingsIcon, href: "#settings" },
-          ].map((item) =>
-            item.href ? (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active
-                    ? "bg-indigo-600 text-white"
-                    : "text-slate-400 hover:bg-slate-900 hover:text-white"
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
-            ) : (
-              <button
-                key={item.label}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active
-                    ? "bg-indigo-600 text-white"
-                    : "text-slate-400 hover:bg-slate-900 hover:text-white"
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </button>
-            )
-          )}
-        </nav>
-
-        <div className="mt-auto space-y-1">
-          <button
-            onClick={() => logout()}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-white transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Log Out
-          </button>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 mt-3">
-            <Crown className="w-5 h-5 text-purple-400 mb-2" />
-            <p className="text-sm font-semibold text-white">
-              Upgrade to Pro
-            </p>
-            <p className="text-xs text-slate-500 mt-1 mb-3">
-              Unlock unlimited access to all AI tools and features.
-            </p>
-            <Link
-              href="/pricing"
-              className="block w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium py-2 rounded-lg transition-colors"
-            >
-              Upgrade Now
-            </Link>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main content */}
-      <main className="flex-1 p-4 md:p-8 space-y-6 overflow-y-auto">
-        {/* Header */}
+    <DashboardLayout>
+      <div className="p-4 md:p-8 space-y-6">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-bold">My Profile</h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-[#A09BB5] mt-1">
               Manage your account information and preferences
             </p>
           </div>
-          <button className="flex items-center gap-2 border border-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-950 transition-colors">
+          <button className="flex items-center gap-2 border border-[#6C56D6] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#2E274A] transition-colors">
             <Pencil className="w-3.5 h-3.5" />
             Edit Profile
           </button>
         </div>
 
-        {/* Profile card */}
-        <div className="relative overflow-hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 flex items-center justify-between">
+        <div className="relative overflow-hidden bg-[#131320] border border-[#232235] rounded-2xl p-6 flex items-center justify-between">
           <div className="flex items-center gap-5">
             <div className="relative">
               {user?.avatar ? (
                 <img
                   src={user.avatar}
                   alt={user.name}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-indigo-600"
+                  className="w-20 h-20 rounded-full object-cover border-2 border-[#7C5CFC]"
                 />
               ) : (
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-indigo-600">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#6B4CE8] to-[#8B5CF6] flex items-center justify-center border-2 border-[#7C5CFC]">
                   <span className="text-2xl font-bold text-white">
                     {user?.name?.charAt(0) || "U"}
                   </span>
                 </div>
               )}
-              <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center border-2 border-slate-900">
+              <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#7C5CFC] flex items-center justify-center border-2 border-[#131320]">
                 <Camera className="w-3.5 h-3.5 text-white" />
               </button>
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold">{user?.name}</h2>
-                <Pencil className="w-3.5 h-3.5 text-slate-500" />
+                <Pencil className="w-3.5 h-3.5 text-[#9C97B5]" />
               </div>
-              <div className="flex items-center gap-2 mt-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2 mt-2 text-sm text-[#A09BB5]">
                 <Mail className="w-3.5 h-3.5" />
                 {user?.email}
                 <ChevronDown className="w-3.5 h-3.5" />
-                <span className="flex items-center gap-1 bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full">
+                <span className="flex items-center gap-1 bg-[#1E1A35] text-[#C9C3EA] text-xs px-2 py-0.5 rounded-full">
                   {user?.authProvider === "google" ? "Google" : "Email"}
                 </span>
               </div>
-              <div className="flex items-center gap-2 mt-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2 mt-2 text-sm text-[#A09BB5]">
                 <Calendar className="w-3.5 h-3.5" />
                 Member since {memberDate}
               </div>
-              <div className="flex items-center gap-2 mt-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2 mt-2 text-sm text-[#A09BB5]">
                 Preferred AI Provider
-                <span className="flex items-center gap-1 bg-slate-800 text-slate-200 text-xs font-medium px-2.5 py-1 rounded-full">
+                <span className="flex items-center gap-1 bg-[#1E1A35] text-slate-200 text-xs font-medium px-2.5 py-1 rounded-full">
                   {provider}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Decorative favicon illustration */}
           <div className="hidden lg:flex relative w-48 h-40 items-center justify-center shrink-0">
-            <div className="absolute inset-0 rounded-full border border-dashed border-indigo-800" />
+            <div className="absolute inset-0 rounded-full border border-dashed border-[#3D3560]" />
             <img
               src="/favicon.ico"
               alt="MindAgent"
@@ -589,7 +453,7 @@ export default function ProfilePage() {
             ].map((Icon, i) => (
               <div
                 key={i}
-                className="absolute w-9 h-9 rounded-lg bg-indigo-950 border border-indigo-800 flex items-center justify-center"
+                className="absolute w-9 h-9 rounded-lg bg-[#2E274A] border border-[#3D3560] flex items-center justify-center"
                 style={{
                   top:
                     i === 0
@@ -609,15 +473,14 @@ export default function ProfilePage() {
                           : "5%",
                 }}
               >
-                <Icon className="w-4 h-4 text-indigo-400" />
+                <Icon className="w-4 h-4 text-[#9B85FF]" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Activity Stats - 1 row */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-300 mb-3">
+          <h3 className="text-sm font-semibold text-[#C9C3EA] mb-3">
             Activity Stats
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -627,268 +490,164 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Donut charts - 1 row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-          {donuts.map((d) => (
-            <DonutCard key={d.title} {...d} />
-          ))}
-        </div>
-
-        {/* Recent Activity + Recent Reports side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold">Recent Activity</h3>
-              <Link
-                href="/items/manage"
-                className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
-              >
-                View All
-              </Link>
+        {hasAnyData ? (
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+              {donuts.map((d) => (
+                <DonutCard key={d.title} {...d} />
+              ))}
             </div>
-            {activities.length === 0 ? (
-              <div className="text-center py-8 text-slate-500">
-                <Clock className="h-10 w-10 mx-auto mb-2 opacity-40" />
-                <p className="text-sm font-medium">No activity yet</p>
-                <p className="text-xs mt-1">
-                  Start using MindAgent to see your activity here
-                </p>
-              </div>
-            ) : (
-              <ul className="space-y-4">
-                {activities.map((a, i) => {
-                  const icons: Record<string, any> = {
-                    report: FileText,
-                    chat: MessageSquare,
-                    image: ImageIcon,
-                    content: Sparkles,
-                  };
-                  const Icon = icons[a.type];
-                  return (
-                    <li key={`${a.type}-${a.id}-${i}`}>
-                      <Link
-                        href={a.href}
-                        className="flex items-start gap-3 group"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-indigo-950 border border-indigo-800 flex items-center justify-center shrink-0">
-                          <Icon className="w-4 h-4 text-indigo-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-white group-hover:text-indigo-300 transition-colors">
-                            {a.label}
-                          </p>
-                          <p className="text-xs text-slate-500 truncate">
-                            {a.subtitle}
-                          </p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-xs text-slate-400">{a.date}</p>
-                          <p className="text-[11px] text-slate-600">
-                            {a.time}
-                          </p>
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold">Recent Reports</h3>
-              <Link
-                href="/items/manage"
-                className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
-              >
-                View All
-              </Link>
-            </div>
-            {reports.length === 0 ? (
-              <div className="text-center py-8 text-slate-500">
-                <FileText className="h-10 w-10 mx-auto mb-2 opacity-40" />
-                <p className="text-sm font-medium">No reports yet</p>
-                <Link
-                  href="/items/add"
-                  className="text-xs text-indigo-400 hover:underline mt-1 inline-block"
-                >
-                  Upload your first file
-                </Link>
-              </div>
-            ) : (
-              <ul className="space-y-3">
-                {reports.slice(0, 5).map((r) => (
-                  <li key={r._id}>
-                    <Link
-                      href={`/items/${r._id}`}
-                      className="flex items-center gap-3 py-1 group"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-indigo-950 border border-indigo-800 flex items-center justify-center shrink-0">
-                        <FileText className="w-4 h-4 text-indigo-400" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-white truncate group-hover:text-indigo-300 transition-colors">
-                          {r.title}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          {new Date(r.createdAt).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}{" "}
-                          &middot;{" "}
-                          {new Date(r.createdAt).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                      <span className="text-[11px] font-medium bg-emerald-950 text-emerald-400 px-2 py-1 rounded-full shrink-0">
-                        Completed
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 shrink-0" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-
-        {/* Settings + Danger Zone */}
-        <div
-          id="settings"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-8"
-        >
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <h3 className="font-semibold mb-4">Settings</h3>
-            <div className="space-y-6">
-              <div>
-                <p className="text-sm font-medium text-white">
-                  Display Name
-                </p>
-                <p className="text-xs text-slate-500 mt-1 mb-3">
-                  Update your display name across the platform.
-                </p>
-                <div className="flex gap-2">
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="flex-1 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-indigo-600 focus:outline-none"
-                  />
-                  <button
-                    onClick={() => updateMutation.mutate({ name })}
-                    disabled={
-                      updateMutation.isPending || name === user?.name
-                    }
-                    className="rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 px-3 py-2 text-sm font-medium text-white transition-colors"
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold">Recent Activity</h3>
+                  <Link
+                    href="/items/manage"
+                    className="text-xs font-medium text-[#9B85FF] hover:text-[#C0B2FF]"
                   >
-                    {updateMutation.isPending ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      "Save"
-                    )}
-                  </button>
+                    View All
+                  </Link>
                 </div>
-              </div>
-
-              <div>
-                <p className="text-sm font-medium text-white">
-                  Preferred AI Provider
-                </p>
-                <p className="text-xs text-slate-500 mt-1 mb-3">
-                  Choose your default AI provider for all agents and tools.
-                </p>
-                <div className="relative">
-                  <select
-                    value={provider}
-                    onChange={(e) => setProvider(e.target.value)}
-                    className="w-full appearance-none bg-slate-800 border border-slate-700 text-sm text-white rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:border-indigo-600"
-                  >
-                    <option>OpenAI</option>
-                    <option>Gemini</option>
-                    <option>DeepSeek</option>
-                    <option>Hugging Face</option>
-                    <option>OpenRouter</option>
-                  </select>
-                  <ChevronDown className="w-4 h-4 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-              </div>
-
-              {user?.authProvider === "email" && (
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium text-white">
-                      Change Password
+                {activities.length === 0 ? (
+                  <div className="text-center py-8 text-[#9C97B5]">
+                    <Clock className="h-10 w-10 mx-auto mb-2 opacity-40" />
+                    <p className="text-sm font-medium">No activity yet</p>
+                    <p className="text-xs mt-1">
+                      Start using MindAgent to see your activity here
                     </p>
-                    <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">
-                      Email Account
-                    </span>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1 mb-3">
-                    Update your password to keep your account secure.
-                  </p>
-                  <div className="space-y-2">
-                    <input
-                      type="password"
-                      value={currentPassword}
-                      onChange={(e) =>
-                        setCurrentPassword(e.target.value)
-                      }
-                      placeholder="Current password"
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-indigo-600 focus:outline-none"
-                    />
-                    <input
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="New password (min 6 chars)"
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-indigo-600 focus:outline-none"
-                    />
-                    <button
-                      onClick={() =>
-                        passwordMutation.mutate({
-                          currentPassword,
-                          newPassword,
-                        })
-                      }
-                      disabled={
-                        passwordMutation.isPending ||
-                        !currentPassword ||
-                        !newPassword ||
-                        newPassword.length < 6
-                      }
-                      className="flex items-center gap-2 border border-slate-700 text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 disabled:opacity-50 transition-colors"
-                    >
-                      {passwordMutation.isPending ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <KeyRound className="h-4 w-4" />
-                      )}
-                      Change Password
-                    </button>
-                  </div>
+                ) : (
+                  <ul className="space-y-4">
+                    {activities.map((a, i) => {
+                      const icons: Record<string, any> = {
+                        report: FileText,
+                        chat: MessageSquare,
+                        image: ImageIcon,
+                        content: Sparkles,
+                      };
+                      const Icon = icons[a.type];
+                      return (
+                        <li key={`${a.type}-${a.id}-${i}`}>
+                          <Link
+                            href={a.href}
+                            className="flex items-start gap-3 group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-[#2E274A] border border-[#3D3560] flex items-center justify-center shrink-0">
+                              <Icon className="w-4 h-4 text-[#9B85FF]" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-white group-hover:text-[#C0B2FF] transition-colors">
+                                {a.label}
+                              </p>
+                              <p className="text-xs text-[#9C97B5] truncate">
+                                {a.subtitle}
+                              </p>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <p className="text-xs text-[#A09BB5]">{a.date}</p>
+                              <p className="text-xs text-[#8B86A3]">
+                                {a.time}
+                              </p>
+                            </div>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+
+              <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold">Recent Reports</h3>
+                  <Link
+                    href="/items/manage"
+                    className="text-xs font-medium text-[#9B85FF] hover:text-[#C0B2FF]"
+                  >
+                    View All
+                  </Link>
                 </div>
-              )}
+                {reports.length === 0 ? (
+                  <div className="text-center py-8 text-[#9C97B5]">
+                    <FileText className="h-10 w-10 mx-auto mb-2 opacity-40" />
+                    <p className="text-sm font-medium">No reports yet</p>
+                    <Link
+                      href="/items/add"
+                      className="text-xs text-[#9B85FF] hover:underline mt-1 inline-block"
+                    >
+                      Upload your first file
+                    </Link>
+                  </div>
+                ) : (
+                  <ul className="space-y-3">
+                    {reports.slice(0, 5).map((r) => (
+                      <li key={r._id}>
+                        <Link
+                          href={`/items/${r._id}`}
+                          className="flex items-center gap-3 py-1 group"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-[#2E274A] border border-[#3D3560] flex items-center justify-center shrink-0">
+                            <FileText className="w-4 h-4 text-[#9B85FF]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-white truncate group-hover:text-[#C0B2FF] transition-colors">
+                              {r.title}
+                            </p>
+                            <p className="text-xs text-[#9C97B5]">
+                              {new Date(r.createdAt).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              })}{" "}
+                              &middot;{" "}
+                              {new Date(r.createdAt).toLocaleTimeString("en-US", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </p>
+                          </div>
+                          <span className="text-[11px] font-medium bg-emerald-950 text-emerald-400 px-2 py-1 rounded-full shrink-0">
+                            Completed
+                          </span>
+                          <ChevronRight className="w-4 h-4 text-[#8B86A3] group-hover:text-[#A09BB5] shrink-0" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="bg-[#131320] border border-[#232235] rounded-2xl p-10 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#7C5CFC]/15 flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-6 h-6 text-[#9B85FF]" />
+            </div>
+            <h3 className="text-lg font-bold text-white">
+              Start your first analysis
+            </h3>
+            <p className="mx-auto mt-2 max-w-md text-sm text-[#A09BB5]">
+              Upload a file, start an AI chat, or generate content — your
+              stats, charts, and activity will appear here.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/items/add"
+                className="bg-[#7C5CFC] hover:bg-[#6B4CE8] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+              >
+                Upload your first file
+              </Link>
+              <Link
+                href="/ai-chat"
+                className="border border-[#232235] text-[#A09BB5] hover:text-white hover:border-[#2A2A40] text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+              >
+                Open AI Chat
+              </Link>
             </div>
           </div>
-
-          <div className="bg-red-950/30 border border-red-900 rounded-2xl p-5">
-            <h3 className="font-semibold text-red-400 mb-2">
-              Danger Zone
-            </h3>
-            <p className="text-xs text-slate-400 mb-4">
-              Once you delete your account, there is no going back. Please
-              be certain.
-            </p>
-            <button className="flex items-center gap-2 border border-red-800 text-red-400 text-sm font-medium px-3 py-2 rounded-lg hover:bg-red-950 transition-colors">
-              <Trash2 className="w-3.5 h-3.5" />
-              Delete Account
-            </button>
-          </div>
-        </div>
-      </main>
-    </div>
+        )}
+      </div>
+    </DashboardLayout>
   );
 }

@@ -82,7 +82,7 @@ export function Navbar() {
                 <hr className="my-2 border-border" />
                 {!loading && isAuthenticated ? (
                   <>
-                    <Link href="/items/manage" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">My Items</Link>
+                    <Link href="/history" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">History</Link>
                     <Link href="/profile" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition">Profile</Link>
                     <Button variant="outline" onClick={() => { logout(); toast.success("Logged out"); setOpen(false); }}>Logout</Button>
                   </>
@@ -114,7 +114,7 @@ export function Navbar() {
                 <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/items/manage">My Items</Link>
+                  <Link href="/history">History</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/profile">Profile</Link>

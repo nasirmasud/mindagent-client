@@ -292,7 +292,7 @@ export default function DataAnalyzerPage() {
   return (
     <div className="text-foreground min-h-[calc(100vh-4rem)]">
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
+      <section className="relative overflow-hidden pt-12 pb-8 md:pt-16 md:pb-10">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[100px]" />
@@ -307,7 +307,7 @@ export default function DataAnalyzerPage() {
             <br />
             Into Actionable Insights
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
             Upload your CSV, Excel, or JSON files and let AI analyze patterns, detect trends,
             identify risks, and generate comprehensive reports in seconds.
           </p>
@@ -315,22 +315,8 @@ export default function DataAnalyzerPage() {
         </div>
       </section>
 
-      {/* ── TRUST STRIP ── */}
-      <section className="border-y border-border py-8 bg-muted">
-        <div className="max-w-6xl mx-auto px-4">
-          <p className="text-center text-muted-foreground text-xs uppercase tracking-widest mb-6">Trusted by teams worldwide</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-muted-foreground">
-            {["TechFlow", "DataBridge", "CloudSync", "NexGen AI", "Quantum Labs", "InsightPro"].map((name) => (
-              <span key={name} className="text-lg font-semibold tracking-tight opacity-60 hover:opacity-90 transition-opacity">
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── UPLOAD SECTION ── */}
-      <section className="py-16 bg-muted">
+      <section className="pb-16">
         <div className="max-w-4xl mx-auto px-4">
           {!isAuthenticated ? (
             <div className="bg-card border border-border rounded-2xl p-10 text-center">
@@ -374,8 +360,8 @@ export default function DataAnalyzerPage() {
                   onClick={() => fileRef.current?.click()}
                   className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all ${
                     dragOver
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50 hover:bg-primary/5"
+                      ? "border-primary bg-primary/10 shadow-[0_0_0_4px_hsl(var(--primary)/0.15)]"
+                      : "border-primary/50 hover:border-primary hover:bg-primary/5"
                   }`}
                 >
                   <input
@@ -401,7 +387,7 @@ export default function DataAnalyzerPage() {
                     </div>
                   ) : (
                     <div>
-                      <Upload className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+                      <Upload className="w-10 h-10 text-primary/70 mx-auto mb-4" />
                       <p className="text-muted-foreground font-medium">Drop your file here or click to browse</p>
                       <p className="text-muted-foreground text-sm mt-1">Supports CSV, XLSX, JSON</p>
                     </div>
@@ -415,7 +401,7 @@ export default function DataAnalyzerPage() {
                       onChange={(e) => setUserPrompt(e.target.value)}
                       placeholder="Optional: Ask the AI to focus on something specific (e.g. 'Highlight sales trends by region' or 'Find anomalies')"
                       rows={2}
-                      className="mt-4 w-full rounded-xl border border-border bg-muted text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none transition-all focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
+                      className="mt-4 w-full rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none transition-all focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
                     />
                     <Button
                       onClick={handleUpload}
@@ -800,51 +786,6 @@ export default function DataAnalyzerPage() {
           </div>
         </section>
       )}
-
-      {/* ── CTA ── */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="bg-gradient-to-br from-card to-muted border border-border rounded-3xl p-12 md:p-16 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/8 rounded-full blur-[80px]" />
-            <div className="relative">
-              <Sparkles className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to analyze your data?</h2>
-              <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-                Join thousands of professionals who trust our AI-powered data analysis platform.
-                Start with our free tier &mdash; no credit card required.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Button
-                  onClick={() => {
-                    if (!isAuthenticated) router.push("/login");
-                    else fileRef.current?.click();
-                  }}
-                  className="h-auto bg-gradient-to-r from-primary to-primary/80 px-8 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all hover:-translate-y-0.5"
-                >
-                  <Upload className="w-5 h-5" />
-                  Start Analyzing
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="h-auto px-8 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2"
-                >
-                  Learn More
-                </Button>
-              </div>
-              <div className="flex items-center justify-center gap-6 mt-8 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Free tier available</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> No credit card</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Cancel anytime</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

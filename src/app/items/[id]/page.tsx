@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { toast } from "sonner";
 import { ArrowLeft, Download, Calendar, User, FileText, Table2, TrendingUp, AlertTriangle, BarChart3, Target, ExternalLink } from "lucide-react";
 import {
@@ -110,13 +111,14 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
   });
 
   return (
-    <div className="w-full px-4 md:px-20 py-8 space-y-8">
-      <Button variant="ghost" asChild className="-ml-2">
-        <Link href="/explore">
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Explore
-        </Link>
-      </Button>
+    <DashboardLayout>
+      <div className="w-full px-4 md:px-20 py-8 space-y-8">
+        <Button variant="ghost" asChild className="-ml-2">
+          <Link href="/history">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to History
+          </Link>
+        </Button>
 
       <Card>
         <CardHeader>
@@ -332,6 +334,7 @@ export default function ItemDetailPage({ params }: { params: Promise<{ id: strin
           </CardContent>
         </Card>
       )}
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

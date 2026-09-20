@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -147,6 +148,7 @@ export default function ContentGeneratorPage() {
 
   const length = LENGTH_OPTIONS[lengthIdx];
   const ActiveTemplateIcon = TEMPLATES.find((t) => t.value === contentType)?.icon || FileText;
+  const sliderPct = (lengthIdx / (LENGTH_OPTIONS.length - 1)) * 100;
 
   return (
     <>
@@ -167,7 +169,8 @@ export default function ContentGeneratorPage() {
         }
       `}</style>
 
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col">
+      <DashboardLayout>
+        <div className="min-h-[calc(100vh-4rem)] flex flex-col">
         {/* Top bar */}
         <header className="flex items-center gap-3 px-4 sm:px-6 h-16 border-b border-border flex-shrink-0 sticky top-0 bg-background z-10">
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
@@ -229,7 +232,7 @@ export default function ContentGeneratorPage() {
               onChange={(e) => setTopic(e.target.value)}
               rows={3}
               placeholder="e.g. Why small businesses should adopt AI agents in 2026"
-              className="w-full rounded-xl border border-border bg-muted text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-250 focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] focus:bg-card"
+              className="w-full rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-250 focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
             />
 
             <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Tone</label>
@@ -260,9 +263,10 @@ export default function ContentGeneratorPage() {
               step={1}
               value={lengthIdx}
               onChange={(e) => setLengthIdx(Number(e.target.value))}
-              className="w-full mb-1 h-1.5 rounded-full appearance-none cursor-pointer bg-muted accent-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:border-[3px] [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_hsl(var(--primary))] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
+              style={{ background: `linear-gradient(to right, hsl(var(--primary)) ${sliderPct}%, hsl(var(--muted)) ${sliderPct}%)` }}
+              className="w-full mb-1 h-1.5 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:border-[3px] [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_hsl(var(--primary))] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <div className="flex justify-between text-[11px] text-muted-foreground mb-6">
+            <div className="flex justify-between text-xs text-muted-foreground mb-6">
               <span>Short</span>
               <span>Medium</span>
               <span>Long</span>
@@ -286,7 +290,7 @@ export default function ContentGeneratorPage() {
                   <FileText className="w-7 h-7 text-primary" />
                 </div>
                 <p className="text-sm font-semibold text-foreground">Your generated content will appear here</p>
-                <p className="text-xs text-muted-foreground mt-1 max-w-xs">Pick a template, describe your topic, and hit Generate.</p>
+                <p className="text-sm text-muted-foreground mt-1 max-w-xs">Pick a template, describe your topic, and hit Generate.</p>
               </div>
             )}
 
@@ -353,7 +357,7 @@ export default function ContentGeneratorPage() {
             </div>
             <div className="flex-1 overflow-y-auto chat-scrollbar p-3 space-y-2">
               {historyItems.length === 0 && (
-                <p className="text-xs text-muted-foreground text-center py-8">No history yet</p>
+                <p className="text-sm text-muted-foreground text-center py-8">No history yet</p>
               )}
               {historyItems.map((item) => (
                 <div
@@ -401,7 +405,7 @@ export default function ContentGeneratorPage() {
                 </div>
                 <div className="flex-1 overflow-y-auto p-3 space-y-2">
                   {historyItems.length === 0 && (
-                    <p className="text-xs text-muted-foreground text-center py-8">No history yet</p>
+                    <p className="text-sm text-muted-foreground text-center py-8">No history yet</p>
                   )}
                   {historyItems.map((item) => (
                     <div
@@ -429,7 +433,8 @@ export default function ContentGeneratorPage() {
             </div>
           )}
         </div>
-      </div>
+        </div>
+      </DashboardLayout>
 
       {/* copy toast */}
       <div

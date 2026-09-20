@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/providers/auth-provider";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
@@ -199,7 +200,8 @@ export default function ImageAnalyzerPage() {
   if (authLoading || !isAuthenticated) return <PageSkeleton />;
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] text-foreground">
+    <DashboardLayout>
+      <div className="min-h-[calc(100vh-4rem)] text-foreground">
       <style>{`
         @keyframes scanY {
           0% { top: 0%; }
@@ -212,7 +214,7 @@ export default function ImageAnalyzerPage() {
       `}</style>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden border-b border-border pt-16 pb-14 md:pt-20 md:pb-16">
+      <section className="relative overflow-hidden border-b border-border pt-10 pb-8 md:pt-12 md:pb-10">
         <div className="pointer-events-none absolute -top-52 left-[15%] h-[480px] w-[480px] rounded-full opacity-25 blur-3xl" style={{ background: "radial-gradient(closest-side, hsl(var(--primary)), transparent)" }} />
         <div className="relative z-10 mx-auto max-w-[1600px] px-4 text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs text-primary">
@@ -231,7 +233,7 @@ export default function ImageAnalyzerPage() {
       </section>
 
       {/* ── WORKSPACE ── */}
-      <section className="mx-auto max-w-[1600px] px-4 py-10">
+      <section className="mx-auto max-w-[1600px] px-4 pt-6 pb-16">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
           {/* History sidebar */}
           <aside className="order-2 lg:order-1">
@@ -293,7 +295,7 @@ export default function ImageAnalyzerPage() {
                   onDrop={onDrop}
                   onClick={() => !preview && inputRef.current?.click()}
                   className={`relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed transition-colors ${
-                    dragging ? "border-primary bg-primary/5" : "border-border bg-muted"
+                    dragging ? "border-primary bg-primary/10" : "border-primary/50 bg-card/60 dark:bg-[#0F0D26]/70 hover:border-primary hover:bg-primary/5"
                   } ${!preview ? "cursor-pointer" : ""}`}
                 >
                   <input ref={inputRef} type="file" accept="image/*" onChange={onPick} className="hidden" />
@@ -351,7 +353,7 @@ export default function ImageAnalyzerPage() {
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Ask something specific, or leave blank for a general description&hellip;"
                   rows={3}
-                  className="w-full resize-none rounded-xl border border-border bg-muted px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none"
+                  className="w-full resize-none rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none"
                 />
                 <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {promptChips.map((c) => (
@@ -378,7 +380,7 @@ export default function ImageAnalyzerPage() {
                   </Button>
 
                 {/* Results */}
-                <div className="mt-5 flex-1 rounded-2xl border border-border bg-card p-5">
+                <div className="mt-5 flex-1 rounded-2xl border border-border dark:border-white/10 bg-card/60 dark:bg-[#0F0D26]/70 p-5">
                   <h3 className="flex items-center gap-2 text-sm font-medium">
                     <Bot size={15} className="text-primary" /> Result
                   </h3>
@@ -459,6 +461,7 @@ export default function ImageAnalyzerPage() {
           </div>
         </section>
       )}
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
