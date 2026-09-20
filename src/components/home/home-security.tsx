@@ -1,10 +1,53 @@
+"use client";
+
 import { FileText, KeyRound, Lock, ShieldHalf } from "lucide-react";
+import { useRef } from "react";
+import type { PointerEvent } from "react";
 
 const features = [
   { name: "AES-256", detail: "Encryption at rest" },
   { name: "TLS 1.3", detail: "Encryption in transit" },
   { name: "RBAC", detail: "Role-based access" },
 ];
+
+const MAX_TILT = 10;
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function SecurityOrb({ name, detail }: { name: string; detail: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function onPointerMove(e: PointerEvent<HTMLDivElement>) {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia(REDUCED_MOTION).matches) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(500px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg)`;
+  }
+
+  function onPointerLeave() {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "";
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div
+        ref={ref}
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
+        className="security-orb flex h-24 w-24 items-center justify-center rounded-full transition-transform duration-300 ease-out will-change-transform"
+      >
+        <span className="security-orb-label whitespace-nowrap text-base font-bold tracking-tight sm:text-lg">
+          {name}
+        </span>
+      </div>
+      <span className="text-xs text-muted-foreground">{detail}</span>
+    </div>
+  );
+}
 
 const cards = [
   {
@@ -31,7 +74,7 @@ const cards = [
 
 export function HomeSecurity() {
   return (
-    <section className="w-full border-y border-border bg-card/40 px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
           <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -46,12 +89,7 @@ export function HomeSecurity() {
           {/* Security features */}
           <div className="mt-8 flex flex-wrap gap-5">
             {features.map((f) => (
-              <div key={f.name} className="flex flex-col items-center gap-2">
-                <span className="flex h-24 w-24 items-center justify-center rounded-full border border-primary/40 bg-primary/10 text-center text-xl font-bold text-foreground shadow-lg sm:text-2xl">
-                  {f.name}
-                </span>
-                <span className="text-xs text-muted-foreground">{f.detail}</span>
-              </div>
+              <SecurityOrb key={f.name} name={f.name} detail={f.detail} />
             ))}
           </div>
         </div>
