@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { ItemActions } from "@/components/items/manage/item-actions";
 import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { useAuthContext } from "@/providers/auth-provider";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 
 interface ManageItem {
   _id: string;
@@ -39,29 +40,22 @@ function StatCard({
   icon: Icon,
   label,
   value,
-  change,
 }: {
   icon: any;
   label: string;
   value: number | string;
-  change: string;
 }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-      <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center mb-4">
+    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+      <div className="w-9 h-9 rounded-lg bg-[#7C5CFC] flex items-center justify-center mb-4">
         <Icon className="w-4 h-4 text-white" />
       </div>
-      <p className="text-xs text-slate-400 whitespace-pre-line leading-snug mb-3">
+      <p className="text-sm text-[#A09BB5] whitespace-pre-line leading-snug mb-3">
         {label}
       </p>
       <div className="flex items-end justify-between">
         <span className="text-2xl font-bold text-white">{value}</span>
-        <span className="flex items-center gap-1 text-emerald-400 text-xs font-medium">
-          <TrendingUp className="w-3 h-3" />
-          {change}
-        </span>
       </div>
-      <p className="text-[11px] text-slate-500 mt-1">from last month</p>
     </div>
   );
 }
@@ -77,9 +71,9 @@ function DonutCard({
 }) {
   if (data.length === 0) {
     return (
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
         <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
-        <div className="flex items-center justify-center h-28 text-slate-500 text-xs">
+        <div className="flex items-center justify-center h-28 text-[#9C97B5] text-xs">
           No data yet
         </div>
       </div>
@@ -87,7 +81,7 @@ function DonutCard({
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
       <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
       <div className="flex items-center gap-4">
         <div className="relative w-28 h-28 shrink-0">
@@ -113,7 +107,7 @@ function DonutCard({
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-lg font-bold text-white">{total}</span>
-            <span className="text-[10px] text-slate-500">Total</span>
+            <span className="text-xs text-[#9C97B5]">Total</span>
           </div>
         </div>
         <ul className="flex-1 space-y-1.5">
@@ -124,7 +118,7 @@ function DonutCard({
                 key={d.name}
                 className="flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-1.5 text-slate-300">
+                <span className="flex items-center gap-1.5 text-[#C9C3EA]">
                   <span
                     className="w-2 h-2 rounded-full shrink-0"
                     style={{
@@ -134,9 +128,9 @@ function DonutCard({
                   />
                   {d.name}
                 </span>
-                <span className="text-slate-500">
+                <span className="text-[#9C97B5]">
                   {d.value}{" "}
-                  <span className="text-slate-600">({pct}%)</span>
+                  <span className="text-[#8B86A3]">({pct}%)</span>
                 </span>
               </li>
             );
@@ -193,25 +187,21 @@ export default function ManageItemsPage() {
         icon: FileText,
         label: "Total Reports\nAnalyzed",
         value: items.length,
-        change: "+12%",
       },
       {
         icon: HardDrive,
         label: "Total Rows\nAnalyzed",
         value: totalRows.toLocaleString(),
-        change: "+8%",
       },
       {
         icon: FileText,
         label: "File Types\nUsed",
         value: fileTypes,
-        change: "+2",
       },
       {
         icon: TrendingUp,
         label: "Avg Rows\nper Report",
         value: avgRows.toLocaleString(),
-        change: "+5%",
       },
     ],
     [items.length, totalRows, fileTypes, avgRows]
@@ -236,17 +226,17 @@ export default function ManageItemsPage() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <main className="p-4 md:p-8 space-y-6 overflow-y-auto">
+    <DashboardLayout>
+      <div className="p-4 md:p-8 space-y-6">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold">My Reports</h1>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-sm text-[#A09BB5] mt-1">
                 Manage and analyze your uploaded data files
               </p>
             </div>
-            <Button asChild className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white">
+            <Button asChild className="flex items-center gap-2 bg-[#7C5CFC] hover:bg-[#6B4CE8] text-white">
               <Link href="/items/add">
                 <Plus className="h-4 w-4" />
                 New Analysis
@@ -260,28 +250,30 @@ export default function ManageItemsPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-            {donuts.map((d) => (
-              <DonutCard key={d.title} {...d} />
-            ))}
-          </div>
+          {items.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+              {donuts.map((d) => (
+                <DonutCard key={d.title} {...d} />
+              ))}
+            </div>
+          )}
 
           {isLoading ? (
             <div className="space-y-3">
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-16 bg-slate-900 border border-slate-800 rounded-xl animate-pulse"
+                  className="h-16 bg-[#131320] border border-[#232235] rounded-xl animate-pulse"
                 />
               ))}
             </div>
           ) : items.length === 0 ? (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center">
-              <FileText className="h-16 w-16 text-slate-600 mx-auto mb-4" />
+            <div className="bg-[#131320] border border-[#232235] rounded-2xl p-12 text-center">
+              <FileText className="h-16 w-16 text-[#8B86A3] mx-auto mb-4" />
               <p className="text-lg font-medium text-white mb-2">
                 No analysis reports yet
               </p>
-              <p className="text-slate-500 mb-6">
+              <p className="text-[#9C97B5] mb-6">
                 Upload a CSV, Excel, or JSON file to get started
               </p>
               <Button asChild className="gap-2">
@@ -292,27 +284,27 @@ export default function ManageItemsPage() {
               </Button>
             </div>
           ) : (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            <div className="bg-[#131320] border border-[#232235] rounded-2xl overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="bg-slate-950 border-b border-slate-800">
+                  <thead className="bg-[#0B0B1F] border-b border-[#232235]">
                     <tr>
-                      <th className="text-left p-4 font-medium text-slate-300">
+                      <th className="text-left p-4 font-medium text-[#C9C3EA]">
                         Title
                       </th>
-                      <th className="text-left p-4 font-medium text-slate-300 hidden sm:table-cell">
+                      <th className="text-left p-4 font-medium text-[#C9C3EA] hidden sm:table-cell">
                         File
                       </th>
-                      <th className="text-left p-4 font-medium text-slate-300 hidden md:table-cell">
+                      <th className="text-left p-4 font-medium text-[#C9C3EA] hidden md:table-cell">
                         Type
                       </th>
-                      <th className="text-left p-4 font-medium text-slate-300 hidden md:table-cell">
+                      <th className="text-left p-4 font-medium text-[#C9C3EA] hidden md:table-cell">
                         Rows
                       </th>
-                      <th className="text-left p-4 font-medium text-slate-300 hidden lg:table-cell">
+                      <th className="text-left p-4 font-medium text-[#C9C3EA] hidden lg:table-cell">
                         Date
                       </th>
-                      <th className="text-right p-4 font-medium text-slate-300">
+                      <th className="text-right p-4 font-medium text-[#C9C3EA]">
                         Actions
                       </th>
                     </tr>
@@ -321,24 +313,24 @@ export default function ManageItemsPage() {
                     {items.map((item) => (
                       <tr
                         key={item._id}
-                        className="hover:bg-slate-800/50 transition-colors"
+                        className="hover:bg-[#1E1A35]/50 transition-colors"
                       >
                         <td className="p-4 font-medium text-white">
                           {item.title}
                         </td>
-                        <td className="p-4 text-slate-400 hidden sm:table-cell">
+                        <td className="p-4 text-[#A09BB5] hidden sm:table-cell">
                           {item.sourceFileName}
                         </td>
                         <td className="p-4 hidden md:table-cell">
-                          <span className="uppercase text-xs font-medium bg-indigo-950 text-indigo-400 px-2 py-1 rounded">
+                          <span className="uppercase text-xs font-medium bg-[#2E274A] text-[#9B85FF] px-2 py-1 rounded">
                             {item.sourceFileType}
                           </span>
                         </td>
-                        <td className="p-4 text-slate-400 hidden md:table-cell flex items-center gap-1">
+                        <td className="p-4 text-[#A09BB5] hidden md:table-cell flex items-center gap-1">
                           <HardDrive className="h-3 w-3" />
                           {item.rowCount.toLocaleString()}
                         </td>
-                        <td className="p-4 text-slate-400 hidden lg:table-cell flex items-center gap-1">
+                        <td className="p-4 text-[#A09BB5] hidden lg:table-cell flex items-center gap-1">
                           <Calendar className="h-3 w-3" />
                           {new Date(item.createdAt).toLocaleDateString()}
                         </td>
@@ -356,7 +348,7 @@ export default function ManageItemsPage() {
             </div>
           )}
         </div>
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
