@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { QueryProvider } from "@/providers/query-provider";
 import { AuthProvider } from "@/providers/auth-provider";
 import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
+import { FooterShell } from "@/components/layout/footer-shell";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
 import { Toaster } from "@/components/shared/toaster";
 import "./globals.css";
@@ -31,7 +31,7 @@ export default function RootLayout({
             <AuthProvider>
               <Navbar />
               <main className="flex-1"><ErrorBoundary>{children}</ErrorBoundary></main>
-              <Footer />
+              <FooterShell />
               <Toaster />
             </AuthProvider>
           </QueryProvider>
