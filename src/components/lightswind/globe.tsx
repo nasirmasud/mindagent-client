@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import createGlobe, { type Globe as CobeGlobe } from "cobe";
 import { cn } from "@/lib/utils";
 import { signalReady } from "@/lib/load-signals";
+import { hasWebGL } from "@/lib/webgl";
+import { StaticGlobe } from "./static-globe";
 
 // Utility function to convert a hex color string to a normalized RGB array [0-1, 0-1, 0-1]
 const hexToRgbNormalized = (hex: string): [number, number, number] => {
@@ -82,7 +84,18 @@ const Globe: React.FC<GlobeProps> = ({
   autoRotateSpeed = 0.003,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const globeRef = useRef<CobeGlobe | null>(null);
+  const failedRef = useRef(false);
+  const [failed, setFailed] = useState(false);
+
+  const fail = useRef((msg?: string) => {
+    if (failedRef.current) return;
+    failedRef.current = true;
+    if (msg) console.warn(`[globe] ${msg}`);
+    setFailed(true);
+    signalReady("globe");
+  });
 
   // Interaction refs
   const phiRef = useRef(phi);
@@ -160,6 +173,13 @@ const Globe: React.FC<GlobeProps> = ({
         globeRef.current = null;
       }
 
+      if (!hasWebGL()) {
+        fail.current(
+          "WebGL is not available in this browser; showing static globe fallback."
+        );
+        return;
+      }
+
       const rect = canvas.getBoundingClientRect();
       const width = Math.max(100, Math.round(rect.width || 600));
       const height = Math.max(100, Math.round(rect.height || 500));
@@ -189,9 +209,17 @@ const Globe: React.FC<GlobeProps> = ({
           offset: [0, 0],
           markers,
         });
-      } catch {
+      } catch (err) {
         globeRef.current = null;
+        fail.current(
+          `cobe initialization failed (${err instanceof Error ? err.message : String(err)}); showing static globe fallback.`
+        );
         return;
+      }
+
+      if (failedRef.current) {
+        failedRef.current = false;
+        setFailed(false);
       }
 
       globeRef.current.update({
@@ -332,6 +360,26 @@ const Globe: React.FC<GlobeProps> = ({
       observer.observe(canvas);
     }
 
+    // Re-init when the container actually gains a non-zero size (e.g. it was
+    // hidden / collapsed at mount time so the canvas rect was 0).
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && containerRef.current) {
+      resizeObserver = new ResizeObserver((entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        const w = Math.round(entry.contentRect.width);
+        const h = Math.round(entry.contentRect.height);
+        if (w <= 0 || h <= 0) return;
+        const rect = canvas.getBoundingClientRect();
+        if (Math.round(rect.width) !== w || Math.round(rect.height) !== h) {
+          if (isVisible) {
+            initGlobe();
+          }
+        }
+      });
+      resizeObserver.observe(containerRef.current);
+    }
+
     // Attach interaction listeners
     canvas.addEventListener("mousedown", onMouseDown);
     canvas.addEventListener("mousemove", onMouseMove);
@@ -354,6 +402,9 @@ const Globe: React.FC<GlobeProps> = ({
       window.removeEventListener("resize", handleResize);
       if (observer) {
         observer.disconnect();
+      }
+      if (resizeObserver) {
+        resizeObserver.disconnect();
       }
       if (canvas) {
         canvas.removeEventListener("mousedown", onMouseDown);
@@ -391,6 +442,7 @@ const Globe: React.FC<GlobeProps> = ({
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "flex items-center justify-center relative w-full h-full min-h-[400px]",
         className
@@ -402,15 +454,20 @@ const Globe: React.FC<GlobeProps> = ({
         overflow: "hidden",
       }}
     >
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "block",
-          cursor: "grab",
-        }}
-      />
+      {failed ? (
+        <StaticGlobe className="w-full h-full min-h-[400px]" />
+      ) : (
+        <canvas
+          ref={canvasRef}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "block",
+            cursor: "grab",
+            opacity: 1,
+          }}
+        />
+      )}
     </div>
   );
 };
