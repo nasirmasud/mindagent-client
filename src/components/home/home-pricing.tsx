@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { PriceCardShell, usePriceCardHover } from "@/components/shared/price-card-shell";
 
 const plans = [
   {
@@ -51,6 +54,8 @@ const plans = [
 ];
 
 export function HomePricing() {
+  const { shellProps } = usePriceCardHover();
+
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
@@ -66,14 +71,9 @@ export function HomePricing() {
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3 lg:items-stretch">
           {plans.map((plan) => (
-            <div
+            <PriceCardShell
               key={plan.name}
-              className={cn(
-                "relative flex flex-col rounded-2xl border bg-card p-8",
-                plan.highlighted
-                  ? "border-primary shadow-2xl shadow-primary/20 lg:-my-3 lg:p-10"
-                  : "border-border"
-              )}
+              {...shellProps(plan.name, plan.highlighted)}
             >
               {plan.badge && (
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
@@ -111,7 +111,7 @@ export function HomePricing() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </PriceCardShell>
           ))}
         </div>
       </div>
