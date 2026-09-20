@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { siteContact } from "@/lib/site-info";
 
 const platformLinks = [
   { href: "/explore", label: "AI Agents" },
@@ -165,7 +166,7 @@ export function Footer() {
                   <path d="M3 6h18v12H3z" />
                   <path d="m3 7 9 6 9-6" />
                 </svg>
-                <span>hello@mindagent.ai</span>
+                <span>{siteContact.email}</span>
               </li>
               <li className="flex items-start gap-2">
                 <svg
@@ -178,7 +179,7 @@ export function Footer() {
                 >
                   <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2Z" />
                 </svg>
-                <span>+1 (555) 123-4567</span>
+                <span>{siteContact.phone}</span>
               </li>
               <li className="flex items-start gap-2">
                 <svg
@@ -192,7 +193,7 @@ export function Footer() {
                   <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                <span>123 AI Street, San Francisco, CA 94107, USA</span>
+                <span>{siteContact.address}</span>
               </li>
             </ul>
           </div>
