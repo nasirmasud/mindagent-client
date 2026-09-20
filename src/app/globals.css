@@ -82,6 +82,11 @@
       linear-gradient(90deg, rgba(124, 92, 255, 0.08) 1px, transparent 1px);
     background-size: var(--grid-size) var(--grid-size);
   }
+  html:not(.dark) body {
+    background-image:
+      linear-gradient(rgba(90, 56, 234, 0.22) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(90, 56, 234, 0.22) 1px, transparent 1px);
+  }
 }
 
 /* ========== Hero Swiper ========== */
@@ -200,11 +205,80 @@
   50% { opacity: 1; }
 }
 
+.live-dot { animation: liveDotFade 2.8s ease-in-out infinite; }
+@keyframes liveDotFade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+
+.agent-row {
+  opacity: 0;
+  transform: translateX(20px);
+}
+.agent-check {
+  opacity: 0;
+  transform: scale(0);
+}
+.rows-animating .agent-row:nth-child(1) { animation: agentRowIn 400ms cubic-bezier(.22,.7,.3,1) 0ms both; }
+.rows-animating .agent-row:nth-child(2) { animation: agentRowIn 400ms cubic-bezier(.22,.7,.3,1) 90ms both; }
+.rows-animating .agent-row:nth-child(3) { animation: agentRowIn 400ms cubic-bezier(.22,.7,.3,1) 180ms both; }
+.rows-animating .agent-row:nth-child(4) { animation: agentRowIn 400ms cubic-bezier(.22,.7,.3,1) 270ms both; }
+.rows-animating .agent-row:nth-child(5) { animation: agentRowIn 400ms cubic-bezier(.22,.7,.3,1) 360ms both; }
+@keyframes agentRowIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.rows-animating .agent-row:nth-child(1) .agent-check { animation: agentCheckPop 260ms cubic-bezier(.22,1.4,.36,1) 300ms both; }
+.rows-animating .agent-row:nth-child(2) .agent-check { animation: agentCheckPop 260ms cubic-bezier(.22,1.4,.36,1) 390ms both; }
+.rows-animating .agent-row:nth-child(3) .agent-check { animation: agentCheckPop 260ms cubic-bezier(.22,1.4,.36,1) 480ms both; }
+.rows-animating .agent-row:nth-child(4) .agent-check { animation: agentCheckPop 260ms cubic-bezier(.22,1.4,.36,1) 570ms both; }
+.rows-animating .agent-row:nth-child(5) .agent-check { animation: agentCheckPop 260ms cubic-bezier(.22,1.4,.36,1) 660ms both; }
+@keyframes agentCheckPop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.security-orb {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255,255,255,.32) 0%, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 50% 108%, rgba(167,139,250,.6) 0%, rgba(167,139,250,0) 55%),
+    linear-gradient(160deg, #8b6cff 0%, #6c4cf1 45%, #4330c4 100%);
+  box-shadow:
+    inset -5px -8px 14px rgba(16,10,50,.5),
+    inset 4px 6px 10px rgba(255,255,255,.16),
+    0 12px 26px -8px rgba(124,92,255,.55);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.security-orb-label {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #d6ccff 55%, #b7a6ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 -1px 1px rgba(255,255,255,.25),
+    0 1px 2px rgba(20,10,60,.28),
+    0 3px 8px rgba(20,10,60,.22),
+    0 6px 16px rgba(20,10,60,.18);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-float,
   .home-float-delay,
   .home-spin-slow,
-  .home-pulse-glow {
+  .home-pulse-glow,
+  .live-dot,
+  .agent-row,
+  .agent-check {
     animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .security-orb {
+    transform: none !important;
+    transition: none !important;
   }
 }
