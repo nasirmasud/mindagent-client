@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { OrbitRing } from "@/components/ui/orbit-ring";
-import { waitForSignal } from "@/lib/load-signals";
+import { waitForSignal, signalReady } from "@/lib/load-signals";
 
 const FADE_MS = 500;
 const FAILSAFE_MS = 10000;
@@ -64,7 +64,10 @@ export function HomeLoader() {
       finished = true;
       unlockScroll();
       setPhase("fading");
-      fadeTimer = window.setTimeout(() => setPhase("done"), FADE_MS);
+      fadeTimer = window.setTimeout(() => {
+        setPhase("done");
+        signalReady("home-loadout");
+      }, FADE_MS);
     };
 
     // Lock scroll only for the duration of the visible overlay.
