@@ -56,7 +56,7 @@ export default function FaqSection() {
 
         <div className="relative max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 px-3 py-1 rounded-full uppercase">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 px-3 py-1 rounded-sm uppercase">
               <MessageCircleQuestion className="w-3.5 h-3.5" />
               FAQ
             </span>
@@ -73,7 +73,7 @@ export default function FaqSection() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`rounded-2xl border bg-white dark:bg-[#1E1A35] px-6 py-5 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
+                className={`rounded-lg border bg-white dark:bg-[#1E1A35] px-6 py-5 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
                   openIndex === i
                     ? "border-indigo-300 dark:border-indigo-500/50 shadow-lg shadow-indigo-500/10"
                     : "border-slate-200 dark:border-[#2E274A] hover:border-indigo-200 dark:hover:border-indigo-500/30"
@@ -87,7 +87,7 @@ export default function FaqSection() {
                     {faq.q}
                   </span>
                   <span
-                    className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center transition-all duration-300 ${
                       openIndex === i
                         ? "bg-indigo-600 rotate-180"
                         : "bg-indigo-50 dark:bg-indigo-900/30"
