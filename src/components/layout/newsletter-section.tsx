@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { glowCard, glowCardTopGlow, primaryActionButton } from "@/components/shared/brand-styles";
+import { cn } from "@/lib/utils";
+import { SectionLabel } from "@/components/home/section-label";
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -17,10 +19,11 @@ export default function NewsletterSection() {
 
   return (
     <section className="w-full px-4 md:px-20 py-16 md:py-24">
-      <div className={`relative mx-auto w-full max-w-3xl px-6 py-12 text-center sm:px-12 sm:py-14 ${glowCard}`}>
+      <div className={`relative mx-auto w-full max-w-3xl px-6 py-12 text-center sm:px-12 sm:py-14 ${cn(glowCard, "rounded-none")}`}>
         <div aria-hidden="true" className={glowCardTopGlow} />
 
-        <h2 className="relative text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        <SectionLabel path="./subscribe" />
+        <h2 className="relative mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Stay Ahead with AI
         </h2>
         <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -38,12 +41,12 @@ export default function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full h-12 pl-11 pr-4 rounded-xl border border-border bg-background/50 text-foreground placeholder:text-muted-foreground text-sm outline-none transition-all duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/25 sm:text-base"
+                className="w-full h-12 pl-11 pr-4 rounded-none border border-border bg-background/50 text-foreground placeholder:text-muted-foreground text-sm outline-none transition-all duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/25 sm:text-base"
               />
             </div>
             <button
               type="submit"
-              className={primaryActionButton}
+              className={`${primaryActionButton} rounded-none`}
             >
               Subscribe
               <ArrowRight className="h-4 w-4 transition-transform duration-250" aria-hidden="true" />
