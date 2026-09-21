@@ -1,4 +1,5 @@
 import { Inbox, PenLine, ScanSearch, UserPlus } from "lucide-react";
+import { SectionLabel } from "./section-label";
 
 const steps = [
   {
@@ -32,36 +33,27 @@ export function HomeSteps() {
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
+          <SectionLabel path="./get-started" />
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Simple Steps to Get Started
           </h2>
         </div>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {steps.map(({ number, icon: Icon, title, description }, i) => (
-            <div key={number} className="relative">
-              {/* Dashed connector between step cards on large screens */}
-              {i < steps.length - 1 && (
-                <div
-                  aria-hidden="true"
-                  className="absolute -right-4 top-7 hidden w-8 border-t-2 border-dashed border-border lg:block"
-                />
-              )}
-
-              <div className="flex h-full flex-col items-center rounded-2xl border border-border bg-card px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10">
-                <div className="relative">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary bg-primary/5 text-primary">
-                    <Icon className="h-6 w-6" aria-hidden="true" />
-                  </span>
-                  <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                    {number}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-base font-bold text-foreground">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {description}
-                </p>
+        <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          {steps.map(({ number, icon: Icon, title, description }) => (
+            <div key={number} className="relative flex h-full flex-col items-center bg-card px-5 py-8 text-center transition-colors duration-300 hover:bg-accent/40">
+              <div className="relative">
+                <span className="flex h-14 w-14 items-center justify-center border-2 border-primary bg-primary/5 text-primary">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <span className="absolute -right-3 -top-3 flex h-6 w-6 items-center justify-center bg-primary font-mono text-xs font-bold text-primary-foreground">
+                  {number}
+                </span>
               </div>
+              <h3 className="mt-5 text-base font-bold text-foreground">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {description}
+              </p>
             </div>
           ))}
         </div>
