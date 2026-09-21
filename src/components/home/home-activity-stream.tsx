@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowRight, Terminal } from "lucide-react";
+import { SectionLabel } from "./section-label";
 
 const LOG_POOL = [
   { level: "INFO", text: "research-agent - started task #4821 (web-search)" },
@@ -59,29 +60,30 @@ export function HomeActivityStream() {
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <SectionLabel path="./logs" />
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Live Agent Activity Stream
           </h2>
-          <button className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+          <button className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             View all logs
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
           </button>
         </div>
 
         {/* Terminal card */}
-        <div className="mt-10 overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl shadow-primary/10">
+        <div className="mt-10 overflow-hidden rounded-none border border-slate-800 bg-slate-950 shadow-2xl shadow-primary/10">
           <div className="flex items-center justify-between border-b border-slate-800 bg-slate-800/50 px-4 py-3">
             <div className="flex items-center gap-1.5" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
               <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
               <span className="h-3 w-3 rounded-full bg-[#28C840]" />
             </div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-medium text-slate-400">
               <Terminal className="h-3.5 w-3.5" aria-hidden="true" />
               mindagent agent logs
             </span>
-            <span className="flex items-center gap-1.5 text-xs text-slate-400" aria-hidden="true">
+            <span className="flex items-center gap-1.5 font-mono text-xs text-slate-400" aria-hidden="true">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               live
             </span>
