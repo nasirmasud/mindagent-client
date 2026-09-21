@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowRight, Terminal } from "lucide-react";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const LOG_POOL = [
   { level: "INFO", text: "research-agent - started task #4821 (web-search)" },
@@ -60,16 +60,16 @@ export function HomeActivityStream() {
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <SectionLabel path="./logs" />
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Live Agent Activity Stream
-          </h2>
-          <button className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
-            View all logs
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-          </button>
-        </div>
+        <SectionHeader
+          label="./logs"
+          title="Live Agent Activity Stream"
+          action={
+            <button className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+              View all logs
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+            </button>
+          }
+        />
 
         {/* Terminal card */}
         <div className="mt-10 overflow-hidden rounded-none border border-slate-800 bg-slate-950 shadow-2xl shadow-primary/10">
