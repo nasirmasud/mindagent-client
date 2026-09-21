@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import Link from "next/link";
+import { SectionLabel } from "./section-label";
 
 const testimonials = [
   {
@@ -95,19 +96,20 @@ export function HomeTestimonials() {
   return (
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col items-center gap-6 md:flex-row md:items-end md:justify-center">
-          <div>
+        <div>
+          <SectionLabel path="./testimonials" />
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               Loved by Users Worldwide
             </h2>
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Read all reviews
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
-          <Link
-            href="/about"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            Read all reviews
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
         </div>
 
         <div className="relative mt-10">
@@ -119,14 +121,14 @@ export function HomeTestimonials() {
               {Array.from({ length: pageCount }).map((_, pageIdx) => (
                 <div
                   key={pageIdx}
-                  className="grid w-full shrink-0 grid-cols-1 gap-5 md:grid-cols-3"
+                  className="grid w-full shrink-0 grid-cols-1 gap-px border border-border bg-border md:grid-cols-3"
                 >
                   {testimonials
                     .slice(pageIdx * PER_PAGE, pageIdx * PER_PAGE + PER_PAGE)
                     .map((t) => (
                       <div
                         key={t.name}
-                        className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10"
+                        className="flex flex-col bg-card p-6 transition-colors duration-300 hover:bg-accent/40"
                       >
                         <Quote
                           className="h-6 w-6 text-primary/40"
@@ -149,7 +151,7 @@ export function HomeTestimonials() {
                               <p className="truncate text-sm font-bold text-foreground">
                                 {t.name}
                               </p>
-                              <p className="truncate text-xs text-muted-foreground">
+                              <p className="truncate font-mono text-xs text-muted-foreground">
                                 {t.role}
                               </p>
                             </div>
@@ -178,14 +180,14 @@ export function HomeTestimonials() {
           <button
             onClick={prev}
             aria-label="Previous testimonials"
-            className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:flex"
+            className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-x-4 -translate-y-1/2 items-center justify-center rounded-none border border-border bg-card text-muted-foreground shadow-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:flex"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonials"
-            className="absolute right-0 top-1/2 hidden h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:flex"
+            className="absolute right-0 top-1/2 hidden h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-none border border-border bg-card text-muted-foreground shadow-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:flex"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
