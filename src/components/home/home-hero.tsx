@@ -47,7 +47,7 @@ export function HomeHero() {
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-2">
         {/* Copy */}
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-foreground/80">
+          <span className="inline-flex items-center gap-2 border border-border bg-card px-3.5 py-1.5 font-mono text-xs font-medium text-foreground/80">
             <span className="relative flex h-2 w-2" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
@@ -69,13 +69,13 @@ export function HomeHero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg" className="gap-2">
+            <Button asChild size="lg" className="gap-2 rounded-none">
               <Link href="/login?tab=register">
                 Get started free
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="rounded-none">
               <Link href="/about">Read the docs</Link>
             </Button>
           </div>
@@ -89,13 +89,13 @@ export function HomeHero() {
             className="absolute inset-0 -z-10 scale-90 rounded-full bg-primary/15 blur-3xl"
           />
 
-          <div className="rounded-2xl border border-border bg-card/90 p-5 shadow-2xl shadow-primary/20 backdrop-blur-sm">
+          <div className="rounded-none border border-border bg-card/90 p-5 shadow-2xl shadow-primary/20 backdrop-blur-sm">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <span className="flex h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true" />
-                <span className="text-xs font-medium text-foreground">Agent activity</span>
+                <span className="flex h-2.5 w-2.5 bg-primary" aria-hidden="true" />
+                <span className="font-mono text-xs font-medium text-foreground">Agent activity</span>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-medium text-muted-foreground">
                 <span className="live-dot h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
                 Live
               </span>
@@ -105,26 +105,26 @@ export function HomeHero() {
               {agents.map(({ icon: Icon, color, name, status }) => (
                 <li
                   key={name}
-                  className="agent-row flex items-center gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-accent/60"
+                  className="agent-row flex items-center gap-3 px-2.5 py-2 transition-colors hover:bg-accent/60"
                 >
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${color}`}>
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-none ${color}`}>
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium text-foreground">{name}</span>
-                    <span className="block truncate text-xs text-muted-foreground">{status}</span>
+                    <span className="block truncate font-mono text-xs text-muted-foreground">{status}</span>
                   </span>
                   <Check className="agent-check h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                 </li>
               ))}
             </ul>
 
-            <div className="mt-4 flex items-center justify-between rounded-xl border border-border bg-accent/50 px-3 py-2.5">
+            <div className="mt-4 flex items-center justify-between rounded-none border border-border bg-accent/50 px-3 py-2.5">
               <span className="inline-flex items-center gap-1.5 text-xs text-foreground">
                 <BadgeCheck className="h-4 w-4 text-primary" aria-hidden="true" />
                 120 tasks processed today
               </span>
-              <span className="text-xs font-semibold text-primary">+18% vs yesterday</span>
+              <span className="font-mono text-xs font-semibold text-primary">+18% vs yesterday</span>
             </div>
           </div>
         </div>
