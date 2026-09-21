@@ -228,7 +228,7 @@ function LoginPageInner() {
       `}</style>
 
       <div className='min-h-full w-full flex items-center justify-center px-4 py-4 bg-indigo-50 dark:bg-[#0A0820]'>
-        <div className='auth-card relative w-full max-w-4xl mx-auto bg-white dark:bg-[#1E1A35] rounded-3xl shadow-xl shadow-indigo-100 dark:shadow-indigo-900/20 overflow-hidden grid grid-cols-1 lg:grid-cols-2'>
+        <div className='auth-card relative w-full max-w-4xl mx-auto bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-indigo-100 dark:shadow-indigo-900/20 overflow-hidden grid grid-cols-1 lg:grid-cols-2'>
           {/* Left: brand / promo panel */}
           <div
             className='relative hidden lg:flex flex-col justify-between p-8 text-white overflow-hidden'
@@ -264,7 +264,7 @@ function LoginPageInner() {
                   </p>
                 </div>
                 <div className='relative flex flex-col gap-2.5'>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -283,7 +283,7 @@ function LoginPageInner() {
                       Turn CSV, Excel & JSON into instant insights
                     </span>
                   </div>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -300,7 +300,7 @@ function LoginPageInner() {
                       Your data is encrypted and always private
                     </span>
                   </div>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -346,7 +346,7 @@ function LoginPageInner() {
                   </p>
                 </div>
                 <div className='relative flex flex-col gap-2.5'>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -363,7 +363,7 @@ function LoginPageInner() {
                       Free plan - no credit card required
                     </span>
                   </div>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -382,7 +382,7 @@ function LoginPageInner() {
                       Analyze CSV, Excel & JSON instantly
                     </span>
                   </div>
-                  <div className='flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
+                  <div className='flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-300 hover:translate-x-1 hover:bg-white/10'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 24 24'
@@ -493,7 +493,7 @@ function LoginPageInner() {
                         setLoginEmail(e.target.value);
                         setLoginErrors((prev) => ({ ...prev, email: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         loginErrors.email
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -534,7 +534,7 @@ function LoginPageInner() {
                           password: false,
                         }));
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         loginErrors.password
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -566,7 +566,7 @@ function LoginPageInner() {
                   <button
                     type='submit'
                     disabled={loginLoading}
-                    className='w-full h-11 rounded-xl bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
+                    className='w-full h-11 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
                   >
                     {loginLoading ? "Logging in..." : "Log In"}
                     <svg
@@ -588,7 +588,7 @@ function LoginPageInner() {
                 <button
                   onClick={handleDemoLogin}
                   disabled={loginLoading}
-                  className='w-full h-11 mt-3 rounded-xl border border-dashed border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:-translate-y-0.5 disabled:opacity-60'
+                  className='w-full h-11 mt-3 rounded-lg border border-dashed border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:-translate-y-0.5 disabled:opacity-60'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -639,7 +639,7 @@ function LoginPageInner() {
                     : "opacity-0 pointer-events-none"
                 }`}
               >
-                <span className='inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 px-3 py-1 rounded-full uppercase mb-4'>
+                <span className='inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 px-3 py-1 rounded-sm uppercase mb-4'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -696,7 +696,7 @@ function LoginPageInner() {
                               if (avatarInputRef.current)
                                 avatarInputRef.current.value = "";
                             }}
-                            className='absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors'
+                            className='absolute -top-1 -right-1 w-5 h-5 rounded-sm bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors'
                           >
                             <svg
                               xmlns='http://www.w3.org/2000/svg'
@@ -779,7 +779,7 @@ function LoginPageInner() {
                         setRegName(e.target.value);
                         setRegErrors((prev) => ({ ...prev, name: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         regErrors.name
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -817,7 +817,7 @@ function LoginPageInner() {
                         setRegEmail(e.target.value);
                         setRegErrors((prev) => ({ ...prev, email: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         regErrors.email
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -856,7 +856,7 @@ function LoginPageInner() {
                         setRegErrors((prev) => ({ ...prev, password: false }));
                         updateStrength(e.target.value);
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         regErrors.password
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -921,7 +921,7 @@ function LoginPageInner() {
                         setRegConfirm(e.target.value);
                         setRegErrors((prev) => ({ ...prev, confirm: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-xl border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
                         regErrors.confirm
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -962,7 +962,7 @@ function LoginPageInner() {
                   <button
                     type='submit'
                     disabled={regLoading}
-                    className='w-full h-11 mt-3 rounded-xl bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
+                    className='w-full h-11 mt-3 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
                   >
                     {regLoading ? "Creating..." : "Create Account"}
                     <svg
