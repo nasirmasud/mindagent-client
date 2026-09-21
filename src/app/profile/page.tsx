@@ -78,7 +78,7 @@ function StatCard({
   value: number;
 }) {
   return (
-    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
       <div className="w-9 h-9 rounded-lg bg-[#7C5CFC] flex items-center justify-center mb-4">
         <Icon className="w-4 h-4 text-white" />
       </div>
@@ -103,7 +103,7 @@ function DonutCard({
 }) {
   if (data.length === 0) {
     return (
-      <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+      <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
         <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
         <div className="flex items-center justify-center h-28 text-[#9C97B5] text-xs">
           No data yet
@@ -113,7 +113,7 @@ function DonutCard({
   }
 
   return (
-    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
       <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
       <div className="flex items-center gap-4">
         <div className="relative w-28 h-28 shrink-0">
@@ -392,7 +392,7 @@ export default function ProfilePage() {
           </button>
         </div>
 
-        <div className="relative overflow-hidden bg-[#131320] border border-[#232235] rounded-2xl p-6 flex items-center justify-between">
+        <div className="relative overflow-hidden bg-[#131320] border border-[#232235] rounded-lg p-6 flex items-center justify-between">
           <div className="flex items-center gap-5">
             <div className="relative">
               {user?.avatar ? (
@@ -408,7 +408,7 @@ export default function ProfilePage() {
                   </span>
                 </div>
               )}
-              <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#7C5CFC] flex items-center justify-center border-2 border-[#131320]">
+              <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-lg bg-[#7C5CFC] flex items-center justify-center border-2 border-[#131320]">
                 <Camera className="w-3.5 h-3.5 text-white" />
               </button>
             </div>
@@ -421,7 +421,7 @@ export default function ProfilePage() {
                 <Mail className="w-3.5 h-3.5" />
                 {user?.email}
                 <ChevronDown className="w-3.5 h-3.5" />
-                <span className="flex items-center gap-1 bg-[#1E1A35] text-[#C9C3EA] text-xs px-2 py-0.5 rounded-full">
+                <span className="flex items-center gap-1 bg-[#1E1A35] text-[#C9C3EA] text-xs px-2 py-0.5 rounded-sm">
                   {user?.authProvider === "google" ? "Google" : "Email"}
                 </span>
               </div>
@@ -431,7 +431,7 @@ export default function ProfilePage() {
               </div>
               <div className="flex items-center gap-2 mt-2 text-sm text-[#A09BB5]">
                 Preferred AI Provider
-                <span className="flex items-center gap-1 bg-[#1E1A35] text-slate-200 text-xs font-medium px-2.5 py-1 rounded-full">
+                <span className="flex items-center gap-1 bg-[#1E1A35] text-slate-200 text-xs font-medium px-2.5 py-1 rounded-sm">
                   {provider}
                 </span>
               </div>
@@ -443,7 +443,7 @@ export default function ProfilePage() {
             <img
               src="/favicon.ico"
               alt="MindAgent"
-              className="w-24 h-24 rounded-2xl z-10 object-contain drop-shadow-lg"
+              className="w-24 h-24 rounded-lg z-10 object-contain drop-shadow-lg"
             />
             {[
               TrendingUp,
@@ -499,7 +499,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+              <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-semibold">Recent Activity</h3>
                   <Link
@@ -558,7 +558,7 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+              <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-semibold">Recent Reports</h3>
                   <Link
@@ -607,7 +607,7 @@ export default function ProfilePage() {
                               })}
                             </p>
                           </div>
-                          <span className="text-[11px] font-medium bg-emerald-950 text-emerald-400 px-2 py-1 rounded-full shrink-0">
+                          <span className="text-[11px] font-medium bg-emerald-950 text-emerald-400 px-2 py-1 rounded-sm shrink-0">
                             Completed
                           </span>
                           <ChevronRight className="w-4 h-4 text-[#8B86A3] group-hover:text-[#A09BB5] shrink-0" />
@@ -620,8 +620,8 @@ export default function ProfilePage() {
             </div>
           </>
         ) : (
-          <div className="bg-[#131320] border border-[#232235] rounded-2xl p-10 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#7C5CFC]/15 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[#131320] border border-[#232235] rounded-lg p-10 text-center">
+            <div className="w-14 h-14 rounded-lg bg-[#7C5CFC]/15 flex items-center justify-center mx-auto mb-4">
               <Sparkles className="w-6 h-6 text-[#9B85FF]" />
             </div>
             <h3 className="text-lg font-bold text-white">
