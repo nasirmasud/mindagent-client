@@ -3,7 +3,7 @@
 import { FileText, KeyRound, Lock, ShieldHalf } from "lucide-react";
 import { useRef } from "react";
 import type { PointerEvent } from "react";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const features = [
   { name: "AES-256", detail: "Encryption at rest" },
@@ -78,15 +78,12 @@ export function HomeSecurity() {
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
-          <SectionLabel path="./security" />
-          <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Enterprise Security &amp; Compliance
-          </h2>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Your data is encrypted in transit and at rest, audited by third
-            parties, and governed by strict access controls - so you stay
-            compliant while you ship.
-          </p>
+          <SectionHeader
+          align="left"
+          label="./security"
+          title="Enterprise Security &amp; Compliance"
+          description="Your data is encrypted in transit and at rest, audited by third parties, and governed by strict access controls - so you stay compliant while you ship."
+        />
 
           {/* Security features */}
           <div className="mt-8 flex flex-wrap gap-5">
