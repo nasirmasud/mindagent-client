@@ -5,6 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PriceCardShell, usePriceCardHover } from "@/components/shared/price-card-shell";
+import { SectionLabel } from "./section-label";
 
 const plans = [
   {
@@ -60,6 +61,7 @@ export function HomePricing() {
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
+          <SectionLabel path="./pricing" />
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Simple, Transparent Pricing
           </h2>
@@ -74,28 +76,29 @@ export function HomePricing() {
             <PriceCardShell
               key={plan.name}
               {...shellProps(plan.name, plan.highlighted)}
+              className="rounded-none"
             >
               {plan.badge && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary px-4 py-1 font-mono text-xs font-semibold text-primary-foreground">
                   {plan.badge}
                 </span>
               )}
 
               <h3 className="text-lg font-bold text-foreground">{plan.name}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{plan.tagline}</p>
+              <p className="mt-1 font-mono text-sm text-muted-foreground">{plan.tagline}</p>
 
               <div className="mt-6 flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight text-foreground">
+                <span className="font-mono text-4xl font-bold tracking-tight text-foreground">
                   ${plan.price}
                 </span>
-                <span className="text-sm text-muted-foreground">/month</span>
+                <span className="font-mono text-sm text-muted-foreground">/month</span>
               </div>
 
               <Button
                 asChild
                 variant={plan.highlighted ? "default" : "outline"}
                 size="lg"
-                className={cn("mt-8 w-full gap-2", plan.highlighted && "")}
+                className={cn("mt-8 w-full gap-2 rounded-none", plan.highlighted && "")}
               >
                 <Link href={plan.href}>
                   {plan.cta}
