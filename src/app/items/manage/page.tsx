@@ -46,7 +46,7 @@ function StatCard({
   value: number | string;
 }) {
   return (
-    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
       <div className="w-9 h-9 rounded-lg bg-[#7C5CFC] flex items-center justify-center mb-4">
         <Icon className="w-4 h-4 text-white" />
       </div>
@@ -71,7 +71,7 @@ function DonutCard({
 }) {
   if (data.length === 0) {
     return (
-      <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+      <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
         <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
         <div className="flex items-center justify-center h-28 text-[#9C97B5] text-xs">
           No data yet
@@ -81,7 +81,7 @@ function DonutCard({
   }
 
   return (
-    <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+    <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
       <h4 className="text-sm font-semibold text-white mb-3">{title}</h4>
       <div className="flex items-center gap-4">
         <div className="relative w-28 h-28 shrink-0">
@@ -263,12 +263,12 @@ export default function ManageItemsPage() {
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-16 bg-[#131320] border border-[#232235] rounded-xl animate-pulse"
+                  className="h-16 bg-[#131320] border border-[#232235] rounded-lg animate-pulse"
                 />
               ))}
             </div>
           ) : items.length === 0 ? (
-            <div className="bg-[#131320] border border-[#232235] rounded-2xl p-12 text-center">
+            <div className="bg-[#131320] border border-[#232235] rounded-lg p-12 text-center">
               <FileText className="h-16 w-16 text-[#8B86A3] mx-auto mb-4" />
               <p className="text-lg font-medium text-white mb-2">
                 No analysis reports yet
@@ -284,7 +284,7 @@ export default function ManageItemsPage() {
               </Button>
             </div>
           ) : (
-            <div className="bg-[#131320] border border-[#232235] rounded-2xl overflow-hidden">
+            <div className="bg-[#131320] border border-[#232235] rounded-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-[#0B0B1F] border-b border-[#232235]">
