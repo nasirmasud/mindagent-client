@@ -1,6 +1,6 @@
 import { Activity, Bot, Gauge, Star } from "lucide-react";
 import { GlobePulse } from "@/components/lightswind/globe-pulse";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const pills = [
   { icon: Bot, value: "15,000+", label: "Agents deployed" },
@@ -14,14 +14,12 @@ export function HomeTrustStats() {
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-1">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
-          <SectionLabel path="./metrics" />
-          <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Trusted by 15,000+ Users
-          </h2>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-            Real teams rely on MindAgent every day to automate research, content,
-            and data work - and the numbers keep climbing.
-          </p>
+          <SectionHeader
+          align="left"
+          label="./metrics"
+          title="Trusted by 15,000+ Users"
+          description="Real teams rely on MindAgent every day to automate research, content, and data work - and the numbers keep climbing."
+        />
 
           <div className="mt-8 flex flex-wrap gap-3">
             {pills.map(({ icon: Icon, value, label }) => (
