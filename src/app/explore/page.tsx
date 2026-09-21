@@ -302,7 +302,7 @@ export default function ExplorePage() {
               <CardHeader>
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <CardTitle className="text-lg">{name}</CardTitle>
