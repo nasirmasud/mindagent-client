@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BarChart3, Bot, Code2, Image as ImageIcon, PenLine, Search } from "lucide-react";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const features = [
   {
@@ -51,16 +51,11 @@ export function HomeFeatureGrid() {
   return (
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel path="./agents" />
-          <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Every agent, scoped to one job.
-          </h2>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            No one-size-fits-all chatbots. Pick a focused agent, give it your
-            input, and get a result built for exactly that task.
-          </p>
-        </div>
+        <SectionHeader
+          label="./agents"
+          title="Every agent, scoped to one job."
+          description="No one-size-fits-all chatbots. Pick a focused agent, give it your input, and get a result built for exactly that task."
+        />
 
         <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {features.map(({ icon: Icon, tag, title, description, href }) => (
