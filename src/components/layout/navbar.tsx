@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuthContext } from "@/providers/auth-provider";
 import { toast } from "sonner";
 import { ThemeToggle } from "./theme-toggle";
@@ -19,23 +20,21 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const baseLinks = [
-  { href: "/explore", label: "/explore", mono: true },
-  { href: "/pricing", label: "/pricing", mono: true },
-];
+const baseLinks = [{ href: "/explore" }, { href: "/pricing" }];
 
 const authLinks = [
-  { href: "/ai-chat", label: "AI Chat" },
-  { href: "/content-generator", label: "Content Generator" },
-  { href: "/data-analyzer", label: "Data Analyzer" },
-  { href: "/image-analyzer", label: "Image Analyzer" },
+  { href: "/ai-chat" },
+  { href: "/content-generator" },
+  { href: "/data-analyzer" },
+  { href: "/image-analyzer" },
 ];
 
-const contactLink = { href: "/contact", label: "/contact", mono: true };
+const contactLink = { href: "/contact" };
 
 export function Navbar() {
   const { user, isAuthenticated, logout, loading } = useAuthContext();
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -47,19 +46,23 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-muted-foreground" aria-label="Main navigation">
-          {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                (link as { mono?: boolean }).mono && "font-mono"
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden lg:flex items-center gap-8 font-medium text-muted-foreground" aria-label="Main navigation">
+          {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "font-mono text-[15px] rounded-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  active ? "text-primary" : "hover:text-primary"
+                )}
+              >
+                {link.href}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3 shrink-0">
@@ -73,19 +76,23 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-8">
-                {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "text-lg font-medium transition hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                      (link as { mono?: boolean }).mono && "font-mono"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {[...baseLinks, ...(!loading && isAuthenticated ? authLinks : []), contactLink].map((link) => {
+                  const active = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "font-mono text-lg font-medium transition rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                        active ? "text-primary" : "text-muted-foreground hover:text-primary"
+                      )}
+                    >
+                      {link.href}
+                    </Link>
+                  );
+                })}
                 <hr className="my-2 border-border" />
                 {!loading && isAuthenticated ? (
                   <>
