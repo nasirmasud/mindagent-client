@@ -14,10 +14,10 @@ export function HomeStatsStrip() {
             key={s.label}
             className="px-4 text-center md:px-6 md:text-left"
           >
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">
               {s.label}
             </p>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-foreground">
+            <p className="mt-2 font-mono text-4xl font-bold tracking-tight text-foreground">
               {s.value}
             </p>
           </div>
