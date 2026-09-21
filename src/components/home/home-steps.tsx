@@ -43,7 +43,7 @@ export function HomeSteps() {
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "absolute top-1/2 -right-2 z-20 flex h-4 w-4 -translate-y-1/2 items-center justify-center bg-card text-primary",
+                      "absolute top-1/2 -right-2 z-20 flex h-4 w-4 -translate-y-1/2 items-center justify-center text-primary",
                       i === 1 ? "hidden lg:flex" : "hidden md:flex"
                     )}
                   >
