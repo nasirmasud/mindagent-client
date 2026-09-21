@@ -117,7 +117,7 @@ export function Navbar() {
           {!loading && isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full max-lg:hidden">
+                <Button variant="ghost" className="relative h-8 w-8 rounded-md max-lg:hidden">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.avatar} alt={user?.name || "User"} />
                     <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
