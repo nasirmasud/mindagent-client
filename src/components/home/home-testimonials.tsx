@@ -1,9 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
-import Link from "next/link";
-import { SectionLabel } from "./section-label";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { SectionHeader } from "./section-header";
 
 const testimonials = [
   {
@@ -96,21 +95,11 @@ export function HomeTestimonials() {
   return (
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div>
-          <SectionLabel path="./testimonials" />
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Loved by Users Worldwide
-            </h2>
-            <Link
-              href="/about"
-              className="group inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              Read all reviews
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
+        <SectionHeader
+          label="./testimonials"
+          title="Loved by Users Worldwide"
+          link={{ href: "/about", label: "Read all reviews" }}
+        />
 
         <div className="relative mt-10">
           <div className="overflow-hidden">
