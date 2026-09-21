@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, MessageCircleQuestion } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionLabel } from "./section-label";
 
 type Faq = { q: string; a: string };
 
@@ -99,18 +100,19 @@ export function HomeFaq() {
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-3xl">
         <div className="text-center">
+          <SectionLabel path="./help" />
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Frequently Asked Questions
           </h2>
         </div>
 
-        <div className="mt-10 flex justify-center gap-1 rounded-full border border-border bg-card p-1">
+        <div className="mt-10 flex justify-center gap-1 border border-border bg-card p-1">
           {faqTabs.map((t, i) => (
             <button
               key={t.label}
               onClick={() => selectTab(i)}
               className={cn(
-                "flex-1 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "flex-1 whitespace-nowrap px-4 py-2 font-mono text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 i === activeTab
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -121,7 +123,7 @@ export function HomeFaq() {
           ))}
         </div>
 
-        <div className="mt-6 divide-y divide-border rounded-2xl border border-border bg-card">
+        <div className="mt-6 divide-y divide-border border border-border bg-card">
           {tab.items.map((item, i) => {
             const open = openIndex === i;
             return (
@@ -166,7 +168,7 @@ export function HomeFaq() {
           })}
         </div>
 
-        <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-center">
+        <div className="mt-8 border border-border bg-card p-6 text-center">
           <MessageCircleQuestion className="mx-auto h-8 w-8 text-primary" aria-hidden="true" />
           <p className="mt-3 text-base font-semibold text-foreground">
             Still have questions?
