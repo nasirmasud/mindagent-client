@@ -70,7 +70,7 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        <div className="bg-[#131320] border border-[#232235] rounded-2xl p-5">
+        <div className="bg-[#131320] border border-[#232235] rounded-lg p-5">
           <h3 className="font-semibold mb-4">Settings</h3>
           <div className="space-y-6">
             <div>
@@ -127,7 +127,7 @@ export default function SettingsPage() {
                   <p className="text-sm font-medium text-white">
                     Change Password
                   </p>
-                  <span className="text-xs bg-[#1E1A35] text-[#A09BB5] px-2 py-0.5 rounded-full">
+                  <span className="text-xs bg-[#1E1A35] text-[#A09BB5] px-2 py-0.5 rounded-sm">
                     Email Account
                   </span>
                 </div>
@@ -177,7 +177,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="bg-red-950/30 border border-red-900 rounded-2xl px-5 py-4 flex items-center justify-between gap-4 flex-wrap">
+        <div className="bg-red-950/30 border border-red-900 rounded-lg px-5 py-4 flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3 min-w-0">
             <span className="w-9 h-9 shrink-0 rounded-lg bg-red-950 border border-red-800 flex items-center justify-center">
               <Trash2 className="w-4 h-4 text-red-400" />

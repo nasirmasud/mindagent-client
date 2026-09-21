@@ -81,7 +81,7 @@ export function DashboardLayout({
             <LogOut className="w-4 h-4" />
             Log Out
           </button>
-          <div className="bg-[#131320] border border-[#232235] rounded-xl p-4">
+          <div className="bg-[#131320] border border-[#232235] rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
               <Crown className="w-4 h-4 text-[#FBBF24]" />
               <span className="text-sm font-semibold text-white">Pro</span>

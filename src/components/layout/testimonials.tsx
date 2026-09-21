@@ -112,7 +112,7 @@ export default function Testimonials() {
 
         {/* Carousel */}
         <div className="relative mt-8 group/carousel">
-          <div className="overflow-hidden rounded-2xl">
+          <div className="overflow-hidden rounded-lg">
             <div
               className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${page * 100}%)` }}
@@ -127,7 +127,7 @@ export default function Testimonials() {
                     .map((t) => (
                       <div
                         key={t.name}
-                        className="group relative flex flex-col rounded-2xl border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50"
+                        className="group relative flex flex-col rounded-lg border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50"
                       >
                         <Quote
                           className="h-6 w-6 text-indigo-200 dark:text-indigo-700 transition-colors duration-300 group-hover:text-indigo-300 dark:group-hover:text-indigo-500"
@@ -177,14 +177,14 @@ export default function Testimonials() {
           <button
             onClick={prev}
             aria-label="Previous testimonials"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonials"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

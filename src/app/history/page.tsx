@@ -77,7 +77,7 @@ function Row({
   deleting: boolean;
 }) {
   return (
-    <div className="bg-[#131320] border border-[#232235] rounded-xl p-4 flex items-center gap-4">
+    <div className="bg-[#131320] border border-[#232235] rounded-lg p-4 flex items-center gap-4">
       <span className="w-10 h-10 shrink-0 rounded-lg bg-[#2E274A] flex items-center justify-center">
         <Icon className="w-4 h-4 text-[#9B85FF]" />
       </span>
@@ -123,8 +123,8 @@ function EmptyState({
   actionHref: string;
 }) {
   return (
-    <div className="bg-[#131320] border border-dashed border-[#232235] rounded-xl p-10 flex flex-col items-center text-center gap-3">
-      <span className="w-12 h-12 rounded-xl bg-[#1E1A35] flex items-center justify-center">
+    <div className="bg-[#131320] border border-dashed border-[#232235] rounded-lg p-10 flex flex-col items-center text-center gap-3">
+      <span className="w-12 h-12 rounded-lg bg-[#1E1A35] flex items-center justify-center">
         <Icon className="w-5 h-5 text-[#9C97B5]" />
       </span>
       <p className="text-sm text-[#A09BB5]">{title}</p>

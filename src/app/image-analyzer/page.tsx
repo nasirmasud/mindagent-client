@@ -217,7 +217,7 @@ export default function ImageAnalyzerPage() {
       <section className="relative overflow-hidden border-b border-border pt-10 pb-8 md:pt-12 md:pb-10">
         <div className="pointer-events-none absolute -top-52 left-[15%] h-[480px] w-[480px] rounded-full opacity-25 blur-3xl" style={{ background: "radial-gradient(closest-side, hsl(var(--primary)), transparent)" }} />
         <div className="relative z-10 mx-auto max-w-[1600px] px-4 text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs text-primary">
+          <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-card px-3 py-1 text-xs text-primary">
             <ScanEye size={12} /> Multimodal understanding
           </span>
           <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl lg:text-6xl">
@@ -237,7 +237,7 @@ export default function ImageAnalyzerPage() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
           {/* History sidebar */}
           <aside className="order-2 lg:order-1">
-            <div className="rounded-2xl border border-border bg-card p-4 lg:sticky lg:top-24">
+            <div className="rounded-lg border border-border bg-card p-4 lg:sticky lg:top-24">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="flex items-center gap-2 text-sm font-medium">
                   <Clock size={14} className="text-primary" /> History
@@ -262,7 +262,7 @@ export default function ImageAnalyzerPage() {
                     <div
                       key={h._id}
                       onClick={() => loadHistoryItem(h)}
-                      className="flex w-full items-center gap-2.5 rounded-xl border border-transparent bg-muted p-2 text-left transition-colors hover:border-border cursor-pointer"
+                      className="flex w-full items-center gap-2.5 rounded-lg border border-transparent bg-muted p-2 text-left transition-colors hover:border-border cursor-pointer"
                     >
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                         <ImageIcon size={14} className="text-primary" />
@@ -294,14 +294,14 @@ export default function ImageAnalyzerPage() {
                   onDragLeave={() => setDragging(false)}
                   onDrop={onDrop}
                   onClick={() => !preview && inputRef.current?.click()}
-                  className={`relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed transition-colors ${
+                  className={`relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed transition-colors ${
                     dragging ? "border-primary bg-primary/10" : "border-primary/50 bg-card/60 dark:bg-[#0F0D26]/70 hover:border-primary hover:bg-primary/5"
                   } ${!preview ? "cursor-pointer" : ""}`}
                 >
                   <input ref={inputRef} type="file" accept="image/*" onChange={onPick} className="hidden" />
                   {!preview && (
                     <div className="flex flex-col items-center px-6 text-center">
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-primary/10">
                         <UploadCloud size={24} className="text-primary" />
                       </div>
                       <p className="text-sm font-medium">Drag an image here, or browse</p>
@@ -325,13 +325,13 @@ export default function ImageAnalyzerPage() {
                             className="pointer-events-none absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-[hsl(var(--primary))] to-transparent shadow-[0_0_16px_2px_hsl(var(--primary)/0.7)]"
                             style={{ animation: "scanY 1.6s ease-in-out infinite alternate" }}
                           />
-                          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-medium text-muted-foreground backdrop-blur">
+                          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-sm bg-black/60 px-2.5 py-1 text-[10px] font-medium text-muted-foreground backdrop-blur">
                             <RefreshCw size={10} className="animate-spin" /> Analyzing&hellip;
                           </div>
                         </>
                       )}
                       {stage === "done" && (
-                        <span className="absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-green-500/90 px-2.5 py-1 text-[10px] font-semibold text-[#0A0A13]">
+                        <span className="absolute bottom-3 left-3 flex items-center gap-1 rounded-sm bg-green-500/90 px-2.5 py-1 text-[10px] font-semibold text-[#0A0A13]">
                           <CheckCircle2 size={11} /> Analyzed
                         </span>
                       )}
@@ -353,14 +353,14 @@ export default function ImageAnalyzerPage() {
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Ask something specific, or leave blank for a general description&hellip;"
                   rows={3}
-                  className="w-full resize-none rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none"
+                  className="w-full resize-none rounded-lg border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none"
                 />
                 <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {promptChips.map((c) => (
                     <button
                       key={c}
                       onClick={() => setPrompt(c)}
-                      className="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                      className="rounded-sm border border-border bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:border-primary/40 hover:text-foreground"
                     >
                       {c}
                     </button>
@@ -370,7 +370,7 @@ export default function ImageAnalyzerPage() {
                 <Button
                   onClick={analyze}
                   disabled={stage === "analyzing" || !preview}
-                  className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary/80 px-5 py-3 text-sm font-medium w-full"
+                  className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary/80 px-5 py-3 text-sm font-medium w-full"
                 >
                   {stage === "analyzing" ? (
                     <><Loader2 size={16} className="animate-spin" /> Analyzing image&hellip;</>
@@ -380,7 +380,7 @@ export default function ImageAnalyzerPage() {
                   </Button>
 
                 {/* Results */}
-                <div className="mt-5 flex-1 rounded-2xl border border-border dark:border-white/10 bg-card/60 dark:bg-[#0F0D26]/70 p-5">
+                <div className="mt-5 flex-1 rounded-lg border border-border dark:border-white/10 bg-card/60 dark:bg-[#0F0D26]/70 p-5">
                   <h3 className="flex items-center gap-2 text-sm font-medium">
                     <Bot size={15} className="text-primary" /> Result
                   </h3>
@@ -441,7 +441,7 @@ export default function ImageAnalyzerPage() {
       {!isAuthenticated && (
         <section className="py-16">
           <div className="mx-auto max-w-[1600px] px-4 text-center">
-<div className="bg-gradient-to-br from-card to-muted border border-border rounded-3xl p-12 md:p-16 relative overflow-hidden">
+<div className="bg-gradient-to-br from-card to-muted border border-border rounded-lg p-12 md:p-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
               <div className="relative">
                 <Sparkles className="w-10 h-10 text-primary mx-auto mb-4" />
@@ -451,7 +451,7 @@ export default function ImageAnalyzerPage() {
                 </p>
                 <Button
                   onClick={() => router.push("/login")}
-                  className="bg-gradient-to-r from-primary to-primary/80 px-8 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
+                  className="bg-gradient-to-r from-primary to-primary/80 px-8 py-3.5 rounded-lg font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
                 >
                   <Wand2 className="w-5 h-5" />
                   Get Started Free

@@ -127,7 +127,7 @@ export default function PricingPage() {
           <span className={cn("text-sm font-medium", yearly ? "text-foreground" : "text-muted-foreground")}>
             Yearly
           </span>
-          <span className="bg-accent border border-border text-accent-foreground text-xs font-medium px-2 py-0.5 rounded-full">
+          <span className="bg-accent border border-border text-accent-foreground text-xs font-medium px-2 py-0.5 rounded-sm">
             Save 20%
           </span>
         </div>
@@ -140,7 +140,7 @@ export default function PricingPage() {
               {...shellProps(plan.name, plan.highlighted)}
             >
               {plan.badge && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-sm bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
                   {plan.badge}
                 </span>
               )}
@@ -183,7 +183,7 @@ export default function PricingPage() {
         </div>
 
         {/* Compare table */}
-        <div className="bg-card border border-border rounded-2xl overflow-hidden mb-14">
+        <div className="bg-card border border-border rounded-lg overflow-hidden mb-14">
           <div className="p-5 border-b border-border">
             <h2 className="font-semibold text-lg">Compare Plans</h2>
           </div>

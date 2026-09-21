@@ -46,13 +46,13 @@ export default function HowItWorks() {
         <div className="mt-10 flex items-stretch gap-2 md:gap-4">
           {steps.map(({ number, icon: Icon, title, description }, i) => (
             <React.Fragment key={number}>
-              <div className="group relative flex-1 min-w-0 rounded-2xl border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50">
+              <div className="group relative flex-1 min-w-0 rounded-lg border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50">
                 {/* Step number badge */}
-                <div className="absolute -top-3 left-4 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white shadow-sm transition-transform duration-300 ease-out group-hover:scale-110">
+                <div className="absolute -top-3 left-4 flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600 text-xs font-bold text-white shadow-sm transition-transform duration-300 ease-out group-hover:scale-110">
                   {number}
                 </div>
 
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900/30 transition-all duration-300 ease-out group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:scale-110 group-hover:rotate-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30 transition-all duration-300 ease-out group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:scale-110 group-hover:rotate-6">
                   <Icon
                     className="h-5 w-5 text-indigo-600 dark:text-indigo-400 transition-transform duration-300"
                     strokeWidth={2}

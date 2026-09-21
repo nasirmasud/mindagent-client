@@ -173,7 +173,7 @@ export default function ContentGeneratorPage() {
         <div className="min-h-[calc(100vh-4rem)] flex flex-col">
         {/* Top bar */}
         <header className="flex items-center gap-3 px-4 sm:px-6 h-16 border-b border-border flex-shrink-0 sticky top-0 bg-background z-10">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
             <FileText className="w-4.5 h-4.5 text-primary-foreground" />
           </div>
           <div className="min-w-0">
@@ -208,7 +208,7 @@ export default function ContentGeneratorPage() {
                   <button
                     key={t.value}
                     onClick={() => setContentType(t.value)}
-                    className={`text-left p-3 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-8px_hsl(var(--primary)/0.2)] hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                    className={`text-left p-3 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-8px_hsl(var(--primary)/0.2)] hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                       active
                         ? "border-primary bg-accent"
                         : "border-border bg-card"
@@ -232,7 +232,7 @@ export default function ContentGeneratorPage() {
               onChange={(e) => setTopic(e.target.value)}
               rows={3}
               placeholder="e.g. Why small businesses should adopt AI agents in 2026"
-              className="w-full rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-250 focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
+              className="w-full rounded-lg border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-250 focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
             />
 
             <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Tone</label>
@@ -241,7 +241,7 @@ export default function ContentGeneratorPage() {
                 <button
                   key={t}
                   onClick={() => setTone(t)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  className={`px-3 py-1.5 rounded-sm text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5 capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     tone === t
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted text-muted-foreground hover:bg-accent"
@@ -275,7 +275,7 @@ export default function ContentGeneratorPage() {
             <Button
               onClick={generate}
               disabled={loading || !topic.trim()}
-              className="w-full h-12 rounded-xl font-semibold text-sm gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_hsl(var(--primary)/0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="w-full h-12 rounded-lg font-semibold text-sm gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_hsl(var(--primary)/0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               <Sparkles className="w-4 h-4" />
               {loading ? "Generating..." : "Generate Content"}
@@ -286,7 +286,7 @@ export default function ContentGeneratorPage() {
           <div className="p-6 sm:p-8 overflow-y-auto bg-muted/40">
             {!output && !loading && (
               <div className="h-full flex flex-col items-center justify-center text-center py-20">
-                <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-lg bg-accent flex items-center justify-center mb-4">
                   <FileText className="w-7 h-7 text-primary" />
                 </div>
                 <p className="text-sm font-semibold text-foreground">Your generated content will appear here</p>
@@ -295,7 +295,7 @@ export default function ContentGeneratorPage() {
             )}
 
             {loading && (
-              <div className="max-w-2xl mx-auto bg-card rounded-2xl border border-border p-6">
+              <div className="max-w-2xl mx-auto bg-card rounded-lg border border-border p-6">
                 <div className="flex items-center gap-2 mb-5">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   <span className="text-xs font-semibold text-primary">Generating your content...</span>
@@ -313,10 +313,10 @@ export default function ContentGeneratorPage() {
 
             {output && !loading && (
               <div className="max-w-2xl mx-auto" ref={resultRef}>
-                <div className="fade-in bg-card rounded-2xl border border-border p-6">
+                <div className="fade-in bg-card rounded-lg border border-border p-6">
                   <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-semibold text-primary bg-accent px-2.5 py-1 rounded-full capitalize">
+                      <span className="text-xs font-semibold text-primary bg-accent px-2.5 py-1 rounded-sm capitalize">
                         {TEMPLATES.find((t) => t.value === contentType)?.label}
                       </span>
                       <span className="text-xs text-muted-foreground">{length.label}</span>
@@ -363,7 +363,7 @@ export default function ContentGeneratorPage() {
                 <div
                   key={item._id}
                   onClick={() => loadHistoryItem(item)}
-                  className="group p-3 rounded-xl border border-border bg-card cursor-pointer transition-all hover:border-primary hover:-translate-y-0.5"
+                  className="group p-3 rounded-lg border border-border bg-card cursor-pointer transition-all hover:border-primary hover:-translate-y-0.5"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
@@ -411,7 +411,7 @@ export default function ContentGeneratorPage() {
                     <div
                       key={item._id}
                       onClick={() => loadHistoryItem(item)}
-                      className="group p-3 rounded-xl border border-border bg-card cursor-pointer transition-all hover:border-primary"
+                      className="group p-3 rounded-lg border border-border bg-card cursor-pointer transition-all hover:border-primary"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0 flex-1">
@@ -438,7 +438,7 @@ export default function ContentGeneratorPage() {
 
       {/* copy toast */}
       <div
-        className={`fixed bottom-6 right-6 bg-foreground text-background text-sm font-medium px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 transition-all duration-250 ${
+        className={`fixed bottom-6 right-6 bg-foreground text-background text-sm font-medium px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-250 ${
           showCopied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
         }`}
       >

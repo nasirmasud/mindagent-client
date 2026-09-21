@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="text-8xl md:text-9xl font-bold bg-gradient-to-br from-indigo-500 to-purple-600 bg-clip-text text-transparent">
           404
         </div>
-        <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-400 flex items-center justify-center text-white text-sm md:text-base font-bold animate-pulse">
+        <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-8 h-8 md:w-10 md:h-10 rounded-md bg-amber-400 flex items-center justify-center text-white text-sm md:text-base font-bold animate-pulse">
           !
         </div>
       </div>

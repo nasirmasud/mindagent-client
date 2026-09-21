@@ -69,9 +69,9 @@ export default function ContactPage() {
               return (
                 <div
                   key={i}
-                  className="flex flex-1 items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 dark:border-[#232235] dark:bg-[#131320]"
+                  className="flex flex-1 items-center gap-4 rounded-lg border border-gray-200 bg-white p-5 dark:border-[#232235] dark:bg-[#131320]"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#7C5CFC]/10">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#7C5CFC]/10">
                     <Icon size={18} className="text-[#9B85FF]" />
                   </span>
                   <div className="min-w-0">
@@ -103,10 +103,10 @@ export default function ContactPage() {
           </div>
 
           {/* Form */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-[#232235] dark:bg-[#131320]">
+          <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-[#232235] dark:bg-[#131320]">
             {sent ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#5ED9A6]/10">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#5ED9A6]/10">
                   <CheckCircle2 size={22} className="text-[#5ED9A6]" />
                 </span>
                 <p className="mt-4 text-sm font-medium">Message sent</p>
