@@ -117,7 +117,7 @@ const COLORS = ["hsl(var(--primary))", "hsl(var(--primary) / 0.55)", "#5CE5D5", 
 /* ───── Section: Testimonial Card ───── */
 function TestimonialCard({ quote, author, role, avatar }: { quote: string; author: string; role: string; avatar: string }) {
   return (
-    <div className="bg-card border border-border rounded-xl p-6 relative group hover:border-primary/40 transition-colors">
+    <div className="bg-card border border-border rounded-lg p-6 relative group hover:border-primary/40 transition-colors">
       <Quote className="text-primary/20 w-8 h-8 absolute top-4 right-4" />
       <p className="text-muted-foreground text-sm leading-relaxed mb-6">&ldquo;{quote}&rdquo;</p>
       <div className="flex items-center gap-3">
@@ -298,7 +298,7 @@ export default function DataAnalyzerPage() {
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[100px]" />
         </div>
         <div className="max-w-6xl mx-auto px-4 relative text-center">
-          <div className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-1.5 text-sm text-muted-foreground mb-6">
+          <div className="inline-flex items-center gap-2 bg-card border border-border rounded-sm px-4 py-1.5 text-sm text-muted-foreground mb-6">
             <Sparkles className="w-4 h-4 text-primary" />
             AI-Powered Data Analysis
           </div>
@@ -319,13 +319,13 @@ export default function DataAnalyzerPage() {
       <section className="pb-16">
         <div className="max-w-4xl mx-auto px-4">
           {!isAuthenticated ? (
-            <div className="bg-card border border-border rounded-2xl p-10 text-center">
+            <div className="bg-card border border-border rounded-lg p-10 text-center">
               <Database className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-2">Ready to analyze your data?</h3>
               <p className="text-muted-foreground mb-6">Log in or create an account to upload files and get AI-powered insights.</p>
               <Button
                 onClick={() => router.push("/login")}
-                className="bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-xl font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
+                className="bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
               >
                 Get Started Free
                 <ArrowRight className="w-4 h-4" />
@@ -333,7 +333,7 @@ export default function DataAnalyzerPage() {
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="bg-card border border-border rounded-2xl p-8">
+              <div className="bg-card border border-border rounded-lg p-8">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h3 className="text-xl font-bold flex items-center gap-2">
@@ -358,7 +358,7 @@ export default function DataAnalyzerPage() {
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
                   onClick={() => fileRef.current?.click()}
-                  className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all ${
+                  className={`border-2 border-dashed rounded-lg p-10 text-center cursor-pointer transition-all ${
                     dragOver
                       ? "border-primary bg-primary/10 shadow-[0_0_0_4px_hsl(var(--primary)/0.15)]"
                       : "border-primary/50 hover:border-primary hover:bg-primary/5"
@@ -401,12 +401,12 @@ export default function DataAnalyzerPage() {
                       onChange={(e) => setUserPrompt(e.target.value)}
                       placeholder="Optional: Ask the AI to focus on something specific (e.g. 'Highlight sales trends by region' or 'Find anomalies')"
                       rows={2}
-                      className="mt-4 w-full rounded-xl border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none transition-all focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
+                      className="mt-4 w-full rounded-lg border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none transition-all focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
                     />
                     <Button
                       onClick={handleUpload}
                       disabled={uploading}
-                      className="mt-4 w-full h-auto bg-gradient-to-r from-primary to-primary/80 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
+                      className="mt-4 w-full h-auto bg-gradient-to-r from-primary to-primary/80 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-[0_0_30px_-8px_hsl(var(--primary))] transition-all"
                     >
                       {uploading ? (
                         <>
@@ -426,7 +426,7 @@ export default function DataAnalyzerPage() {
 
               {/* Upload History Side */}
               {showHistory && (
-                <div className="bg-card border border-border rounded-2xl p-6">
+                <div className="bg-card border border-border rounded-lg p-6">
                   <h4 className="font-semibold mb-4 flex items-center gap-2">
                     <Clock className="w-4 h-4 text-primary" />
                     Analysis History
@@ -494,7 +494,7 @@ export default function DataAnalyzerPage() {
                 <Button
                   variant="outline"
                   onClick={() => handleDownload(currentItem._id)}
-                  className="rounded-xl text-sm gap-2"
+                  className="rounded-lg text-sm gap-2"
                 >
                   <Download className="w-4 h-4" />
                   Report
@@ -502,7 +502,7 @@ export default function DataAnalyzerPage() {
                 <Button
                   variant="outline"
                   onClick={() => setCurrentItem(null)}
-                  className="rounded-xl text-sm gap-2 text-muted-foreground"
+                  className="rounded-lg text-sm gap-2 text-muted-foreground"
                 >
                   <X className="w-4 h-4" />
                   Close
@@ -512,7 +512,7 @@ export default function DataAnalyzerPage() {
 
             <div className="grid lg:grid-cols-2 gap-6 mb-6">
               {/* Summary */}
-              <div className="bg-card border border-border rounded-2xl p-6 lg:col-span-2">
+              <div className="bg-card border border-border rounded-lg p-6 lg:col-span-2">
                 <h3 className="font-semibold mb-3 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-primary" />
                   AI Summary
@@ -527,7 +527,7 @@ export default function DataAnalyzerPage() {
                   <p className="text-muted-foreground text-sm leading-relaxed mb-3">{currentItem.fullDescription}</p>
                 )}
                 {currentItem.insights.summary && (
-                  <div className="bg-muted rounded-xl p-4 mt-2">
+                  <div className="bg-muted rounded-lg p-4 mt-2">
                     <p className="text-xs text-muted-foreground font-medium mb-1">Key Findings</p>
                     <p className="text-muted-foreground text-sm leading-relaxed">{currentItem.insights.summary}</p>
                   </div>
@@ -536,7 +536,7 @@ export default function DataAnalyzerPage() {
 
               {/* KPIs */}
               {(currentItem.insights.kpis.length > 0 || editableKpis.length > 0) && (
-                <div className="bg-card border border-border rounded-2xl p-6">
+                <div className="bg-card border border-border rounded-lg p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold flex items-center gap-2">
                       <Activity className="w-4 h-4 text-primary/80" />
@@ -565,7 +565,7 @@ export default function DataAnalyzerPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {editableKpis.map((kpi, i) => (
-                      <div key={i} className="bg-muted border border-border rounded-xl p-3 text-center group">
+                      <div key={i} className="bg-muted border border-border rounded-lg p-3 text-center group">
                         <select
                           value={kpi.label}
                           onChange={(e) => {
@@ -607,7 +607,7 @@ export default function DataAnalyzerPage() {
 
               {/* Trends */}
               {currentItem.insights.trends.length > 0 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
+                <div className="bg-card border border-border rounded-lg p-6">
                   <h3 className="font-semibold mb-4 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-primary" />
                     Trends
@@ -641,7 +641,7 @@ export default function DataAnalyzerPage() {
             )}
             <div className="grid lg:grid-cols-2 gap-6 mb-6">
               {dynamicChartData.length > 0 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
+                <div className="bg-card border border-border rounded-lg p-6">
                   <h3 className="font-semibold mb-4 flex items-center gap-2">
                     <BarChart3 className="w-4 h-4 text-destructive" />
                     Distribution
@@ -666,7 +666,7 @@ export default function DataAnalyzerPage() {
               )}
 
               {dynamicChartData.length > 0 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
+                <div className="bg-card border border-border rounded-lg p-6">
                   <h3 className="font-semibold mb-4 flex items-center gap-2">
                     <PieChart className="w-4 h-4 text-primary/80" />
                     Breakdown
@@ -698,14 +698,14 @@ export default function DataAnalyzerPage() {
 
             {/* Risks */}
             {currentItem.insights.risks.length > 0 && (
-              <div className="bg-card border border-border rounded-2xl p-6">
+              <div className="bg-card border border-border rounded-lg p-6">
                 <h3 className="font-semibold mb-4 flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive" />
                   Risks & Anomalies
                 </h3>
                 <div className="grid md:grid-cols-2 gap-3">
                   {currentItem.insights.risks.map((risk, i) => (
-                    <div key={i} className="bg-muted border border-destructive/20 rounded-xl p-4 flex items-start gap-3">
+                    <div key={i} className="bg-muted border border-destructive/20 rounded-lg p-4 flex items-start gap-3">
                       <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
                       <p className="text-sm text-muted-foreground">{risk}</p>
                     </div>
@@ -716,7 +716,7 @@ export default function DataAnalyzerPage() {
 
             {/* Data Preview Table */}
             {currentItem.parsedPreview.length > 0 && (
-              <div className="bg-card border border-border rounded-2xl p-6 mt-6">
+              <div className="bg-card border border-border rounded-lg p-6 mt-6">
                 <h3 className="font-semibold mb-4 flex items-center gap-2">
                   <Database className="w-4 h-4 text-primary" />
                   Data Preview
@@ -770,7 +770,7 @@ export default function DataAnalyzerPage() {
                 <button
                   key={item._id}
                   onClick={() => setCurrentItem(item)}
-                  className="text-left bg-card border border-border rounded-xl p-5 hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all cursor-pointer group"
+                  className="text-left bg-card border border-border rounded-lg p-5 hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all cursor-pointer group"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <FileSpreadsheet className="w-8 h-8 text-primary" />
