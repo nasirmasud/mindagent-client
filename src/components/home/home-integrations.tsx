@@ -1,4 +1,5 @@
 import { Figma, Github, Slack } from "lucide-react";
+import { SectionLabel } from "./section-label";
 
 function NotionIcon({ className }: { className?: string }) {
   return (
@@ -89,6 +90,7 @@ export function HomeIntegrations() {
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-12 md:py-16">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
+          <SectionLabel path="./integrations" />
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Integrate Seamlessly with Your Tools
           </h2>
@@ -126,11 +128,11 @@ export function HomeIntegrations() {
           {integrations.map((i) => (
             <div
               key={i.name}
-              className="group absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-xl border border-border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 md:h-[72px] md:w-16"
+              className="group absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 border border-border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 md:h-[72px] md:w-16"
               style={{ left: i.x, top: i.y }}
             >
               {i.icon}
-              <span className="max-w-full text-center text-[10px] font-medium leading-tight">
+              <span className="max-w-full text-center font-mono text-[10px] font-medium leading-tight">
                 {i.name}
               </span>
               <span className="sr-only">MindAgent connects with {i.name}</span>
@@ -143,7 +145,7 @@ export function HomeIntegrations() {
               aria-hidden="true"
               className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-2xl"
             />
-            <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-primary bg-card shadow-2xl shadow-primary/30">
+            <div className="relative flex h-20 w-20 items-center justify-center border-2 border-primary bg-card shadow-2xl shadow-primary/30">
               <img src="/favicon.ico" alt="" className="h-12 w-12" />
               <span className="sr-only">MindAgent hub</span>
             </div>
