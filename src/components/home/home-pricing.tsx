@@ -5,7 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PriceCardShell, usePriceCardHover } from "@/components/shared/price-card-shell";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const plans = [
   {
@@ -60,16 +60,11 @@ export function HomePricing() {
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="text-center">
-          <SectionLabel path="./pricing" />
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Simple, Transparent Pricing
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Start free, upgrade when you&apos;re ready. No hidden fees, cancel
-            anytime.
-          </p>
-        </div>
+        <SectionHeader
+          label="./pricing"
+          title="Simple, Transparent Pricing"
+          description="Start free, upgrade when you're ready. No hidden fees, cancel anytime."
+        />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3 lg:items-stretch">
           {plans.map((plan) => (
