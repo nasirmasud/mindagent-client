@@ -1,5 +1,5 @@
 import { Figma, Github, Slack } from "lucide-react";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 function NotionIcon({ className }: { className?: string }) {
   return (
@@ -89,16 +89,11 @@ export function HomeIntegrations() {
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-12 md:py-16">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="text-center">
-          <SectionLabel path="./integrations" />
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Integrate Seamlessly with Your Tools
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            MindAgent plugs into the stack you already use, so your agents can
-            act where your work actually happens.
-          </p>
-        </div>
+        <SectionHeader
+          label="./integrations"
+          title="Integrate Seamlessly with Your Tools"
+          description="MindAgent plugs into the stack you already use, so your agents can act where your work actually happens."
+        />
 
         {/* Hub-and-spoke diagram */}
         <div className="relative mx-auto mt-10 aspect-square w-full max-w-[820px]" role="img" aria-label="MindAgent connects with Excel, Notion, GitHub, Slack, Gmail, Google Drive, Figma, Discord, Zapier and Google Sheets">
