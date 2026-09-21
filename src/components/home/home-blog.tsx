@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, BarChart3, Lightbulb, LineChart, Wand2 } from "lucide-react";
-import { SectionLabel } from "./section-label";
+import { BarChart3, Lightbulb, LineChart, Wand2 } from "lucide-react";
+import { SectionHeader } from "./section-header";
 
 const posts = [
   {
@@ -33,21 +33,11 @@ export function HomeBlog() {
   return (
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div>
-          <SectionLabel path="./blog" />
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              From our blog
-            </h2>
-            <Link
-              href="/blog"
-              className="group inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              View all
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
+        <SectionHeader
+          label="./blog"
+          title="From our blog"
+          link={{ href: "/blog", label: "View all" }}
+        />
 
         <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {posts.map(({ icon: Icon, tag, title, href }) => (

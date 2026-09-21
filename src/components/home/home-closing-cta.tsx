@@ -2,7 +2,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SectionLabel } from "./section-label";
+import { SectionHeader } from "./section-header";
 
 const Globe = dynamic(() => import("@/components/lightswind/globe"), { ssr: false });
 
@@ -41,12 +41,18 @@ export function HomeClosingCta() {
       />
       <div className="relative z-20 mx-auto w-full max-w-7xl px-4 py-32 md:px-20 md:py-44">
         <div className="max-w-2xl">
-          <SectionLabel path="./launch" />
-          <h2 className="mt-4 max-w-lg text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
-            Your AI Journey
-            <br />
-            Starts Here.
-          </h2>
+          <SectionHeader
+          align="left"
+          label="./launch"
+          titleClassName="max-w-lg leading-tight md:text-5xl"
+          title={
+            <>
+              Your AI Journey
+              <br />
+              Starts Here.
+            </>
+          }
+        />
           <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
             Join 15,000+ users who&apos;ve already put AI agents to work. Set up
             your first agent in under a minute - free, no credit card required.

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { glowCard, glowCardTopGlow, primaryActionButton } from "@/components/shared/brand-styles";
 import { cn } from "@/lib/utils";
-import { SectionLabel } from "@/components/home/section-label";
+import { SectionHeader } from "@/components/home/section-header";
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -22,14 +22,12 @@ export default function NewsletterSection() {
       <div className={`relative mx-auto w-full max-w-3xl px-6 py-12 text-center sm:px-12 sm:py-14 ${cn(glowCard, "rounded-none")}`}>
         <div aria-hidden="true" className={glowCardTopGlow} />
 
-        <SectionLabel path="./subscribe" />
-        <h2 className="relative mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Stay Ahead with AI
-        </h2>
-        <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Get the latest AI news, product updates, and productivity tips -
-          delivered straight to your inbox, once a week.
-        </p>
+        <SectionHeader
+          label="./subscribe"
+          title="Stay Ahead with AI"
+          description="Get the latest AI news, product updates, and productivity tips - delivered straight to your inbox, once a week."
+          titleClassName="text-2xl sm:text-3xl"
+        />
 
         <form onSubmit={handleSubmit} className="relative mt-8 mx-auto max-w-md">
           <div className="flex flex-col sm:flex-row items-stretch gap-3">
