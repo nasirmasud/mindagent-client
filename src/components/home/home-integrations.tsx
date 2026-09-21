@@ -69,7 +69,7 @@ function ExcelIcon({ className }: { className?: string }) {
 }
 
 const iconClass =
-  "h-6 w-6 text-muted-foreground/70 transition-colors duration-300 group-hover:text-foreground";
+  "h-6 w-6 text-slate-700 transition-colors duration-300 group-hover:text-foreground dark:text-muted-foreground/70";
 
 const integrations = [
   { name: "Excel", icon: <ExcelIcon className={iconClass} />, x: "50%", y: "7%" },
