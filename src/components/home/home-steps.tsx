@@ -38,7 +38,14 @@ export function HomeSteps() {
         <div className="mt-14 border border-border">
           <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
             {steps.map(({ number, icon: Icon, title, description }, i) => (
-              <div key={number} className="relative flex h-full flex-col items-center bg-card px-5 py-8 text-center transition-colors duration-300 hover:bg-accent/40">
+              <div
+                key={number}
+                className={cn(
+                  "relative flex h-full flex-col items-center bg-card px-5 py-8 text-center transition-colors duration-300 hover:bg-accent/40",
+                  i === 1 && "border-t border-border md:border-t-0",
+                  i >= 2 && "border-t border-border lg:border-t-0"
+                )}
+              >
                 {i < 3 && (
                   <span
                     aria-hidden="true"
