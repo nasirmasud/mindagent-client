@@ -37,7 +37,7 @@ export function PriceCardShell({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "group relative flex flex-col rounded-2xl border bg-card p-8 transition-[transform,border-color,box-shadow] duration-200 ease-out will-change-transform",
+        "group relative flex flex-col rounded-lg border bg-card p-8 transition-[transform,border-color,box-shadow] duration-200 ease-out will-change-transform",
         enlarged ? "border-primary shadow-2xl shadow-primary/20" : "border-border",
         hovered && "border-primary shadow-2xl shadow-primary/30",
         scaleClass,
