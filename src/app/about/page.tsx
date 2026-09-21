@@ -64,7 +64,7 @@ export default function AboutPage() {
               const Icon = v.icon;
               return (
                 <div key={i} className="text-center sm:text-left">
-                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[#7C5CFC]/10 sm:mx-0">
+                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-[#7C5CFC]/10 sm:mx-0">
                     <Icon size={18} className="text-[#9B85FF]" />
                   </span>
                   <h3 className="mt-3.5 text-sm font-semibold">{v.title}</h3>
@@ -99,7 +99,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-5xl px-4 pb-16">
-        <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-[#232235] bg-[#131320] px-8 py-10 text-center sm:flex-row sm:text-left">
+        <div className="flex flex-col items-center justify-between gap-6 rounded-lg border border-[#232235] bg-[#131320] px-8 py-10 text-center sm:flex-row sm:text-left">
           <div>
             <h2 className="text-xl font-bold">
               Want to build the next agent with us?
