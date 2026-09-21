@@ -16,6 +16,7 @@ import { HomeSteps } from "@/components/home/home-steps";
 import { HomeTestimonials } from "@/components/home/home-testimonials";
 import { HomeTrustStats } from "@/components/home/home-trust-stats";
 import { HomeLoader } from "@/components/layout/home-loader";
+import { SectionLabel } from "@/components/home/section-label";
 import {
   Card,
   CardContent,
@@ -52,12 +53,13 @@ export default function Home() {
       {recommendations.length > 0 && (
         <section className="w-full px-4 md:px-20 pb-24 border-b border-border">
           <div className="mx-auto w-full max-w-7xl">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
+            <SectionLabel path="./recommended" />
+            <h2 className="mt-4 text-2xl font-bold text-foreground mb-6">
               Recommended for You
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
               {recommendations.map((agent) => (
-                <Card key={agent._id} className="border-border bg-card">
+                <Card key={agent._id} className="rounded-none border-border bg-card shadow-none">
                   <CardHeader>
                     <CardTitle className="text-lg text-foreground">
                       {agent.name}

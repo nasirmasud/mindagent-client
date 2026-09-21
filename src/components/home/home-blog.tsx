@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BarChart3, Lightbulb, LineChart, Wand2 } from "lucide-react";
+import { SectionLabel } from "./section-label";
 
 const posts = [
   {
@@ -32,27 +33,28 @@ export function HomeBlog() {
   return (
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col items-center gap-6 md:flex-row md:items-end md:justify-center">
-          <div>
+        <div>
+          <SectionLabel path="./blog" />
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               From our blog
             </h2>
+            <Link
+              href="/blog"
+              className="group inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              View all
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            View all
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {posts.map(({ icon: Icon, tag, title, href }) => (
             <Link
               key={title}
               href={href}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group flex flex-col overflow-hidden bg-card transition-colors duration-300 hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
             >
               {/* Thumbnail */}
               <div className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-primary/25 via-accent to-primary/10">
@@ -72,7 +74,7 @@ export function HomeBlog() {
               </div>
 
               <div className="flex flex-1 flex-col p-5">
-                <span className="self-start rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                <span className="self-start border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-primary">
                   {tag}
                 </span>
                 <h3 className="mt-3 line-clamp-2 text-sm font-bold leading-snug text-foreground">

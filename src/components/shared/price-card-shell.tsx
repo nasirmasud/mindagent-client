@@ -11,6 +11,7 @@ interface PriceCardShellProps {
   enlarged: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  className?: string;
   children: ReactNode;
 }
 
@@ -20,6 +21,7 @@ export function PriceCardShell({
   enlarged,
   onMouseEnter,
   onMouseLeave,
+  className,
   children,
 }: PriceCardShellProps) {
   const scaleClass = hovered
@@ -38,7 +40,8 @@ export function PriceCardShell({
         "group relative flex flex-col rounded-2xl border bg-card p-8 transition-[transform,border-color,box-shadow] duration-200 ease-out will-change-transform",
         enlarged ? "border-primary shadow-2xl shadow-primary/20" : "border-border",
         hovered && "border-primary shadow-2xl shadow-primary/30",
-        scaleClass
+        scaleClass,
+        className
       )}
     >
       <div aria-hidden="true" className={priceCardGlow(highlighted)} />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BarChart3, Bot, Code2, Image as ImageIcon, PenLine, Search } from "lucide-react";
+import { SectionLabel } from "./section-label";
 
 const features = [
   {
@@ -51,7 +52,8 @@ export function HomeFeatureGrid() {
     <section className="w-full px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl">
         <div className="flex flex-col items-center text-center">
-          <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <SectionLabel path="./agents" />
+          <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Every agent, scoped to one job.
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -60,18 +62,18 @@ export function HomeFeatureGrid() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {features.map(({ icon: Icon, tag, title, description, href }) => (
             <Link
               key={title}
               href={href}
-              className="group relative flex flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group relative flex flex-col bg-card p-6 transition-colors duration-300 hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
             >
               <div className="flex items-start justify-between">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                <span className="flex h-11 w-11 items-center justify-center bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span className="text-xs font-medium text-muted-foreground">{tag}</span>
+                <span className="font-mono text-xs font-medium text-muted-foreground">{tag}</span>
               </div>
 
               <h3 className="mt-5 text-lg font-bold text-foreground">{title}</h3>
@@ -79,7 +81,7 @@ export function HomeFeatureGrid() {
                 {description}
               </p>
 
-              <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+              <span className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-primary">
                 Explore
                 <ArrowRight
                   className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"

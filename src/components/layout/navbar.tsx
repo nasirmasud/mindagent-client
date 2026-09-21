@@ -17,10 +17,11 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const baseLinks = [
-  { href: "/explore", label: "Explore Tools" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/explore", label: "/explore", mono: true },
+  { href: "/pricing", label: "/pricing", mono: true },
 ];
 
 const authLinks = [
@@ -30,7 +31,7 @@ const authLinks = [
   { href: "/image-analyzer", label: "Image Analyzer" },
 ];
 
-const contactLink = { href: "/contact", label: "Contact" };
+const contactLink = { href: "/contact", label: "/contact", mono: true };
 
 export function Navbar() {
   const { user, isAuthenticated, logout, loading } = useAuthContext();
@@ -51,7 +52,10 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className={cn(
+                "rounded-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                (link as { mono?: boolean }).mono && "font-mono"
+              )}
             >
               {link.label}
             </Link>
@@ -74,7 +78,10 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="text-lg font-medium transition hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className={cn(
+                      "text-lg font-medium transition hover:text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                      (link as { mono?: boolean }).mono && "font-mono"
+                    )}
                   >
                     {link.label}
                   </Link>

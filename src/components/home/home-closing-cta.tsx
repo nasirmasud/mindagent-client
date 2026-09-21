@@ -2,6 +2,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SectionLabel } from "./section-label";
 
 const Globe = dynamic(() => import("@/components/lightswind/globe"), { ssr: false });
 
@@ -40,6 +41,7 @@ export function HomeClosingCta() {
       />
       <div className="relative z-20 mx-auto w-full max-w-7xl px-4 py-32 md:px-20 md:py-44">
         <div className="max-w-2xl">
+          <SectionLabel path="./launch" />
           <h2 className="mt-4 max-w-lg text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
             Your AI Journey
             <br />
@@ -51,13 +53,13 @@ export function HomeClosingCta() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg" className="gap-2">
+            <Button asChild size="lg" className="gap-2 rounded-none">
               <Link href="/login?tab=register">
                 Get started free
                 <Rocket className="h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="group gap-2">
+            <Button asChild size="lg" variant="outline" className="group gap-2 rounded-none">
               <Link href="/about">
                 Read the docs
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
