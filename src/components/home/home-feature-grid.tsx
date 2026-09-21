@@ -98,8 +98,7 @@ export function HomeFeatureGrid() {
               <FeatureCard key={feature.title} {...feature} />
             ))}
           </div>
-          <div aria-hidden="true" className="h-px w-full bg-border" />
-          <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-px border-t border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {features.slice(3).map((feature) => (
               <FeatureCard key={feature.title} {...feature} />
             ))}
