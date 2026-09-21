@@ -3,6 +3,7 @@
 import { FileText, KeyRound, Lock, ShieldHalf } from "lucide-react";
 import { useRef } from "react";
 import type { PointerEvent } from "react";
+import { SectionLabel } from "./section-label";
 
 const features = [
   { name: "AES-256", detail: "Encryption at rest" },
@@ -44,7 +45,7 @@ function SecurityOrb({ name, detail }: { name: string; detail: string }) {
           {name}
         </span>
       </div>
-      <span className="text-xs text-muted-foreground">{detail}</span>
+      <span className="font-mono text-xs text-muted-foreground">{detail}</span>
     </div>
   );
 }
@@ -77,6 +78,7 @@ export function HomeSecurity() {
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div>
+          <SectionLabel path="./security" />
           <h2 className="mt-4 max-w-md text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Enterprise Security &amp; Compliance
           </h2>
@@ -95,13 +97,13 @@ export function HomeSecurity() {
         </div>
 
         {/* Security features grid */}
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
           {cards.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10"
+              className="flex flex-col gap-3 bg-card p-5 transition-colors duration-300 hover:bg-accent/40"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <span className="flex h-11 w-11 items-center justify-center bg-primary/10 text-primary">
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
