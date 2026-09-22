@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 
 export const glowCard =
-  "relative overflow-hidden rounded-3xl border border-primary/30 bg-card shadow-[0_0_80px_-20px_rgba(124,92,255,0.45)]";
+  "relative overflow-hidden rounded-lg border border-primary/30 bg-card shadow-[0_0_80px_-20px_rgba(124,92,255,0.45)]";
 
 export const glowCardTopGlow =
   "pointer-events-none absolute -top-24 left-1/2 h-48 w-[28rem] max-w-full -translate-x-1/2 rounded-full bg-primary/20 blur-3xl";
 
 export const primaryActionButton =
-  "flex-shrink-0 h-12 px-6 rounded-xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98]";
+  "flex-shrink-0 h-12 px-6 rounded-lg bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98]";
 
 export function priceCardGlow(strong: boolean): string {
   return cn(
