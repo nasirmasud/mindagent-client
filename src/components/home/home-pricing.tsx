@@ -93,7 +93,12 @@ export function HomePricing() {
                 asChild
                 variant={plan.highlighted ? "default" : "outline"}
                 size="lg"
-                className={cn("mt-8 w-full gap-2 rounded-none", plan.highlighted && "")}
+                className={cn(
+                  "mt-8 w-full gap-2 rounded-none",
+                  plan.highlighted
+                    ? "group-hover:shadow-lg group-hover:shadow-primary/40"
+                    : "group-hover:border-primary group-hover:bg-primary/10 group-hover:text-primary"
+                )}
               >
                 <Link href={plan.href}>
                   {plan.cta}
