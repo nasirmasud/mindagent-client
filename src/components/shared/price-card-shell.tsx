@@ -38,8 +38,8 @@ export function PriceCardShell({
       onMouseLeave={onMouseLeave}
       className={cn(
         "group relative flex flex-col rounded-lg border bg-card p-8 transition-[transform,border-color,box-shadow] duration-200 ease-out will-change-transform",
+        "group-hover:border-primary group-hover:shadow-2xl group-hover:shadow-primary/30",
         enlarged ? "border-primary shadow-2xl shadow-primary/20" : "border-border",
-        hovered && "border-primary shadow-2xl shadow-primary/30",
         scaleClass,
         className
       )}
