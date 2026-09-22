@@ -162,7 +162,12 @@ export default function PricingPage() {
                 asChild
                 variant={plan.highlighted ? "default" : "outline"}
                 size="lg"
-                className="mt-8 w-full gap-2"
+                className={cn(
+                  "mt-8 w-full gap-2",
+                  plan.highlighted
+                    ? "group-hover:shadow-lg group-hover:shadow-primary/40"
+                    : "group-hover:border-primary group-hover:bg-primary/10 group-hover:text-primary"
+                )}
               >
                 <Link href={plan.href}>
                   {plan.cta}
