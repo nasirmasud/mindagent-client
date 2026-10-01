@@ -12,7 +12,22 @@ interface PulseMarker {
   location: [number, number]
   delay: number
   color?: string
+  dotColor?: string
   size?: number
+}
+
+function hexToRgbNormalized(hex: string): [number, number, number] {
+  const clean = hex.startsWith("#") ? hex.slice(1) : hex
+  const full =
+    clean.length === 3
+      ? clean[0] + clean[0] + clean[1] + clean[1] + clean[2] + clean[2]
+      : clean
+  if (full.length !== 6) return [0.718, 0.612, 1]
+  const r = parseInt(full.substring(0, 2), 16)
+  const g = parseInt(full.substring(2, 4), 16)
+  const b = parseInt(full.substring(4, 6), 16)
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return [0.718, 0.612, 1]
+  return [r / 255, g / 255, b / 255]
 }
 
 interface GlobePulseProps {
@@ -26,7 +41,23 @@ const defaultMarkers: PulseMarker[] = [
   { id: "pulse-2", location: [40.71, -74.01], delay: 0.5 },
   { id: "pulse-3", location: [35.68, 139.65], delay: 1 },
   { id: "pulse-4", location: [-33.87, 151.21], delay: 1.5 },
-  { id: "pulse-5", location: [23.81, 90.41], delay: 0.75, color: "#A78BFA", size: 1.35 },
+  { id: "pulse-5", location: [23.81, 90.41], delay: 0.75, color: "#DC2626", dotColor: "#16A34A", size: 1.35 },
+  { id: "pulse-6", location: [34.05, -118.24], delay: 0.1, size: 0.62 },
+  { id: "pulse-7", location: [41.88, -87.63], delay: 0.35, size: 0.55 },
+  { id: "pulse-8", location: [19.43, -99.13], delay: 0.55, size: 0.48 },
+  { id: "pulse-9", location: [4.71, -74.07], delay: 0.8, size: 0.45 },
+  { id: "pulse-10", location: [-12.05, -77.04], delay: 1.0, size: 0.5 },
+  { id: "pulse-11", location: [-23.55, -46.63], delay: 1.2, size: 0.68 },
+  { id: "pulse-12", location: [-31.42, -64.18], delay: 1.45, size: 0.45 },
+  { id: "pulse-13", location: [52.52, 13.4], delay: 1.65, size: 0.6 },
+  { id: "pulse-14", location: [40.42, -3.7], delay: 1.85, size: 0.52 },
+  { id: "pulse-15", location: [41.01, 28.98], delay: 0.05, size: 0.58 },
+  { id: "pulse-16", location: [25.2, 55.27], delay: 0.25, size: 0.7 },
+  { id: "pulse-17", location: [28.61, 77.21], delay: 0.7, size: 0.66 },
+  { id: "pulse-18", location: [-1.29, 36.82], delay: 0.9, size: 0.47 },
+  { id: "pulse-19", location: [6.52, 3.38], delay: 1.1, size: 0.5 },
+  { id: "pulse-20", location: [-6.21, 106.85], delay: 1.35, size: 0.56 },
+  { id: "pulse-21", location: [1.35, 103.82], delay: 1.75, size: 0.64 },
 ]
 
 export function GlobePulse({
@@ -113,7 +144,12 @@ export function GlobePulse({
           markerColor: [0.718, 0.612, 1],
           glowColor: [0.718, 0.612, 1],
           markerElevation: 0,
-          markers: markers.map((m) => ({ location: m.location, size: 0.025 * (m.size ?? 1), id: m.id })),
+          markers: markers.map((m) => ({
+            location: m.location,
+            size: 0.025 * (m.size ?? 1),
+            id: m.id,
+            color: m.dotColor ? hexToRgbNormalized(m.dotColor) : undefined,
+          })),
           arcs: [], arcColor: [0.718, 0.612, 1],
           arcWidth: 0.5, arcHeight: 0.25, opacity: 0.7,
         })
@@ -179,6 +215,7 @@ export function GlobePulse({
       {markers.map((m) => {
         const pSize = m.size ?? 1
         const pColor = m.color ?? "#8B5CF6"
+        const dotColor = m.dotColor ?? pColor
         return (
           <div
             key={m.id}
@@ -210,8 +247,8 @@ export function GlobePulse({
             }} />
             <span style={{
               width: 10 * pSize, height: 10 * pSize,
-              background: pColor, borderRadius: "50%",
-              boxShadow: `0 0 0 ${3 * pSize}px rgba(14,11,31,0.55), 0 0 0 ${5 * pSize}px ${pColor}`,
+              background: dotColor, borderRadius: "50%",
+              boxShadow: `0 0 0 ${3 * pSize}px rgba(14,11,31,0.55), 0 0 0 ${5 * pSize}px ${dotColor}`,
             }} />
           </div>
         )
