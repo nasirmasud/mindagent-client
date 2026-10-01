@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
-import { OrbitRing } from "@/components/ui/orbit-ring";
 import { waitForSignal, signalReady } from "@/lib/load-signals";
 
 const FADE_MS = 500;
@@ -118,24 +116,19 @@ export function HomeLoader() {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
       <div className="relative flex flex-col items-center gap-6">
         <div className="relative flex h-24 w-24 items-center justify-center">
-          <OrbitRing
-            className="absolute inset-0 text-primary"
-            style={{ "--duration": "1.6s" } as CSSProperties}
-          />
-          <span
-            aria-hidden="true"
-            className="absolute size-16 rounded-full bg-muted"
-          />
+          <div className="absolute inset-0 rounded-full border border-primary/20 animate-ping duration-1000" />
+          <div className="absolute h-16 w-16 rounded-full border-2 border-t-primary border-r-transparent border-b-foreground/10 border-l-transparent animate-spin" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt=""
-            width={64}
-            height={64}
+            width={40}
+            height={40}
             decoding="async"
             data-loader-asset="true"
-            className="relative size-16 rounded-full object-contain"
+            className="relative size-10 rounded-full object-contain"
           />
+          <div className="absolute h-full w-full rounded-full border border-transparent border-l-primary/30 animate-spin [animation-duration:3s]" />
         </div>
         <div className="text-center">
           <p className="text-base font-semibold tracking-wide text-foreground">
