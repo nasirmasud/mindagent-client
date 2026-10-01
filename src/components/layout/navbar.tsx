@@ -40,7 +40,13 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
       <div className="w-full flex h-16 items-center justify-between px-4 md:px-20">
         <Link href="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
-          <img src="/favicon.ico" alt="MindAgent logo" className="h-[4.5rem] w-[4.5rem] -mt-2" />
+          <img
+            src="/logo.png"
+            alt="MindAgent logo"
+            width={72}
+            height={72}
+            className="h-[4.5rem] w-[4.5rem] -mt-2"
+          />
           <span className="text-xl font-bold text-foreground">
             Mind<span className="text-primary">Agent</span>
           </span>

@@ -11,6 +11,7 @@ const FAILSAFE_MS = 10000;
 function waitForAboveFoldImages(): Promise<void> {
   return new Promise((resolve) => {
     const images = Array.from(document.images).filter((img) => {
+      if (img.dataset.loaderAsset === "true") return false;
       const rect = img.getBoundingClientRect();
       return (
         rect.width > 0 &&
@@ -121,11 +122,19 @@ export function HomeLoader() {
             className="absolute inset-0 text-primary"
             style={{ "--duration": "1.6s" } as CSSProperties}
           />
+          <span
+            aria-hidden="true"
+            className="absolute size-16 rounded-full bg-muted"
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/favicon.ico"
+            src="/logo.png"
             alt=""
-            className="size-16 rounded-full object-contain"
+            width={64}
+            height={64}
+            decoding="async"
+            data-loader-asset="true"
+            className="relative size-16 rounded-full object-contain"
           />
         </div>
         <div className="text-center">

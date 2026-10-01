@@ -98,7 +98,7 @@ export default function AgentCategories() {
         <div className="mt-40 mx-auto w-2/3 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-lg border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-500/50">
           <div className="flex items-center gap-4">
             <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-visible">
-              <img src="/favicon.ico" alt="MindAgent" className="h-20 w-20 object-contain absolute -top-3 -left-3 transition-transform duration-300 hover:scale-110 hover:-rotate-6" />
+              <img src="/logo.png" alt="MindAgent" width={80} height={80} className="h-20 w-20 object-contain absolute -top-3 -left-3 transition-transform duration-300 hover:scale-110 hover:-rotate-6" />
             </div>
             <div>
               <h4 className="text-lg font-bold text-slate-900 dark:text-white">

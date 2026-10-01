@@ -453,7 +453,7 @@ export function HomeIntegrations() {
               className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-2xl"
             />
             <div className="relative flex h-20 w-20 items-center justify-center border-2 border-primary bg-card shadow-2xl shadow-primary/30">
-              <img src="/favicon.ico" alt="" className="h-12 w-12" />
+              <img src="/logo.png" alt="" width={48} height={48} className="h-12 w-12" />
               <span className="sr-only">MindAgent hub</span>
             </div>
           </div>
