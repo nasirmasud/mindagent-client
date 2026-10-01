@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Figma, Github, Slack } from "lucide-react";
 import { SectionHeader } from "./section-header";
 
@@ -72,20 +75,287 @@ function ExcelIcon({ className }: { className?: string }) {
 const iconClass =
   "h-6 w-6 text-slate-700 transition-colors duration-300 group-hover:text-foreground dark:text-muted-foreground/70";
 
-const integrations = [
-  { name: "Excel", icon: <ExcelIcon className={iconClass} />, x: "50%", y: "7%" },
-  { name: "Notion", icon: <NotionIcon className={iconClass} />, x: "75.3%", y: "15.2%" },
-  { name: "GitHub", icon: <Github className={iconClass} />, x: "90.9%", y: "36.7%" },
-  { name: "Slack", icon: <Slack className={iconClass} />, x: "90.9%", y: "63.3%" },
-  { name: "Gmail", icon: <GmailIcon className={iconClass} />, x: "75.3%", y: "84.8%" },
-  { name: "Google Drive", icon: <GoogleDriveIcon className={iconClass} />, x: "50%", y: "93%" },
-  { name: "Figma", icon: <Figma className={iconClass} />, x: "24.7%", y: "84.8%" },
-  { name: "Discord", icon: <DiscordIcon className={iconClass} />, x: "9.1%", y: "63.3%" },
-  { name: "Zapier", icon: <ZapierIcon className={iconClass} />, x: "9.1%", y: "36.7%" },
-  { name: "Google Sheets", icon: <GoogleSheetsIcon className={iconClass} />, x: "24.7%", y: "15.2%" },
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+const PULSE_SLOTS = 4;
+const PULSE_LENGTH_PX = 24;
+const OUTBOUND_MS = 900;
+const DWELL_MS = 200;
+const INBOUND_MS = 700;
+const MIN_INTERVAL_MS = 400;
+const MAX_INTERVAL_MS = 1500;
+const MIN_SPEED = 0.8;
+const MAX_SPEED = 1.25;
+const FLASH_MS = 300;
+const FADE_RATIO = 0.15;
+
+type ToolNode = {
+  name: string;
+  icon: React.ReactNode;
+  x: number;
+  y: number;
+};
+
+const SPOKE_COUNT = 10;
+const SPOKE_START_DEG = -90;
+const SPOKE_STEP_DEG = 360 / SPOKE_COUNT;
+
+const RX_RATIO = 0.409;
+const RY_RATIO = 0.55;
+const DIAGRAM_SCALE = 1.5;
+const BOX_HALF = 36;
+
+type PulsePhase = "idle" | "out" | "dwell" | "back";
+
+type PulseSlot = {
+  phase: PulsePhase;
+  phaseStart: number;
+  nextStart: number;
+  index: number;
+  speed: number;
+};
+
+function randomBetween(min: number, max: number) {
+  return min + Math.random() * (max - min);
+}
+
+function smoothstep(t: number) {
+  return t * t * (3 - 2 * t);
+}
+
+function edgeFade(progress: number) {
+  return Math.min(1, progress / FADE_RATIO, (1 - progress) / FADE_RATIO);
+}
+
+const baseTools = [
+  { name: "Excel", icon: <ExcelIcon className={iconClass} /> },
+  { name: "Notion", icon: <NotionIcon className={iconClass} /> },
+  { name: "GitHub", icon: <Github className={iconClass} /> },
+  { name: "Slack", icon: <Slack className={iconClass} /> },
+  { name: "Gmail", icon: <GmailIcon className={iconClass} /> },
+  { name: "Google Drive", icon: <GoogleDriveIcon className={iconClass} /> },
+  { name: "Figma", icon: <Figma className={iconClass} /> },
+  { name: "Discord", icon: <DiscordIcon className={iconClass} /> },
+  { name: "Zapier", icon: <ZapierIcon className={iconClass} /> },
+  { name: "Google Sheets", icon: <GoogleSheetsIcon className={iconClass} /> },
 ];
 
+/**
+ * Single source of truth for the diagram. Every consumer (box positions,
+ * connector lines and pulses) is derived from these pixel coordinates, so a
+ * line endpoint and its box center are the same number by construction.
+ */
+function buildLayout(width: number, height: number) {
+  const centerX = width / 2;
+  const centerY = height / 2;
+
+  const rx = Math.max(0, Math.min(RX_RATIO * width, width / 2 - BOX_HALF));
+  const ry = Math.max(0, Math.min(RY_RATIO * rx, height / 2 - BOX_HALF));
+
+  const tools: ToolNode[] = baseTools.map((tool, i) => {
+    const angle = ((SPOKE_START_DEG + i * SPOKE_STEP_DEG) * Math.PI) / 180;
+    return {
+      name: tool.name,
+      icon: tool.icon,
+      x: centerX + rx * Math.cos(angle),
+      y: centerY + ry * Math.sin(angle),
+    };
+  });
+
+  return { centerX, centerY, tools };
+}
+
 export function HomeIntegrations() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [flashing, setFlashing] = useState<number[]>([]);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const diagramRef = useRef<HTMLDivElement>(null);
+  const layerRef = useRef<SVGSVGElement>(null);
+
+  const layout = useMemo(
+    () => buildLayout(size.width, size.height),
+    [size.width, size.height]
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia(REDUCED_MOTION);
+    const sync = () => setReducedMotion(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const diagram = diagramRef.current;
+    if (!diagram) return;
+
+    const measure = () => {
+      const rect = diagram.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setSize((prev) =>
+          Math.abs(prev.width - rect.width) < 0.5 &&
+          Math.abs(prev.height - rect.height) < 0.5
+            ? prev
+            : { width: rect.width, height: rect.height }
+        );
+      }
+    };
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(diagram);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion || layout.tools.length === 0) return;
+
+    const layer = layerRef.current;
+    if (!layer) return;
+
+    const nodes = Array.from(
+      layer.querySelectorAll<SVGGElement>("[data-pulse-slot]")
+    );
+    if (nodes.length !== PULSE_SLOTS) return;
+
+    const lines = nodes.map((node) => {
+      const found = node.querySelectorAll<SVGLineElement>("line");
+      return { group: node, glow: found[0], core: found[1] };
+    });
+
+    const { centerX, centerY, tools } = layout;
+
+    const geometry = tools.map((tool) => {
+      const dx = tool.x - centerX;
+      const dy = tool.y - centerY;
+      const length = Math.hypot(dx, dy) || 1;
+      return { length, ux: dx / length, uy: dy / length };
+    });
+
+    const now0 = performance.now();
+    const slots: PulseSlot[] = Array.from({ length: PULSE_SLOTS }, (_, slot) => ({
+      phase: "idle",
+      phaseStart: 0,
+      nextStart: now0 + slot * randomBetween(MIN_INTERVAL_MS, MAX_INTERVAL_MS),
+      index: -1,
+      speed: 1,
+    }));
+
+    const flashTimers = new Set<ReturnType<typeof setTimeout>>();
+
+    const hide = (node: SVGGElement) => node.setAttribute("opacity", "0");
+
+    const flash = (index: number) => {
+      setFlashing((prev) => (prev.includes(index) ? prev : [...prev, index]));
+      const timer = setTimeout(() => {
+        flashTimers.delete(timer);
+        setFlashing((prev) => prev.filter((value) => value !== index));
+      }, FLASH_MS);
+      flashTimers.add(timer);
+    };
+
+    const draw = (slotIndex: number, index: number, progress: number, alpha: number) => {
+      const geo = geometry[index];
+      const { group, glow, core } = lines[slotIndex];
+      const segment = Math.min(PULSE_LENGTH_PX * DIAGRAM_SCALE, geo.length / 2.5);
+      const travel = Math.max(0, geo.length - segment);
+      const start = progress * travel;
+      const x1 = centerX + geo.ux * start;
+      const y1 = centerY + geo.uy * start;
+      const x2 = x1 + geo.ux * segment;
+      const y2 = y1 + geo.uy * segment;
+
+      for (const line of [glow, core]) {
+        line.setAttribute("x1", x1.toFixed(3));
+        line.setAttribute("y1", y1.toFixed(3));
+        line.setAttribute("x2", x2.toFixed(3));
+        line.setAttribute("y2", y2.toFixed(3));
+      }
+      group.setAttribute("opacity", Math.max(0, Math.min(1, alpha)).toFixed(3));
+    };
+
+    const pickLine = (slotIndex: number) => {
+      const busy = new Set(
+        slots
+          .filter((slot, i) => i !== slotIndex && slot.index >= 0)
+          .map((slot) => slot.index)
+      );
+      const free = tools.map((_, i) => i).filter((i) => !busy.has(i));
+      const pool = free.length > 0 ? free : tools.map((_, i) => i);
+      return pool[Math.floor(Math.random() * pool.length)];
+    };
+
+    const begin = (slotIndex: number, now: number) => {
+      const slot = slots[slotIndex];
+      slot.index = pickLine(slotIndex);
+      slot.speed = randomBetween(MIN_SPEED, MAX_SPEED);
+      slot.phase = "out";
+      slot.phaseStart = now;
+    };
+
+    const scheduleNext = (slot: PulseSlot, now: number) => {
+      slot.phase = "idle";
+      slot.index = -1;
+      slot.nextStart = now + randomBetween(MIN_INTERVAL_MS, MAX_INTERVAL_MS);
+    };
+
+    let raf = 0;
+
+    const tick = (now: number) => {
+      for (let slotIndex = 0; slotIndex < slots.length; slotIndex += 1) {
+        const slot = slots[slotIndex];
+        const { group } = lines[slotIndex];
+
+        if (slot.phase === "idle") {
+          if (now >= slot.nextStart) begin(slotIndex, now);
+          continue;
+        }
+
+        const elapsed = now - slot.phaseStart;
+
+        if (slot.phase === "out") {
+          const progress = Math.min(1, elapsed / (OUTBOUND_MS * slot.speed));
+          draw(slotIndex, slot.index, smoothstep(progress), edgeFade(progress));
+          if (progress >= 1) {
+            slot.phase = "dwell";
+            slot.phaseStart = now;
+            hide(group);
+            flash(slot.index);
+          }
+        } else if (slot.phase === "dwell") {
+          hide(group);
+          if (elapsed >= DWELL_MS * slot.speed) {
+            slot.phase = "back";
+            slot.phaseStart = now;
+          }
+        } else {
+          const progress = Math.min(1, elapsed / (INBOUND_MS * slot.speed));
+          draw(
+            slotIndex,
+            slot.index,
+            1 - smoothstep(progress),
+            edgeFade(progress)
+          );
+          if (progress >= 1) {
+            hide(group);
+            scheduleNext(slot, now);
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      for (const timer of flashTimers) clearTimeout(timer);
+      flashTimers.clear();
+      setFlashing([]);
+    };
+  }, [reducedMotion, layout]);
+
   return (
     <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-12 md:py-16">
       <div className="mx-auto w-full max-w-7xl">
@@ -96,41 +366,83 @@ export function HomeIntegrations() {
         />
 
         {/* Hub-and-spoke diagram */}
-        <div className="relative mx-auto mt-10 aspect-square w-full max-w-[820px]" role="img" aria-label="MindAgent connects with Excel, Notion, GitHub, Slack, Gmail, Google Drive, Figma, Discord, Zapier and Google Sheets">
+        <div
+          ref={diagramRef}
+          className="relative mx-auto mt-10 aspect-square w-full max-w-[1230px] md:aspect-[5/3]"
+          role="img"
+          aria-label="MindAgent connects with Excel, Notion, GitHub, Slack, Gmail, Google Drive, Figma, Discord, Zapier and Google Sheets"
+        >
           {/* Connector lines */}
           <svg
-            viewBox="0 0 100 100"
+            viewBox={`0 0 ${size.width} ${size.height}`}
             preserveAspectRatio="none"
             aria-hidden="true"
             className="absolute inset-0 h-full w-full"
           >
-            {integrations.map((i) => (
+            {layout.tools.map((tool) => (
               <line
-                key={i.name}
-                x1="50"
-                y1="50"
-                x2={i.x.replace("%", "")}
-                y2={i.y.replace("%", "")}
+                key={tool.name}
+                x1={layout.centerX}
+                y1={layout.centerY}
+                x2={tool.x}
+                y2={tool.y}
                 stroke="hsl(var(--primary))"
                 strokeOpacity="0.35"
-                strokeWidth="0.4"
-                strokeDasharray="1.4 1.6"
+                strokeWidth={1}
+                strokeDasharray="4 6"
+                vectorEffect="non-scaling-stroke"
               />
             ))}
           </svg>
 
-          {/* Spoke nodes */}
-          {integrations.map((i) => (
-            <div
-              key={i.name}
-              className="group absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 border border-border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 md:h-[72px] md:w-16"
-              style={{ left: i.x, top: i.y }}
+          {/* Traveling pulses */}
+          {!reducedMotion && size.width > 0 && (
+            <svg
+              ref={layerRef}
+              viewBox={`0 0 ${size.width} ${size.height}`}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full"
             >
-              {i.icon}
+              <defs>
+                <filter id="integrations-pulse-glow" filterUnits="userSpaceOnUse" x={0} y={0} width={size.width} height={size.height}>
+                  <feGaussianBlur stdDeviation={6 * DIAGRAM_SCALE} result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {Array.from({ length: PULSE_SLOTS }, (_, slot) => (
+                <g key={slot} data-pulse-slot={slot} opacity="0" filter="url(#integrations-pulse-glow)">
+                  <line stroke="hsl(var(--primary))" strokeOpacity="0.7" strokeWidth={5 * DIAGRAM_SCALE} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                  <line stroke="hsl(var(--primary))" strokeOpacity="1" strokeWidth={2 * DIAGRAM_SCALE} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                </g>
+              ))}
+            </svg>
+          )}
+
+          {/* Spoke nodes */}
+          {layout.tools.map((tool, index) => (
+            <div
+              key={tool.name}
+              className={`group absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 ${
+                flashing.includes(index)
+                  ? "border-primary shadow-primary/40"
+                  : "border-border"
+              }`}
+              style={{
+                left: tool.x,
+                top: tool.y,
+                width: 56 * DIAGRAM_SCALE,
+                height: 56 * DIAGRAM_SCALE,
+              }}
+            >
+              {tool.icon}
               <span className="max-w-full text-center font-mono text-[10px] font-medium leading-tight">
-                {i.name}
+                {tool.name}
               </span>
-              <span className="sr-only">MindAgent connects with {i.name}</span>
+              <span className="sr-only">MindAgent connects with {tool.name}</span>
             </div>
           ))}
 
