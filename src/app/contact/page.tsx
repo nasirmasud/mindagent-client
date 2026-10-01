@@ -5,14 +5,41 @@ import {
   Mail, Phone, MapPin, Linkedin, Github,
   Send, CheckCircle2,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { siteContact } from "@/lib/site-info";
 
-const contactInfo = [
-  { icon: Mail, label: "Email", value: siteContact.email },
-  { icon: Phone, label: "Phone", value: siteContact.phone },
-  { icon: MapPin, label: "Office", value: siteContact.address },
+type ContactInfoItem = {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href: string;
+  external?: boolean;
+};
+
+const contactInfo: ContactInfoItem[] = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: siteContact.email,
+    href: `mailto:${siteContact.email}`,
+  },
+  {
+    icon: Phone,
+    label: "Mobile",
+    value: siteContact.phone,
+    href: `tel:${siteContact.phone.replace(/[^\d+]/g, "")}`,
+  },
+  {
+    icon: MapPin,
+    label: "Office",
+    value: siteContact.address,
+    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      siteContact.address
+    )}`,
+    external: true,
+  },
 ];
 
 export default function ContactPage() {
@@ -63,20 +90,28 @@ export default function ContactPage() {
       <section className="mx-auto max-w-6xl px-4 py-24">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_1.3fr]">
           {/* Contact info */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 self-start">
             {contactInfo.map((c, i) => {
               const Icon = c.icon;
               return (
                 <div
                   key={i}
-                  className="flex flex-1 items-center gap-4 rounded-lg border border-gray-200 bg-white p-5 dark:border-[#232235] dark:bg-[#131320]"
+                  className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-[#7C5CFC]/40 dark:border-[#232235] dark:bg-[#131320] dark:hover:border-[#3A3A55]"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#7C5CFC]/10">
                     <Icon size={18} className="text-[#9B85FF]" />
                   </span>
                   <div className="min-w-0">
                     <p className="text-xs text-gray-500">{c.label}</p>
-                    <p className="text-sm font-medium">{c.value}</p>
+                    <a
+                      href={c.href}
+                      {...(c.external
+                        ? { target: "_blank", rel: "noreferrer noopener" }
+                        : {})}
+                      className="block text-sm font-medium break-words hover:text-[#7C5CFC] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFC]/60 dark:hover:text-[#9B85FF]"
+                    >
+                      {c.value}
+                    </a>
                   </div>
                 </div>
               );
