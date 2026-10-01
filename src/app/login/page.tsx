@@ -245,8 +245,10 @@ function LoginPageInner() {
                 <div className='relative'>
                   <div className='flex items-center gap-2'>
                     <img
-                      src='/favicon.ico'
+                      src='/logo.png'
                       alt='MindAgent'
+                      width={32}
+                      height={32}
                       className='w-8 h-8'
                     />
                     <span className='font-bold text-lg'>MindAgent</span>
@@ -327,8 +329,10 @@ function LoginPageInner() {
                 <div className='relative'>
                   <div className='flex items-center gap-2'>
                     <img
-                      src='/favicon.ico'
+                      src='/logo.png'
                       alt='MindAgent'
+                      width={32}
+                      height={32}
                       className='w-8 h-8'
                     />
                     <span className='font-bold text-lg'>MindAgent</span>
@@ -408,7 +412,7 @@ function LoginPageInner() {
           <div className='relative p-6 sm:p-8'>
             {/* mobile logo */}
             <div className='flex lg:hidden items-center gap-2 mb-6'>
-              <img src='/favicon.ico' alt='MindAgent' className='w-7 h-7' />
+              <img src='/logo.png' alt='MindAgent' width={28} height={28} className='w-7 h-7' />
               <span className='font-bold text-slate-900 dark:text-white'>
                 MindAgent
               </span>

@@ -41,8 +41,10 @@ export function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
               <img
-                src="/favicon.ico"
+                src="/logo.png"
                 alt="MindAgent"
+                width={60}
+                height={60}
                 className="h-[3.75rem] w-[3.75rem] -mt-2"
               />
               <span className="text-xl font-bold text-white">

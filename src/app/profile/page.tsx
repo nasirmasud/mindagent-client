@@ -441,8 +441,10 @@ export default function ProfilePage() {
           <div className="hidden lg:flex relative w-48 h-40 items-center justify-center shrink-0">
             <div className="absolute inset-0 rounded-full border border-dashed border-[#3D3560]" />
             <img
-              src="/favicon.ico"
+              src="/logo.png"
               alt="MindAgent"
+              width={96}
+              height={96}
               className="w-24 h-24 rounded-lg z-10 object-contain drop-shadow-lg"
             />
             {[
