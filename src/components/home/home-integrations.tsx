@@ -89,6 +89,13 @@ const MAX_SPEED = 1.25;
 const FLASH_MS = 300;
 const FADE_RATIO = 0.15;
 
+/**
+ * Shared by the dashed connectors and both pulse strokes. Every one of those
+ * lines uses `vectorEffect="non-scaling-stroke"`, so the value is a real
+ * device-pixel width and never scales with the viewBox.
+ */
+const LINE_WIDTH_PX = 1;
+
 type ToolNode = {
   name: string;
   icon: React.ReactNode;
@@ -388,7 +395,7 @@ export function HomeIntegrations() {
                 y2={tool.y}
                 stroke="hsl(var(--primary))"
                 strokeOpacity="0.35"
-                strokeWidth={1}
+                strokeWidth={LINE_WIDTH_PX}
                 strokeDasharray="4 6"
                 vectorEffect="non-scaling-stroke"
               />
@@ -406,7 +413,7 @@ export function HomeIntegrations() {
             >
               <defs>
                 <filter id="integrations-pulse-glow" filterUnits="userSpaceOnUse" x={0} y={0} width={size.width} height={size.height}>
-                  <feGaussianBlur stdDeviation={6 * DIAGRAM_SCALE} result="blur" />
+                  <feGaussianBlur stdDeviation={3} result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
@@ -415,8 +422,8 @@ export function HomeIntegrations() {
               </defs>
               {Array.from({ length: PULSE_SLOTS }, (_, slot) => (
                 <g key={slot} data-pulse-slot={slot} opacity="0" filter="url(#integrations-pulse-glow)">
-                  <line stroke="hsl(var(--primary))" strokeOpacity="0.7" strokeWidth={5 * DIAGRAM_SCALE} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                  <line stroke="hsl(var(--primary))" strokeOpacity="1" strokeWidth={2 * DIAGRAM_SCALE} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                  <line stroke="hsl(var(--primary))" strokeOpacity="0.7" strokeWidth={LINE_WIDTH_PX} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                  <line stroke="hsl(var(--primary))" strokeOpacity="1" strokeWidth={LINE_WIDTH_PX} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
                 </g>
               ))}
             </svg>
