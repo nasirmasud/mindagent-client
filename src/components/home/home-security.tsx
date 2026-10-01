@@ -94,11 +94,11 @@ export function HomeSecurity() {
         </div>
 
         {/* Security features grid */}
-        <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2">
           {cards.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="flex flex-col gap-3 bg-card p-5 transition-colors duration-300 hover:bg-accent/40"
+              className="relative -ml-px -mt-px flex flex-col gap-3 border border-border bg-card p-5 transition-colors duration-300 hover:bg-accent/40"
             >
               <span className="flex h-11 w-11 items-center justify-center bg-primary/10 text-primary">
                 <Icon className="h-5 w-5" aria-hidden="true" />
