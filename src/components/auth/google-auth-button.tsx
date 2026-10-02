@@ -33,15 +33,6 @@ declare global {
   }
 }
 
-function decodeJWT(token: string) {
-  try {
-    const payload = token.split(".")[1];
-    return JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/")));
-  } catch {
-    return null;
-  }
-}
-
 export function GoogleAuthButton() {
   const { login } = useAuthContext();
   const router = useRouter();
@@ -65,16 +56,9 @@ export function GoogleAuthButton() {
         callback: async (response) => {
           setLoading(true);
           try {
-            const payload = decodeJWT(response.credential);
-            if (!payload) throw new Error("Failed to decode Google token");
             const data: any = await api("/auth/google", {
               method: "POST",
-              body: JSON.stringify({
-                name: payload.name,
-                email: payload.email,
-                googleId: payload.sub,
-                avatar: payload.picture,
-              }),
+              body: JSON.stringify({ credential: response.credential }),
             });
             login(data.token, data.user);
             toast.success("Logged in with Google");
