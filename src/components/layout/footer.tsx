@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { siteContact } from "@/lib/site-info";
+import { CircleUser } from "lucide-react";
+import { siteContact, siteSocials } from "@/lib/site-info";
 
 const platformLinks = [
   { href: "/explore", label: "AI Agents" },
@@ -56,7 +57,13 @@ export function Footer() {
               anything with intelligent agents.
             </p>
             <div className="flex items-center gap-3 mt-5">
-              <a href="#" aria-label="GitHub" className={socialIconClass}>
+              <a
+                href={siteSocials.github}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="GitHub"
+                className={socialIconClass}
+              >
                 <svg
                   viewBox="0 0 24 24"
                   fill="currentColor"
@@ -65,7 +72,13 @@ export function Footer() {
                   <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="X (Twitter)" className={socialIconClass}>
+              <a
+                href={siteSocials.x}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="X (Twitter)"
+                className={socialIconClass}
+              >
                 <svg
                   viewBox="0 0 24 24"
                   fill="currentColor"
@@ -75,7 +88,9 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href={siteSocials.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
                 aria-label="LinkedIn"
                 className={socialIconClass}
               >
@@ -86,6 +101,15 @@ export function Footer() {
                 >
                   <path d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.5a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6c0-1.4 0-3.3-2-3.3s-2.3 1.6-2.3 3.2V20h-3.3V8.4h3.2v1.6h.05c.45-.8 1.55-1.7 3.2-1.7 3.4 0 4.05 2.3 4.05 5.2V20Z" />
                 </svg>
+              </a>
+              <a
+                href={siteSocials.portfolio}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Portfolio"
+                className={socialIconClass}
+              >
+                <CircleUser className="w-4 h-4" />
               </a>
             </div>
           </div>
