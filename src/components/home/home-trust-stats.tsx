@@ -36,7 +36,7 @@ export function HomeTrustStats() {
         </div>
 
         <div className="relative mx-auto flex w-full items-center justify-center">
-          <GlobePulse className="mx-auto h-[576px] w-[576px] md:h-[640px] md:w-[640px]" />
+          <GlobePulse className="mx-auto w-full max-w-[576px] md:max-w-[640px]" />
         </div>
       </div>
     </section>
