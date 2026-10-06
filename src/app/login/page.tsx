@@ -443,7 +443,7 @@ function LoginPageInner() {
                 Register
               </button>
               <span
-                className='absolute bottom-0 h-0.5 bg-indigo-600 rounded-full transition-all duration-350'
+                className='absolute bottom-0 h-0.5 bg-indigo-600 rounded-full transition-all duration-[350ms]'
                 style={{
                   width: underlineStyle.width,
                   left: underlineStyle.left,
@@ -497,7 +497,7 @@ function LoginPageInner() {
                         setLoginEmail(e.target.value);
                         setLoginErrors((prev) => ({ ...prev, email: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         loginErrors.email
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -538,7 +538,7 @@ function LoginPageInner() {
                           password: false,
                         }));
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         loginErrors.password
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -570,7 +570,7 @@ function LoginPageInner() {
                   <button
                     type='submit'
                     disabled={loginLoading}
-                    className='w-full h-11 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
+                    className='w-full h-11 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-[250ms] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
                   >
                     {loginLoading ? "Logging in..." : "Log In"}
                     <svg
@@ -592,7 +592,7 @@ function LoginPageInner() {
                 <button
                   onClick={handleDemoLogin}
                   disabled={loginLoading}
-                  className='w-full h-11 mt-3 rounded-lg border border-dashed border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:-translate-y-0.5 disabled:opacity-60'
+                  className='w-full h-11 mt-3 rounded-lg border border-dashed border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-[250ms] hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:-translate-y-0.5 disabled:opacity-60'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -683,7 +683,7 @@ function LoginPageInner() {
                     />
                     <div
                       onClick={() => avatarInputRef.current?.click()}
-                      className='relative w-20 h-20 rounded-full border-2 border-dashed border-slate-300 dark:border-[#2E274A] flex items-center justify-center cursor-pointer bg-slate-50 dark:bg-[#16132B] transition-all duration-250 hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/10'
+                      className='relative w-20 h-20 rounded-full border-2 border-dashed border-slate-300 dark:border-[#2E274A] flex items-center justify-center cursor-pointer bg-slate-50 dark:bg-[#16132B] transition-all duration-[250ms] hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/10'
                     >
                       {avatarPreview ? (
                         <>
@@ -783,7 +783,7 @@ function LoginPageInner() {
                         setRegName(e.target.value);
                         setRegErrors((prev) => ({ ...prev, name: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         regErrors.name
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -821,7 +821,7 @@ function LoginPageInner() {
                         setRegEmail(e.target.value);
                         setRegErrors((prev) => ({ ...prev, email: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-3 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         regErrors.email
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -860,7 +860,7 @@ function LoginPageInner() {
                         setRegErrors((prev) => ({ ...prev, password: false }));
                         updateStrength(e.target.value);
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         regErrors.password
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -876,7 +876,7 @@ function LoginPageInner() {
                         className='h-1 flex-1 rounded-full bg-slate-200 dark:bg-[#2E274A] overflow-hidden'
                       >
                         <div
-                          className='h-full rounded-full transition-all duration-350'
+                          className='h-full rounded-full transition-all duration-[350ms]'
                           style={{
                             width: regStrength > i ? "100%" : "0%",
                             backgroundColor:
@@ -925,7 +925,7 @@ function LoginPageInner() {
                         setRegConfirm(e.target.value);
                         setRegErrors((prev) => ({ ...prev, confirm: false }));
                       }}
-                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-250 ${
+                      className={`w-full h-11 pl-10 pr-10 rounded-lg border text-sm text-slate-800 dark:text-white outline-none transition-all duration-[250ms] ${
                         regErrors.confirm
                           ? "border-red-500 shadow-[0_0_0_4px_rgba(239,68,68,0.10)]"
                           : "border-slate-200 dark:border-[#2E274A] bg-slate-50 dark:bg-[#16132B] focus:border-indigo-500 focus:shadow-[0_0_0_4px_rgba(108,78,230,0.12)] focus:bg-white dark:focus:bg-[#1E1A35]"
@@ -966,7 +966,7 @@ function LoginPageInner() {
                   <button
                     type='submit'
                     disabled={regLoading}
-                    className='w-full h-11 mt-3 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
+                    className='w-full h-11 mt-3 rounded-lg bg-indigo-600 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-[250ms] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(108,78,230,0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed'
                   >
                     {regLoading ? "Creating..." : "Create Account"}
                     <svg
