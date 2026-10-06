@@ -43,10 +43,10 @@ export default function HowItWorks() {
         </h2>
 
         {/* Steps row */}
-        <div className="mt-10 flex items-stretch gap-2 md:gap-4">
+        <div className="mt-10 flex flex-wrap items-stretch justify-center gap-4">
           {steps.map(({ number, icon: Icon, title, description }, i) => (
             <React.Fragment key={number}>
-              <div className="group relative flex-1 min-w-0 rounded-lg border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50">
+              <div className="group relative w-full sm:w-[calc(50%-0.5rem)] lg:flex-1 min-w-0 rounded-lg border border-slate-200/60 dark:border-[#2E274A]/60 bg-white/80 dark:bg-[#1E1A35]/80 backdrop-blur-sm p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/50">
                 {/* Step number badge */}
                 <div className="absolute -top-3 left-4 flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600 text-xs font-bold text-white shadow-sm transition-transform duration-300 ease-out group-hover:scale-110">
                   {number}
@@ -59,7 +59,7 @@ export default function HowItWorks() {
                   />
                 </div>
 
-                <h3 className="mt-4 text-sm md:text-base font-bold text-slate-900 dark:text-white truncate">
+                <h3 className="mt-4 text-sm md:text-base font-bold text-slate-900 dark:text-white">
                   {title}
                 </h3>
                 <p className="mt-1.5 text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-snug">
@@ -68,7 +68,7 @@ export default function HowItWorks() {
               </div>
 
               {i < steps.length - 1 && (
-                <div className="hidden md:flex items-center shrink-0 text-slate-300 dark:text-slate-600">
+                <div className="hidden lg:flex items-center shrink-0 text-slate-300 dark:text-slate-600">
                   <ArrowRight className="h-5 w-5" strokeWidth={2} />
                 </div>
               )}
