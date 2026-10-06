@@ -174,19 +174,23 @@ export function GlobePulse({
       signalReady("globe")
     }
 
+    const ro = new ResizeObserver((entries) => {
+      const width = Math.round(entries[0]?.contentRect.width ?? 0)
+      if (width <= 0) return
+      if (globe) {
+        globe.update({ width, height: width })
+      } else {
+        init()
+      }
+    })
+    ro.observe(canvas)
+
     if (canvas.offsetWidth > 0) {
       init()
-    } else {
-      const ro = new ResizeObserver((entries) => {
-        if (entries[0]?.contentRect.width > 0) {
-          ro.disconnect()
-          init()
-        }
-      })
-      ro.observe(canvas)
     }
 
     return () => {
+      ro.disconnect()
       if (animationId) cancelAnimationFrame(animationId)
       if (globe) globe.destroy()
     }
@@ -208,7 +212,7 @@ export function GlobePulse({
           onPointerDown={handlePointerDown}
           style={{
             width: "100%", height: "100%", cursor: "grab", opacity: 1,
-            transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "none",
+            transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "pan-y",
           }}
         />
       )}
