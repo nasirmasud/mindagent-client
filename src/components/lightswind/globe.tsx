@@ -142,8 +142,6 @@ const Globe: React.FC<GlobeProps> = ({
         phiRef.current += autoRotateSpeed;
       }
       globeRef.current.update({
-        width: internalWidth,
-        height: internalHeight,
         phi: phiRef.current,
         theta: thetaRef.current,
         scale: currentScaleRef.current,
@@ -184,11 +182,10 @@ const Globe: React.FC<GlobeProps> = ({
       const width = Math.max(100, Math.round(rect.width || 600));
       const height = Math.max(100, Math.round(rect.height || 500));
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      internalWidth = Math.round(width * dpr);
-      internalHeight = Math.round(height * dpr);
-
-      canvas.width = internalWidth;
-      canvas.height = internalHeight;
+      // cobe multiplies width/height by devicePixelRatio itself, in both the
+      // constructor and update(). These must therefore stay in CSS pixels.
+      internalWidth = width;
+      internalHeight = height;
 
       try {
         globeRef.current = createGlobe(canvas, {
@@ -223,8 +220,6 @@ const Globe: React.FC<GlobeProps> = ({
       }
 
       globeRef.current.update({
-        width: internalWidth,
-        height: internalHeight,
         phi: phiRef.current,
         theta: thetaRef.current,
         scale: currentScaleRef.current,
@@ -360,23 +355,23 @@ const Globe: React.FC<GlobeProps> = ({
       observer.observe(canvas);
     }
 
-    // Re-init when the container actually gains a non-zero size (e.g. it was
-    // hidden / collapsed at mount time so the canvas rect was 0).
+    // Resize in place. Re-initialising here would destroy and recreate the
+    // WebGL context on every layout change; update() is enough because cobe
+    // reapplies the devicePixelRatio on the new dimensions itself.
+    const applySize = () => {
+      if (!isVisible || !globeRef.current) return;
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(1, Math.round(rect.width));
+      const h = Math.max(1, Math.round(rect.height));
+      if (w === internalWidth && h === internalHeight) return;
+      internalWidth = w;
+      internalHeight = h;
+      globeRef.current.update({ width: w, height: h });
+    };
+
     let resizeObserver: ResizeObserver | null = null;
     if (typeof ResizeObserver !== "undefined" && containerRef.current) {
-      resizeObserver = new ResizeObserver((entries) => {
-        const entry = entries[0];
-        if (!entry) return;
-        const w = Math.round(entry.contentRect.width);
-        const h = Math.round(entry.contentRect.height);
-        if (w <= 0 || h <= 0) return;
-        const rect = canvas.getBoundingClientRect();
-        if (Math.round(rect.width) !== w || Math.round(rect.height) !== h) {
-          if (isVisible) {
-            initGlobe();
-          }
-        }
-      });
+      resizeObserver = new ResizeObserver(() => applySize());
       resizeObserver.observe(containerRef.current);
     }
 
@@ -391,9 +386,7 @@ const Globe: React.FC<GlobeProps> = ({
     canvas.addEventListener("touchend", onTouchEnd, { passive: true });
 
     const handleResize = () => {
-      if (isVisible) {
-        initGlobe();
-      }
+      applySize();
     };
 
     window.addEventListener("resize", handleResize);
