@@ -55,7 +55,7 @@ export function HeroSwiper() {
         {/* SLIDE 1 */}
         <SwiperSlide>
           <div className="relative overflow-hidden bg-gradient-to-br from-[#F8F7FD] to-[#EFEBFA] dark:from-[#120E26] dark:to-[#1A1533] px-6 sm:px-10 lg:px-16 py-14 lg:py-20 pb-[60px]">
-            <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
               {/* LEFT */}
               <div className="max-w-xl">
                 <div className="reveal reveal-1 inline-flex items-center gap-2 rounded-sm bg-[var(--violet-100)] text-[var(--violet-700)] text-sm font-semibold pl-3 pr-4 py-1.5 mb-7">
@@ -105,7 +105,7 @@ export function HeroSwiper() {
               </div>
 
               {/* RIGHT */}
-              <div className="relative h-[520px] sm:h-[580px] lg:h-[660px] flex items-center justify-center">
+              <div className="relative h-[400px] sm:h-[580px] lg:h-[660px] flex items-center justify-center">
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="ring-pulse w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full border border-[var(--violet-200)]" />
                   <div className="ring-spin-slow absolute w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] rounded-full border border-dashed border-violet-200/70" />
@@ -142,7 +142,7 @@ export function HeroSwiper() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="M21 15l-5-5L5 21" /></svg>
                 </div>
 
-                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
                   </div>
@@ -152,7 +152,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d2 absolute right-0 top-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d2 absolute right-0 top-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
                   </div>
@@ -162,7 +162,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                   </div>
@@ -172,7 +172,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg>
                   </div>
@@ -201,7 +201,7 @@ export function HeroSwiper() {
               <span className="absolute right-[6%] bottom-[10%] w-2 h-2 rounded-full bg-white shadow-[0_0_10px_3px_rgba(255,255,255,.8)] dark:shadow-[0_0_10px_3px_rgba(124,92,255,.4)] float-chip d1"></span>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
               {/* LEFT */}
               <div className="max-w-xl">
                 <div className="reveal reveal-1 inline-flex items-center gap-2 rounded-sm bg-[var(--violet-100)] text-[var(--violet-700)] text-sm font-semibold pl-3 pr-4 py-1.5 mb-7">
@@ -251,7 +251,7 @@ export function HeroSwiper() {
               </div>
 
               {/* RIGHT */}
-              <div className="relative h-[520px] sm:h-[580px] lg:h-[660px] flex items-center justify-center">
+              <div className="relative h-[400px] sm:h-[580px] lg:h-[660px] flex items-center justify-center">
                 {/* dashed orbit rings */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="ring-spin-slow w-[420px] h-[420px] sm:w-[500px] sm:h-[500px] rounded-full border border-dashed border-violet-300/50" />
@@ -292,7 +292,7 @@ export function HeroSwiper() {
                 </div>
 
                 {/* feature cards */}
-                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4">
+                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 hidden lg:block">
                   <div className="flex items-center gap-3">
                     <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" /></svg>
@@ -306,7 +306,7 @@ export function HeroSwiper() {
                   <button className="mt-4 text-xs font-semibold text-[var(--violet-700)] bg-[var(--violet-100)] rounded-lg px-3 py-1.5">Generate</button>
                 </div>
 
-                <div className="feature-card float-card d2 absolute right-0 top-0 w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4">
+                <div className="feature-card float-card d2 absolute right-0 top-0 w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 hidden lg:block">
                   <div className="flex items-center gap-2">
                     <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><rect x="7" y="12" width="3" height="6" /><rect x="12" y="8" width="3" height="10" /><rect x="17" y="5" width="3" height="13" /></svg>
@@ -324,7 +324,7 @@ export function HeroSwiper() {
                   </svg>
                 </div>
 
-                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4">
+                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 hidden lg:block">
                   <div className="flex items-center gap-3">
                     <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
@@ -338,7 +338,7 @@ export function HeroSwiper() {
                   <button className="mt-4 text-xs font-semibold text-[var(--violet-700)] bg-[var(--violet-100)] rounded-lg px-3 py-1.5">Ask Anything</button>
                 </div>
 
-                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4">
+                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[230px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 hidden lg:block">
                   <div className="flex items-center gap-3">
                     <div className="shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" /><path d="M9 13h6M9 17h6" /></svg>
@@ -375,7 +375,7 @@ export function HeroSwiper() {
               <span className="absolute left-[18%] top-[20%] w-1 h-1 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,.8)] dark:shadow-[0_0_6px_2px_rgba(124,92,255,.4)] float-chip d1"></span>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
               {/* LEFT */}
               <div className="max-w-xl">
                 <div className="reveal reveal-1 inline-flex items-center gap-2 rounded-sm bg-[var(--violet-100)] text-[var(--violet-700)] text-sm font-semibold pl-3 pr-4 py-1.5 mb-7">
@@ -425,7 +425,7 @@ export function HeroSwiper() {
               </div>
 
               {/* RIGHT */}
-              <div className="relative h-[520px] sm:h-[580px] lg:h-[660px] flex items-end justify-center pb-6">
+              <div className="relative h-[400px] sm:h-[580px] lg:h-[660px] flex items-end justify-center pb-6">
 
                 <div className="absolute z-0 left-1/2 -translate-x-1/2 bottom-[9%] w-36 h-44 opacity-70" style={{ clipPath: 'polygon(38% 100%, 62% 100%, 84% 0%, 16% 0%)', background: 'linear-gradient(to top, rgba(124,92,255,.55), rgba(124,92,255,.12) 55%, transparent 100%)' }}></div>
                 <div className="absolute z-0 left-1/2 -translate-x-1/2 bottom-[10%] w-44 h-44 rounded-full bg-[radial-gradient(circle,rgba(148,110,255,0.4)_0%,rgba(148,110,255,0)_70%)]"></div>
@@ -463,7 +463,7 @@ export function HeroSwiper() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="M21 15l-5-5L5 21" /></svg>
                 </div>
 
-                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d1 absolute left-0 top-[2%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" /></svg>
                   </div>
@@ -473,7 +473,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d2 absolute right-0 top-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d2 absolute right-0 top-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><rect x="7" y="12" width="3" height="6" /><rect x="12" y="8" width="3" height="10" /><rect x="17" y="5" width="3" height="13" /></svg>
                   </div>
@@ -483,7 +483,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d3 absolute left-0 bottom-[4%] w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
                   </div>
@@ -493,7 +493,7 @@ export function HeroSwiper() {
                   </div>
                 </div>
 
-                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 flex gap-3">
+                <div className="feature-card float-card d4 absolute right-0 bottom-0 w-[220px] bg-white dark:bg-[#1E1A35] rounded-lg shadow-xl shadow-violet-900/5 dark:shadow-violet-500/10 p-4 gap-3 hidden lg:flex">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--violet-600)] to-[var(--violet-500)] flex items-center justify-center">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" /><path d="M9 13h6M9 17h6" /></svg>
                   </div>
