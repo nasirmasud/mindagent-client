@@ -201,7 +201,7 @@ export default function ImageAnalyzerPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-[calc(100vh-4rem)] text-foreground">
+      <div className="min-h-[calc(100dvh-4rem)] text-foreground">
       <style>{`
         @keyframes scanY {
           0% { top: 0%; }
@@ -254,7 +254,7 @@ export default function ImageAnalyzerPage() {
                 <Search size={12} className="text-muted-foreground" />
                 <input placeholder="Search history" className="w-full bg-transparent text-xs text-muted-foreground placeholder:text-muted-foreground focus:outline-none" />
               </div>
-              <div className={`space-y-1.5 overflow-y-auto pr-1 ${showHistory ? "max-h-[520px]" : "max-h-[520px]"} max-lg:${showHistory ? "block" : "hidden"}`}>
+              <div className={`space-y-1.5 max-h-[520px] overflow-y-auto pr-1 ${showHistory ? "block" : "hidden"} lg:block`}>
                 {history.length === 0 ? (
                   <p className="py-8 text-center text-xs text-muted-foreground">No analyses yet</p>
                 ) : (
