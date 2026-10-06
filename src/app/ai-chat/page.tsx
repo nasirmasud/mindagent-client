@@ -521,7 +521,7 @@ export default function AIChatPage() {
           </div>
 
           {/* input bar */}
-          <div className="px-4 sm:px-8 pb-5 pt-2 flex-shrink-0">
+          <div className="px-4 sm:px-8 pt-2 flex-shrink-0 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <div className="w-full max-w-3xl mx-auto">
               <div className="flex items-end gap-2 w-full rounded-lg border border-border dark:border-white/10 bg-background/60 dark:bg-[#0F0D26]/70 px-3 py-2.5 transition-all duration-250 focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
                 <button
