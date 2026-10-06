@@ -63,12 +63,12 @@ export function DashboardLayout({
     <div
       className={`flex bg-[#0B0B1F] text-white ${
         fill
-          ? "h-[calc(100vh-4rem)] overflow-hidden"
-          : "min-h-[calc(100vh-4rem)]"
+          ? "h-[calc(100dvh-4rem)] overflow-hidden"
+          : "min-h-[calc(100dvh-4rem)]"
       }`}
     >
       {/* Sidebar (desktop) */}
-      <aside className="hidden lg:flex w-64 shrink-0 border-r border-[#232235] sticky top-16 h-[calc(100vh-4rem)] flex-col p-4">
+      <aside className="hidden lg:flex w-64 shrink-0 border-r border-[#232235] sticky top-16 h-[calc(100dvh-4rem)] flex-col p-4">
         <nav className="space-y-1 flex-1 overflow-y-auto">
           <SidebarNav pathname={pathname} />
         </nav>
