@@ -452,15 +452,15 @@ export default function DataAnalyzerPage() {
                             {item.insights?.summary && <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />}
                             <button
                               onClick={(e) => { e.stopPropagation(); handleDownload(item._id); }}
-                              className="p-1.5 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
-                              title="Download report"
+                              className="w-9 h-9 -mr-1 rounded-lg flex items-center justify-center hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                              aria-label={`Download report ${item.sourceFileName}`}
                             >
                               <Download className="w-3.5 h-3.5 text-muted-foreground" />
                             </button>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleDelete(item._id); }}
-                              className="p-1.5 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
-                              title="Delete"
+                              className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                              aria-label={`Delete analysis ${item.sourceFileName}`}
                             >
                               <Trash2 className="w-3.5 h-3.5 text-destructive" />
                             </button>
@@ -595,7 +595,7 @@ export default function DataAnalyzerPage() {
                         />
                         <button
                           onClick={() => setEditableKpis(editableKpis.filter((_, j) => j !== i))}
-                          className="mt-1 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity text-[10px] text-destructive hover:text-destructive/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+                          className="mt-1 w-full min-h-[2.75rem] py-2 px-2 text-xs font-medium text-destructive opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:text-destructive/80 hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
                         >
                           Remove
                         </button>
