@@ -174,7 +174,7 @@ export default function ContentGeneratorPage() {
         {/* Top bar */}
         <header className="flex items-center gap-3 px-4 sm:px-6 h-16 border-b border-border flex-shrink-0 sticky top-0 bg-background z-10">
           <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-            <FileText className="w-4.5 h-4.5 text-primary-foreground" />
+            <FileText className="w-5 h-5 text-primary-foreground" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-foreground truncate">AI Content Generator</p>
@@ -190,9 +190,10 @@ export default function ContentGeneratorPage() {
           </Link>
           <button
             onClick={() => setHistorySidebar(true)}
-            className="sm:hidden w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+            className="sm:hidden w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+            aria-label="Open generation history"
           >
-            <History className="w-4.5 h-4.5" />
+            <History className="w-5 h-5" />
           </button>
         </header>
 
@@ -232,7 +233,7 @@ export default function ContentGeneratorPage() {
               onChange={(e) => setTopic(e.target.value)}
               rows={3}
               placeholder="e.g. Why small businesses should adopt AI agents in 2026"
-              className="w-full rounded-lg border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-250 focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
+              className="w-full rounded-lg border border-border dark:border-white/10 bg-muted dark:bg-[#0F0D26]/70 text-sm text-foreground placeholder:text-muted-foreground p-3 outline-none resize-none mb-5 transition-all duration-[250ms] focus:border-primary focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)]"
             />
 
             <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Tone</label>
@@ -275,7 +276,7 @@ export default function ContentGeneratorPage() {
             <Button
               onClick={generate}
               disabled={loading || !topic.trim()}
-              className="w-full h-12 rounded-lg font-semibold text-sm gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_hsl(var(--primary)/0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="w-full h-12 rounded-lg font-semibold text-sm gap-2 transition-all duration-[250ms] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_hsl(var(--primary)/0.45)] active:translate-y-0 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               <Sparkles className="w-4 h-4" />
               {loading ? "Generating..." : "Generate Content"}
@@ -322,13 +323,13 @@ export default function ContentGeneratorPage() {
                       <span className="text-xs text-muted-foreground">{length.label}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="icon" onClick={copyOutput} className="w-8 h-8 rounded-lg" aria-label="Copy output">
+                      <Button variant="outline" size="icon" onClick={copyOutput} className="w-11 h-11 rounded-lg" aria-label="Copy output">
                         <Copy className="w-3.5 h-3.5" />
                       </Button>
-                      <Button variant="outline" size="icon" onClick={downloadOutput} className="w-8 h-8 rounded-lg" aria-label="Download output">
+                      <Button variant="outline" size="icon" onClick={downloadOutput} className="w-11 h-11 rounded-lg" aria-label="Download output">
                         <Download className="w-3.5 h-3.5" />
                       </Button>
-                      <Button variant="outline" onClick={generate} className="flex items-center gap-1.5 h-8 px-3 rounded-lg text-xs font-semibold">
+                      <Button variant="outline" onClick={generate} className="flex items-center gap-1.5 h-11 px-3 rounded-lg text-xs font-semibold">
                         <RefreshCw className="w-3.5 h-3.5" />
                         Regenerate
                       </Button>
@@ -379,7 +380,8 @@ export default function ContentGeneratorPage() {
                     </div>
                     <button
                       onClick={(e) => deleteHistoryItem(e, item._id)}
-                      className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all flex-shrink-0"
+                      className="w-11 h-11 -mr-2 rounded flex items-center justify-center text-muted-foreground opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 hover:text-destructive hover:bg-destructive/10 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all flex-shrink-0"
+                      aria-label={`Delete ${item.contentType} generation`}
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
@@ -399,7 +401,7 @@ export default function ContentGeneratorPage() {
                     <History className="w-4 h-4 text-primary" />
                     <span className="text-sm font-semibold text-foreground">History</span>
                   </div>
-                  <button onClick={() => setHistorySidebar(false)} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors">
+                  <button onClick={() => setHistorySidebar(false)} className="w-11 h-11 -mr-2 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors" aria-label="Close history">
                     <X className="w-4 h-4" />
                   </button>
                 </div>
@@ -438,7 +440,7 @@ export default function ContentGeneratorPage() {
 
       {/* copy toast */}
       <div
-        className={`fixed bottom-6 right-6 bg-foreground text-background text-sm font-medium px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-250 ${
+        className={`fixed bottom-6 right-6 bg-foreground text-background text-sm font-medium px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-[250ms] ${
           showCopied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
         }`}
       >
