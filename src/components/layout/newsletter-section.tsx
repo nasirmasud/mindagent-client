@@ -47,7 +47,7 @@ export default function NewsletterSection() {
               className={`${primaryActionButton} rounded-none`}
             >
               Subscribe
-              <ArrowRight className="h-4 w-4 transition-transform duration-250" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-[250ms]" aria-hidden="true" />
             </button>
           </div>
 
