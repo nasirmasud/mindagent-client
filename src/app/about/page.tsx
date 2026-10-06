@@ -26,7 +26,7 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-[#0A0A13] text-white">
+    <div className="min-h-[calc(100dvh-4rem)] bg-[#0A0A13] text-white">
       {/* HERO */}
       <section className="mx-auto max-w-4xl px-4 py-20 text-center">
         <h1 className="text-[34px] font-bold leading-[1.2] md:text-[42px]">
