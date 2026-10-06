@@ -101,13 +101,13 @@ export function HomeFaq() {
       <div className="mx-auto w-full max-w-3xl">
         <SectionHeader label="./help" title="Frequently Asked Questions" />
 
-        <div className="mt-10 flex justify-center gap-1 border border-border bg-card p-1">
+        <div className="mt-10 flex flex-wrap justify-center gap-1 border border-border bg-card p-1">
           {faqTabs.map((t, i) => (
             <button
               key={t.label}
               onClick={() => selectTab(i)}
               className={cn(
-                "flex-1 whitespace-nowrap px-4 py-2 font-mono text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "flex-1 min-w-[5.5rem] px-2 py-2.5 font-mono text-xs sm:min-w-0 sm:px-4 sm:py-2 sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 i === activeTab
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"
