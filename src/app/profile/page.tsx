@@ -412,16 +412,16 @@ export default function ProfilePage() {
                 <Camera className="w-3.5 h-3.5 text-white" />
               </button>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold">{user?.name}</h2>
-                <Pencil className="w-3.5 h-3.5 text-[#9C97B5]" />
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <h2 className="text-xl font-bold break-words min-w-0">{user?.name}</h2>
+                <Pencil className="w-3.5 h-3.5 shrink-0 text-[#9C97B5]" />
               </div>
-              <div className="flex items-center gap-2 mt-2 text-sm text-[#A09BB5]">
-                <Mail className="w-3.5 h-3.5" />
-                {user?.email}
-                <ChevronDown className="w-3.5 h-3.5" />
-                <span className="flex items-center gap-1 bg-[#1E1A35] text-[#C9C3EA] text-xs px-2 py-0.5 rounded-sm">
+              <div className="flex flex-wrap items-center gap-2 mt-2 text-sm text-[#A09BB5] min-w-0">
+                <Mail className="w-3.5 h-3.5 shrink-0" />
+                <span className="break-all min-w-0">{user?.email}</span>
+                <ChevronDown className="w-3.5 h-3.5 shrink-0" />
+                <span className="flex items-center gap-1 bg-[#1E1A35] text-[#C9C3EA] text-xs px-2 py-0.5 rounded-sm shrink-0">
                   {user?.authProvider === "google" ? "Google" : "Email"}
                 </span>
               </div>
