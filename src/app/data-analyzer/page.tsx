@@ -290,7 +290,7 @@ export default function DataAnalyzerPage() {
   if (loading || !isAuthenticated) return <PageSkeleton />;
 
   return (
-    <div className="text-foreground min-h-[calc(100vh-4rem)]">
+    <div className="text-foreground min-h-[calc(100dvh-4rem)]">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden pt-12 pb-8 md:pt-16 md:pb-10">
         <div className="absolute inset-0 pointer-events-none">
@@ -372,15 +372,15 @@ export default function DataAnalyzerPage() {
                     onChange={(e) => setFile(e.target.files?.[0] || null)}
                   />
                   {file ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <FileSpreadsheet className="w-8 h-8 text-primary" />
-                      <div className="text-left">
-                        <p className="font-medium text-foreground">{file.name}</p>
+                    <div className="flex items-center justify-center gap-3 min-w-0">
+                      <FileSpreadsheet className="w-8 h-8 text-primary shrink-0" />
+                      <div className="text-left min-w-0">
+                        <p className="font-medium text-foreground break-all">{file.name}</p>
                         <p className="text-sm text-muted-foreground">{formatBytes(file.size)}</p>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); setFile(null); if (fileRef.current) fileRef.current.value = ""; }}
-                        className="ml-4 p-1.5 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                        className="ml-4 p-1.5 shrink-0 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
                       >
                         <X className="w-4 h-4 text-muted-foreground" />
                       </button>
@@ -480,17 +480,17 @@ export default function DataAnalyzerPage() {
       {currentItem && currentItem.insights?.summary && (
         <section className="py-16">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="flex items-center justify-between mb-8">
-              <div>
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 mb-8">
+              <div className="min-w-0">
                 <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-                  <BarChart3 className="w-6 h-6 text-primary" />
+                  <BarChart3 className="w-6 h-6 text-primary shrink-0" />
                   Analysis Results
                 </h2>
-                <p className="text-muted-foreground text-sm mt-1">
+                <p className="text-muted-foreground text-sm mt-1 break-words">
                   {currentItem.sourceFileName} &middot; {currentItem.rowCount.toLocaleString()} rows &middot; {currentItem.columns.length} columns
                 </p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 shrink-0">
                 <Button
                   variant="outline"
                   onClick={() => handleDownload(currentItem._id)}
