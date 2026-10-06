@@ -319,21 +319,22 @@ export default function AIChatPage() {
         <aside
           className={`mobile-sidebar absolute lg:static z-30 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 w-72 inset-y-0 lg:h-full bg-card/60 dark:bg-[#0D0B22]/85 backdrop-blur-sm border-r border-border dark:border-white/5 flex flex-col transition-transform duration-350`}
+          } lg:translate-x-0 w-72 inset-y-0 lg:h-full bg-card/60 dark:bg-[#0D0B22]/85 backdrop-blur-sm border-r border-border dark:border-white/5 flex flex-col transition-transform duration-[350ms]`}
         >
           {/* logo + new chat */}
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-end mb-4 lg:hidden">
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors"
+                className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors"
+                aria-label="Close chat history"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
             <Button
               onClick={newChat}
-              className="w-full h-10 rounded-lg text-sm font-semibold gap-2 transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.4)] active:translate-y-0"
+              className="w-full h-10 rounded-lg text-sm font-semibold gap-2 transition-all duration-[250ms] hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.4)] active:translate-y-0"
             >
               <Plus className="w-4 h-4" />
               New Chat
@@ -378,7 +379,8 @@ export default function AIChatPage() {
                       </span>
                       <button
                         onClick={(e) => deleteSession(e, s._id)}
-                        className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all flex-shrink-0"
+                        className="w-11 h-11 -mr-2 rounded flex items-center justify-center text-muted-foreground opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 hover:text-destructive hover:bg-destructive/10 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all flex-shrink-0"
+                        aria-label={`Delete chat ${s.title}`}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -426,9 +428,10 @@ export default function AIChatPage() {
             <div className="w-full max-w-3xl mx-auto space-y-6">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden absolute top-2 left-4 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors z-10"
+              className="lg:hidden absolute top-2 left-4 w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors z-10"
+              aria-label="Open chat history"
             >
-              <PanelLeft className="w-4.5 h-4.5" />
+              <PanelLeft className="w-5 h-5" />
             </button>
             {messages.length === 0 && (
               <div className="msg-in max-w-2xl">
@@ -523,10 +526,11 @@ export default function AIChatPage() {
           {/* input bar */}
           <div className="px-4 sm:px-8 pt-2 flex-shrink-0 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <div className="w-full max-w-3xl mx-auto">
-              <div className="flex items-end gap-2 w-full rounded-lg border border-border dark:border-white/10 bg-background/60 dark:bg-[#0F0D26]/70 px-3 py-2.5 transition-all duration-250 focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
+              <div className="flex items-end gap-2 w-full rounded-lg border border-border dark:border-white/10 bg-background/60 dark:bg-[#0F0D26]/70 px-3 py-2.5 transition-all duration-[250ms] focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.10)]">
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors flex-shrink-0"
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-primary transition-colors flex-shrink-0"
+                  aria-label="Attach a file"
                 >
                   <Paperclip className="w-4 h-4" />
                 </button>
@@ -549,7 +553,7 @@ export default function AIChatPage() {
                   onClick={() => sendMessage()}
                   disabled={!input.trim() || streaming}
                   size="icon"
-                  className="w-9 h-9 rounded-lg transition-all duration-250 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.45)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100 disabled:hover:shadow-none"
+                  className="w-11 h-11 rounded-lg transition-all duration-[250ms] hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_22px_-8px_hsl(var(--primary)/0.45)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100 disabled:hover:shadow-none"
                   aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />
