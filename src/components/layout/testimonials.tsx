@@ -177,32 +177,37 @@ export default function Testimonials() {
           <button
             onClick={prev}
             aria-label="Previous testimonials"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-100 transition-all duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonials"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-0 transition-all duration-300 group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden md:flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-[#1E1A35] border border-slate-200 dark:border-[#2E274A] shadow-sm text-slate-500 dark:text-slate-400 opacity-100 transition-all duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/carousel:opacity-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 hover:scale-110"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
 
         {/* Dots */}
-        <div className="mt-8 flex justify-center gap-2">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-1">
           {Array.from({ length: pageCount }).map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to page ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ease-out ${
-                page === i
-                  ? "w-6 bg-indigo-600"
-                  : "w-2 bg-indigo-200 dark:bg-indigo-800 hover:bg-indigo-300 dark:hover:bg-indigo-600"
-              }`}
-            />
+              aria-current={page === i ? "true" : undefined}
+              className="flex h-11 min-w-[2.75rem] items-center justify-center px-1"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all duration-300 ease-out ${
+                  page === i
+                    ? "w-6 bg-indigo-600"
+                    : "w-2 bg-indigo-200 dark:bg-indigo-800 hover:bg-indigo-300 dark:hover:bg-indigo-600"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>
