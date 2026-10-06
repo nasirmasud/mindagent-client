@@ -66,11 +66,11 @@ export default function AgentCategories() {
         </p>
 
         {/* Grid */}
-        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
           {categories.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="group relative rounded-lg border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-8 shadow-sm dark:shadow-[#120E26]/50 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-indigo-200 dark:hover:border-indigo-500/50"
+              className="group relative rounded-lg border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-6 sm:p-8 shadow-sm dark:shadow-[#120E26]/50 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-indigo-200 dark:hover:border-indigo-500/50"
             >
               <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30 transition-all duration-300 ease-out group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:scale-110 group-hover:rotate-6">
                 <Icon
@@ -95,7 +95,7 @@ export default function AgentCategories() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-40 mx-auto w-2/3 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-lg border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-500/50">
+        <div className="mt-40 mx-auto w-full max-w-3xl flex flex-col sm:flex-row items-center justify-between gap-6 rounded-lg border border-slate-200 dark:border-[#2E274A] bg-white dark:bg-[#1E1A35] p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-500/50">
           <div className="flex items-center gap-4">
             <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-visible">
               <img src="/logo.png" alt="MindAgent" width={80} height={80} className="h-20 w-20 object-contain absolute -top-3 -left-3 transition-transform duration-300 hover:scale-110 hover:-rotate-6" />
