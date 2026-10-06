@@ -244,7 +244,8 @@ export default function ImageAnalyzerPage() {
                 </h3>
                 <button
                   onClick={() => setShowHistory(!showHistory)}
-                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors lg:hidden"
+                  className="flex items-center gap-1 min-h-[2.75rem] px-2 text-xs text-muted-foreground hover:text-foreground transition-colors lg:hidden"
+                  aria-expanded={showHistory}
                 >
                   <ChevronRight className={`w-3 h-3 transition-transform ${showHistory ? "rotate-90" : ""}`} />
                   {showHistory ? "Hide" : "Show"}
@@ -273,7 +274,8 @@ export default function ImageAnalyzerPage() {
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); deleteHistory(h._id); }}
-                        className="shrink-0 p-1 rounded hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                        className="shrink-0 w-11 h-11 -mr-2 flex items-center justify-center rounded hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                        aria-label={`Delete ${h.imageName}`}
                       >
                         <Trash2 size={11} className="text-muted-foreground hover:text-destructive" />
                       </button>
@@ -314,7 +316,8 @@ export default function ImageAnalyzerPage() {
                       <img src={preview} alt="preview" className="h-full w-full object-cover" />
                       <button
                         onClick={(e) => { e.stopPropagation(); clearImage(); }}
-                        className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg bg-black/60 text-white backdrop-blur hover:bg-black/80"
+                        className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-lg bg-black/60 text-white backdrop-blur hover:bg-black/80"
+                        aria-label="Remove image"
                       >
                         <X size={14} />
                       </button>
@@ -360,7 +363,7 @@ export default function ImageAnalyzerPage() {
                     <button
                       key={c}
                       onClick={() => setPrompt(c)}
-                      className="rounded-sm border border-border bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                      className="rounded-sm border border-border bg-card px-3 py-2.5 min-h-[2.75rem] text-xs text-muted-foreground hover:border-primary/40 hover:text-foreground"
                     >
                       {c}
                     </button>
@@ -408,7 +411,7 @@ export default function ImageAnalyzerPage() {
                         <Button
                           variant="outline"
                           onClick={copyResult}
-                          className="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs"
+                          className="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 min-h-[2.75rem] text-xs"
                         >
                           <Copy size={12} /> Copy result
                         </Button>
@@ -423,7 +426,7 @@ export default function ImageAnalyzerPage() {
                             a.click();
                             URL.revokeObjectURL(url);
                           }}
-                          className="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs"
+                          className="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 min-h-[2.75rem] text-xs"
                         >
                           <Download size={12} /> Export
                         </Button>
