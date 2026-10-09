@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight, Terminal } from "lucide-react";
+import { Terminal } from "lucide-react";
 import { SectionHeader } from "./section-header";
 
 const LOG_POOL = [
@@ -63,12 +63,7 @@ export function HomeActivityStream() {
         <SectionHeader
           label="./logs"
           title="Live Agent Activity Stream"
-          action={
-            <button className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-sm font-semibold text-primary rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
-              View all logs
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </button>
-          }
+          description="A representative sample of what our agents log while they work."
         />
 
         {/* Terminal card */}
