@@ -2,24 +2,26 @@ import Link from "next/link";
 import { CircleUser } from "lucide-react";
 import { siteContact, siteSocials } from "@/lib/site-info";
 
+// Every href below points at a route that exists. Agents are the only thing
+// /explore lists, so it appears once rather than under several near-synonym labels.
 const platformLinks = [
   { href: "/explore", label: "AI Agents" },
-  { href: "/explore", label: "AI Tools" },
   { href: "/ai-chat", label: "AI Chat" },
+  { href: "/content-generator", label: "Content Generator" },
+  { href: "/data-analyzer", label: "Data Analyzer" },
+  { href: "/image-analyzer", label: "Image Analyzer" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/explore", label: "Integrations" },
 ];
 
 const companyLinks = [
   { href: "/about", label: "About Us" },
-  { href: "/about", label: "Careers" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/blog", label: "Blog" },
   { href: "/privacy", label: "Privacy Policy" },
 ];
 
 const supportLinks = [
-  { href: "/contact", label: "Help Center" },
-  { href: "/about", label: "Documentation" },
+  { href: "/contact", label: "Contact Support" },
   { href: "/terms", label: "Terms of Service" },
   { href: "/refund", label: "Refund Policy" },
 ];
