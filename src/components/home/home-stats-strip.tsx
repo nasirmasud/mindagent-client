@@ -17,9 +17,22 @@ export function HomeStatsStrip() {
             key={s.label}
             className='group relative px-6 text-center md:px-10'
           >
-            {/* centered, fading vertical divider */}
+            {/* Divider. Painted with an inline gradient rather than a
+                `bg-gradient-to-b` + `via-*` pair: those resolve their colour stops
+                through CSS custom properties that inherit from the theme, and the
+                result was too faint to read in both themes. A literal rgba() stop and
+                an indigo glow are independent of the theme, so the line renders the
+                same on light and dark. */}
             {i > 0 && (
-              <span className='absolute left-0 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-foreground/25 to-transparent md:block' />
+              <span
+                aria-hidden='true'
+                className='absolute left-0 top-1/2 hidden h-28 w-[2px] -translate-y-1/2 md:block'
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, transparent, rgba(129,140,248,0.9), transparent)',
+                  boxShadow: '0 0 10px 2px rgba(129,140,248,0.35)',
+                }}
+              />
             )}
 
             <p className='flex items-center justify-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground md:text-sm'>
