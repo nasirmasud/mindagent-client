@@ -81,13 +81,25 @@ export function HomeTestimonials() {
   // instead of killing autoplay for the rest of the session.
   const [restartTick, setRestartTick] = useState(0);
 
+  // Respect prefers-reduced-motion: never auto-advance, and drop the slide
+  // transition. The carousel still works via the arrows and dots.
+  const [reducedMotion, setReducedMotion] = useState(false);
+
   useEffect(() => {
-    if (paused) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReducedMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotion) return;
     const id = setInterval(() => {
       setPage((p) => (p + 1) % pageCount);
     }, 5000);
     return () => clearInterval(id);
-  }, [paused, restartTick]);
+  }, [paused, reducedMotion, restartTick]);
 
   const goTo = (i: number) => {
     setPage(i);
@@ -98,7 +110,7 @@ export function HomeTestimonials() {
   const next = () => goTo((page + 1) % pageCount);
 
   return (
-    <section className="w-full px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full px-4 md:px-20 py-24 md:py-40">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           label="./testimonials"
@@ -115,13 +127,17 @@ export function HomeTestimonials() {
         >
           <div className="overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-out"
+              className={
+                reducedMotion
+                  ? "flex"
+                  : "flex transition-transform duration-500 ease-out motion-reduce:transition-none"
+              }
               style={{ transform: `translateX(-${page * 100}%)` }}
             >
               {Array.from({ length: pageCount }).map((_, pageIdx) => (
                 <div
                   key={pageIdx}
-                  className="grid w-full shrink-0 grid-cols-1 gap-px border border-border bg-border md:grid-cols-3"
+                  className="grid w-full shrink-0 grid-cols-1 gap-px border border-border bg-border sm:grid-cols-3"
                 >
                   {testimonials
                     .slice(pageIdx * PER_PAGE, pageIdx * PER_PAGE + PER_PAGE)
@@ -193,19 +209,27 @@ export function HomeTestimonials() {
           </button>
         </div>
 
-        {/* Dots */}
-        <div className="mt-8 flex justify-center gap-2">
+        {/* Dots — the only carousel control below md, where the arrows are
+            `hidden md:flex`. The visible pill stays 8px tall but the button
+            around it is 44px so it clears the minimum tap target. */}
+        <div className="mt-4 flex justify-center gap-1 sm:mt-8 sm:gap-2">
           {Array.from({ length: pageCount }).map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to testimonial page ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                page === i
-                  ? "w-6 bg-primary"
-                  : "w-2 bg-primary/25 hover:bg-primary/50"
-              }`}
-            />
+              aria-current={page === i}
+              className="flex h-11 w-6 items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-7"
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2 rounded-full transition-all duration-300 ${
+                  page === i
+                    ? "w-6 bg-primary"
+                    : "w-2 bg-primary/25 hover:bg-primary/50"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>
