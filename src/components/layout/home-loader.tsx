@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { waitForSignal, signalReady } from "@/lib/load-signals";
 
 const FADE_MS = 500;
-const FAILSAFE_MS = 10000;
+// Scroll is locked for as long as the overlay is up, so this is also the longest a
+// visitor can be unable to move the page. Keep it short enough that a hung signal
+// degrades to "the overlay went away" rather than "the site is frozen".
+const FAILSAFE_MS = 2500;
 
 function waitForAboveFoldImages(): Promise<void> {
   return new Promise((resolve) => {
@@ -87,11 +90,14 @@ export function HomeLoader() {
         ? document.fonts.ready
         : Promise.resolve();
 
+    // Only gate on things that are above the fold. The `globe` signal comes from the
+    // trust-stats globe far down the page; waiting on it while scroll is locked meant
+    // the overlay sat for the full failsafe on every mobile load, because a below-fold
+    // canvas cannot become visible until the overlay is gone.
     Promise.all([
       fontsReady,
       pageLoaded,
       waitForSignal("hero-dots"),
-      waitForSignal("globe"),
       waitForAboveFoldImages(),
     ])
       .then(finish)
@@ -106,11 +112,15 @@ export function HomeLoader() {
 
   if (phase === "done") return null;
 
+  // The overlay catches pointer events rather than passing them through. It used to be
+  // `pointer-events-none`, which meant a tap during load landed on the CTA sitting
+  // invisible behind an opaque full-screen overlay. It is aria-hidden throughout - the
+  // visible text is decorative and the section below announces load state instead.
   return (
     <div
-      aria-hidden={phase === "fading"}
-      className={`pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ease-out ${
-        phase === "fading" ? "opacity-0" : "opacity-100"
+      aria-hidden="true"
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ease-out ${
+        phase === "fading" ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
