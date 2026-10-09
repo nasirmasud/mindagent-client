@@ -76,7 +76,7 @@ export function HomeHero() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-none">
-              <Link href="/about">Read the docs</Link>
+              <Link href="/explore">See all agents</Link>
             </Button>
           </div>
         </div>
