@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { SectionHeader } from "./section-header";
 
@@ -75,18 +75,23 @@ const pageCount = Math.ceil(testimonials.length / PER_PAGE);
 
 export function HomeTestimonials() {
   const [page, setPage] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [paused, setPaused] = useState(false);
+  // Bumped by every manual navigation. It is in the dependency list purely to
+  // tear down and rebuild the interval, so a dot click restarts the countdown
+  // instead of killing autoplay for the rest of the session.
+  const [restartTick, setRestartTick] = useState(0);
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
+    if (paused) return;
+    const id = setInterval(() => {
       setPage((p) => (p + 1) % pageCount);
     }, 5000);
-    return () => clearInterval(timerRef.current ?? undefined);
-  }, []);
+    return () => clearInterval(id);
+  }, [paused, restartTick]);
 
   const goTo = (i: number) => {
-    clearInterval(timerRef.current ?? undefined);
     setPage(i);
+    setRestartTick((t) => t + 1);
   };
 
   const prev = () => goTo((page - 1 + pageCount) % pageCount);
@@ -98,10 +103,16 @@ export function HomeTestimonials() {
         <SectionHeader
           label="./testimonials"
           title="Loved by Users Worldwide"
-          link={{ href: "/about", label: "Read all reviews" }}
+          link={{ href: "/about", label: "Why we built MindAgent" }}
         />
 
-        <div className="relative mt-10">
+        <div
+          className="relative mt-10"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
