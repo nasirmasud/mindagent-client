@@ -110,7 +110,17 @@ const SPOKE_STEP_DEG = 360 / SPOKE_COUNT;
 const RX_RATIO = 0.409;
 const RY_RATIO = 0.55;
 const DIAGRAM_SCALE = 1.5;
-const BOX_HALF = 36;
+const NODE_SIZE_PX = 56;
+const NODE_HOVER_SCALE = 1.1;
+
+/**
+ * Half the footprint a spoke node actually needs, measured at its largest size.
+ * The node renders at NODE_SIZE_PX * DIAGRAM_SCALE and grows by NODE_HOVER_SCALE
+ * on hover, so the reserved box has to cover the hovered size - reserving only the
+ * rest size lets the ring of nodes sit a few px outside the diagram box at 360px,
+ * and `hover:scale-110` then paints them past the section edge.
+ */
+const BOX_HALF = (NODE_SIZE_PX * DIAGRAM_SCALE * NODE_HOVER_SCALE) / 2;
 
 type PulsePhase = "idle" | "out" | "dwell" | "back";
 
@@ -364,7 +374,7 @@ export function HomeIntegrations() {
   }, [reducedMotion, layout]);
 
   return (
-    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-12 md:py-16">
+    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-40">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           label="./integrations"
@@ -433,7 +443,7 @@ export function HomeIntegrations() {
           {layout.tools.map((tool, index) => (
             <div
               key={tool.name}
-              className={`group absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-x-1/2 hover:-translate-y-[55%] hover:scale-110 ${
+              className={`group absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 border bg-card px-1 text-foreground shadow-lg shadow-primary/10 transition-[transform,border-color,box-shadow] duration-300 [@media(hover:hover)]:hover:-translate-x-1/2 [@media(hover:hover)]:hover:-translate-y-[55%] [@media(hover:hover)]:hover:scale-110 ${
                 flashing.includes(index)
                   ? "border-primary shadow-primary/40"
                   : "border-border"
@@ -441,8 +451,8 @@ export function HomeIntegrations() {
               style={{
                 left: tool.x,
                 top: tool.y,
-                width: 56 * DIAGRAM_SCALE,
-                height: 56 * DIAGRAM_SCALE,
+                width: NODE_SIZE_PX * DIAGRAM_SCALE,
+                height: NODE_SIZE_PX * DIAGRAM_SCALE,
               }}
             >
               {tool.icon}
