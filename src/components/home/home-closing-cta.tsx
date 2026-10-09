@@ -66,8 +66,8 @@ export function HomeClosingCta() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="group gap-2 rounded-none">
-              <Link href="/about">
-                Read the docs
+              <Link href="/pricing">
+                See pricing
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
