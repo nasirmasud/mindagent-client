@@ -58,7 +58,7 @@ const faqTabs: { label: string; items: Faq[] }[] = [
       },
       {
         q: "Do you offer refunds? ⚠",
-        a: "If you are not happy, contact us within [7] days of your first payment and we will review your request. See our Refund Policy for the full details.",
+        a: "We don't process payments yet, so there's nothing to refund. When billing goes live we intend to offer a 30-day money-back window on first payment - see our Refund Policy for the details.",
       },
       {
         q: "Is there a discount for yearly billing?",
