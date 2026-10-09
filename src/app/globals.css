@@ -103,42 +103,6 @@
   }
 }
 
-/* ========== Hero Swiper ========== */
-.hero-swiper { width: 100%; min-height: 660px; }
-.hero-swiper .swiper-wrapper { height: auto !important; }
-.hero-swiper .swiper-slide { height: auto; }
-.hero-swiper .swiper-pagination { position: absolute; bottom: 1.5rem; left: 0; right: 0; }
-.hero-swiper .swiper-pagination-bullet {
-  width: 8px; height: 8px; background: #C9C3EA; opacity: 1; transition: all .3s ease;
-}
-.hero-swiper .swiper-pagination-bullet-active {
-  width: 22px; border-radius: 9999px; background: var(--violet-600);
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  filter: blur(4px);
-}
-.swiper-slide-active .reveal {
-  animation: revealUp .8s cubic-bezier(.16,1,.3,1) forwards;
-}
-.swiper-slide-active .reveal-1 { animation-delay: .05s }
-.swiper-slide-active .reveal-2 { animation-delay: .14s }
-.swiper-slide-active .reveal-3 { animation-delay: .22s }
-.swiper-slide-active .reveal-4 { animation-delay: .30s }
-.swiper-slide-active .reveal-5 { animation-delay: .38s }
-.swiper-slide-active .reveal-6 { animation-delay: .46s }
-.swiper-slide-active .reveal-card-tl { animation-delay: .42s }
-.swiper-slide-active .reveal-card-tr { animation-delay: .52s }
-.swiper-slide-active .reveal-card-bl { animation-delay: .62s }
-.swiper-slide-active .reveal-card-br { animation-delay: .72s }
-.swiper-slide-active .reveal-bot { animation-delay: .18s }
-
-@keyframes revealUp {
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
 .float-card { animation: floatY 5.5s cubic-bezier(.45,0,.55,1) infinite; }
 .float-card.d1 { animation-delay: .1s }
 .float-card.d2 { animation-delay: 1.1s }
