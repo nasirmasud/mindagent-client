@@ -99,8 +99,9 @@ export default function PrivacyPolicyPage() {
               <p>
                 You can edit your display name and avatar at any time from{" "}
                 <strong className="text-foreground">Settings</strong>, and change
-                your password from the same page. To export or delete anything else,
-                email us and we will action it within 30 days.
+                your password from the same page. There is no self-serve account
+                deletion yet, so to export or delete anything - including your
+                account itself - email us and we will action it within 30 days.
               </p>
               <p>
                 If you are in the EU, you have the rights to access, correct,
