@@ -30,7 +30,7 @@ export function HomeHero() {
 
   return (
 <section
-      className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-36"
+      className="relative w-full overflow-hidden px-4 md:px-20 py-24 md:py-40"
     >
       <HeroDotGrid />
 
@@ -119,12 +119,16 @@ export function HomeHero() {
               ))}
             </ul>
 
-            <div className="mt-4 flex items-center justify-between rounded-none border border-border bg-accent/50 px-3 py-2.5">
-              <span className="inline-flex items-center gap-1.5 text-xs text-foreground">
-                <BadgeCheck className="h-4 w-4 text-primary" aria-hidden="true" />
-                120 tasks processed today
+            {/* The two strings together need ~280px, more than the card has on a 360px
+                screen, so the left one truncates and the strip wraps. */}
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-none border border-border bg-accent/50 px-3 py-2.5">
+              <span className="inline-flex min-w-0 items-center gap-1.5 text-xs text-foreground">
+                <BadgeCheck className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                <span className="truncate">120 tasks processed today</span>
               </span>
-              <span className="font-mono text-xs font-semibold text-primary">+18% vs yesterday</span>
+              <span className="shrink-0 whitespace-nowrap font-mono text-xs font-semibold text-primary">
+                +18% vs yesterday
+              </span>
             </div>
           </div>
         </div>
