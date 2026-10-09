@@ -71,7 +71,7 @@ const faqTabs: { label: string; items: Faq[] }[] = [
     items: [
       {
         q: "Can I delete my data and account?",
-        a: "Yes. You can delete your account and all its data at any time from Settings. Deletion is permanent and cannot be undone.",
+        a: "Yes - email us and we will delete your account and all its data. There is no self-serve deletion button yet, so the request comes through us. Deletion is permanent and cannot be undone.",
       },
       {
         q: "How is my data protected? ⚠",
