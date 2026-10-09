@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, Rocket } from "lucide-react";
@@ -6,12 +9,36 @@ import { SectionHeader } from "./section-header";
 
 const Globe = dynamic(() => import("@/components/lightswind/globe"), { ssr: false });
 
+// The globe is a decorative backdrop behind a gradient scrim. At 130vmax it rasterises
+// a canvas of roughly 832x832 CSS px on a phone, and cobe multiplies that by
+// devicePixelRatio again - a ~1.3M fragment fill per frame on the GPU most likely to
+// stutter. Narrow viewports get a smaller box and a coarser dot mesh; from `sm` up the
+// original values are kept so desktop is untouched.
+const COMPACT_MQ = "(max-width: 639px)";
+const GLOBE_DESKTOP_VMAX = 130;
+const GLOBE_COMPACT_VMAX = 88;
+const MAP_SAMPLES_DESKTOP = 24000;
+const MAP_SAMPLES_COMPACT = 6000;
+
 export function HomeClosingCta() {
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(COMPACT_MQ);
+    const sync = () => setCompact(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const vmax = compact ? GLOBE_COMPACT_VMAX : GLOBE_DESKTOP_VMAX;
+
   return (
     <section className="relative w-full overflow-hidden">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[130vmax] w-[130vmax] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2"
+        style={{ height: `${vmax}vmax`, width: `${vmax}vmax` }}
       >
         <Globe
           className="h-full w-full !min-h-0"
@@ -19,7 +46,7 @@ export function HomeClosingCta() {
           scale={0.83}
           diffuse={1.2}
           mapBrightness={10}
-          mapSamples={24000}
+          mapSamples={compact ? MAP_SAMPLES_COMPACT : MAP_SAMPLES_DESKTOP}
           baseColor="#6C4CF1"
           markerColor="#8B5CF6"
           glowColor="#B79CFF"
@@ -39,7 +66,7 @@ export function HomeClosingCta() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-background to-transparent md:h-56"
       />
-      <div className="relative z-20 mx-auto w-full max-w-7xl px-4 py-32 md:px-20 md:py-44">
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-4 py-32 md:px-20 md:py-48">
         <div className="max-w-2xl">
           <SectionHeader
           align="left"
