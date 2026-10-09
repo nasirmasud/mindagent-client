@@ -45,7 +45,7 @@ export function Navbar() {
             alt="MindAgent logo"
             width={72}
             height={72}
-            className="h-[4.5rem] w-[4.5rem] -mt-2"
+            className="h-[4.5rem] w-[4.5rem]"
           />
           <span className="text-xl font-bold text-foreground">
             Mind<span className="text-primary">Agent</span>
