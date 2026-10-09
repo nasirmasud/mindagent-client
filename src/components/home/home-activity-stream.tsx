@@ -58,7 +58,7 @@ export function HomeActivityStream() {
   });
 
   return (
-    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full border-y border-border bg-card/60 dark:bg-card/40 px-4 md:px-20 py-24 md:py-40">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           label="./logs"
@@ -84,12 +84,15 @@ export function HomeActivityStream() {
             </span>
           </div>
 
-          <div className="space-y-2 p-5 font-mono text-[13px] leading-relaxed">
+          {/* Below `sm` the log text wraps instead of being clipped - the point
+              of the section is showing what the agent actually did. From `sm` up
+              there is room, so each entry stays on one truncated line. */}
+          <div className="space-y-2 p-4 font-mono text-[13px] leading-relaxed sm:p-5">
             {visible.map((log) => (
-              <p key={log.key} className="flex flex-wrap gap-x-2 whitespace-nowrap text-slate-400">
-                <span className="text-slate-400/60">{log.time}</span>
-                <span className={`font-semibold ${levelClass(log.level)}`}>[{log.level}]</span>
-                <span className="truncate">{log.text}</span>
+              <p key={log.key} className="flex flex-wrap gap-x-2 break-words text-slate-400 sm:whitespace-nowrap">
+                <span className="shrink-0 text-slate-400/60">{log.time}</span>
+                <span className={`shrink-0 font-semibold ${levelClass(log.level)}`}>[{log.level}]</span>
+                <span className="min-w-0 sm:truncate">{log.text}</span>
               </p>
             ))}
           </div>

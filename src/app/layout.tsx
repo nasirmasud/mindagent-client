@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { FooterShell } from "@/components/layout/footer-shell";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
 import { Toaster } from "@/components/shared/toaster";
+import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({
               <main className="flex-1"><ErrorBoundary>{children}</ErrorBoundary></main>
               <FooterShell />
               <Toaster />
+              <ScrollProgress />
             </AuthProvider>
           </QueryProvider>
         </ThemeProvider>

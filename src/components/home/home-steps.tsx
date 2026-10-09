@@ -31,7 +31,7 @@ const steps = [
 
 export function HomeSteps() {
   return (
-    <section className="w-full px-4 md:px-20 py-24 md:py-32">
+    <section className="w-full px-4 md:px-20 py-24 md:py-40">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader label="./get-started" title="Simple Steps to Get Started" />
 

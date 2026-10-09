@@ -87,6 +87,20 @@
       linear-gradient(rgba(90, 56, 234, 0.22) 1px, transparent 1px),
       linear-gradient(90deg, rgba(90, 56, 234, 0.22) 1px, transparent 1px);
   }
+
+  /* Hide the native scrollbar. Scrolling still works - only the visual track and
+     thumb are removed. Scroll position feedback is provided by the fixed progress
+     bar mounted in the root layout. */
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }
 
 /* ========== Hero Swiper ========== */
