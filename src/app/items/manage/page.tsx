@@ -326,13 +326,17 @@ export default function ManageItemsPage() {
                             {item.sourceFileType}
                           </span>
                         </td>
-                        <td className="p-4 text-[#A09BB5] hidden md:table-cell flex items-center gap-1">
-                          <HardDrive className="h-3 w-3" />
-                          {item.rowCount.toLocaleString()}
+                        <td className="p-4 text-[#A09BB5] hidden md:table-cell">
+                          <span className="inline-flex items-center gap-1">
+                            <HardDrive className="h-3 w-3" />
+                            {item.rowCount.toLocaleString()}
+                          </span>
                         </td>
-                        <td className="p-4 text-[#A09BB5] hidden lg:table-cell flex items-center gap-1">
-                          <Calendar className="h-3 w-3" />
-                          {new Date(item.createdAt).toLocaleDateString()}
+                        <td className="p-4 text-[#A09BB5] hidden lg:table-cell">
+                          <span className="inline-flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {new Date(item.createdAt).toLocaleDateString()}
+                          </span>
                         </td>
                         <td className="p-4 text-right">
                           <ItemActions
