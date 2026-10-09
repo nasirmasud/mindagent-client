@@ -1,30 +1,26 @@
 import Link from "next/link";
-import { BarChart3, Lightbulb, LineChart, Wand2 } from "lucide-react";
+import { Bot, LineChart, Wand2 } from "lucide-react";
 import { SectionHeader } from "./section-header";
 
+// Titles are kept in sync with the posts defined in app/blog/page.tsx. Both lists
+// are static, so the homepage advertises articles that actually exist.
 const posts = [
   {
-    icon: BarChart3,
-    tag: "Product",
-    title: "What we shipped: smarter Data Analysis with native charts",
+    icon: Bot,
+    tag: "Getting started",
+    title: "Getting Started with AI Agents",
+    href: "/blog",
+  },
+  {
+    icon: Wand2,
+    tag: "Guides",
+    title: "Content Creation with AI",
     href: "/blog",
   },
   {
     icon: LineChart,
     tag: "AI Research",
-    title: "How agents read spreadsheets and reason over raw numbers",
-    href: "/blog",
-  },
-  {
-    icon: Lightbulb,
-    tag: "Guides",
-    title: "10 prompts that turn the Content Generator into a copy team",
-    href: "/blog",
-  },
-  {
-    icon: Wand2,
-    tag: "Company",
-    title: "Why we built every agent to do exactly one job well",
+    title: "Understanding Multi-Provider AI",
     href: "/blog",
   },
 ];
@@ -39,7 +35,7 @@ export function HomeBlog() {
           link={{ href: "/blog", label: "View all" }}
         />
 
-        <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {posts.map(({ icon: Icon, tag, title, href }) => (
             <Link
               key={title}
