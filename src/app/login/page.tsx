@@ -3,6 +3,7 @@
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { api } from "@/lib/api";
 import { useAuthContext } from "@/providers/auth-provider";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -49,6 +50,14 @@ function LoginPageInner() {
   const [activeTab, setActiveTab] = useState<"login" | "register">(
     searchParams.get("tab") === "register" ? "register" : "login"
   );
+
+  // Pricing CTAs pass ?plan=pro so the visitor sees why they landed here instead of
+  // a bare register form. "free" is the default, so it needs no banner.
+  const selectedPlan = searchParams.get("plan");
+  const planIntent =
+    activeTab === "register" && selectedPlan && selectedPlan !== "free"
+      ? selectedPlan
+      : null;
 
   // Login form
   const [loginEmail, setLoginEmail] = useState("");
@@ -643,6 +652,15 @@ function LoginPageInner() {
                     : "opacity-0 pointer-events-none"
                 }`}
               >
+                {planIntent && (
+                  <p className='mb-4 rounded-sm border border-primary/30 bg-primary/10 px-3 py-2 text-xs leading-relaxed text-primary'>
+                    You picked the{" "}
+                    <strong className='font-semibold'>{planIntent}</strong> plan.
+                    Create your account to continue - billing activates after
+                    launch, so you will not be charged today.
+                  </p>
+                )}
+
                 <span className='inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 px-3 py-1 rounded-sm uppercase mb-4'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -949,13 +967,19 @@ function LoginPageInner() {
                       className='w-3.5 h-3.5 mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500'
                     />
                     I agree to the{" "}
-                    <a href='#' className='text-indigo-600 font-semibold'>
+                    <Link
+                      href='/terms'
+                      className='text-indigo-600 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm'
+                    >
                       Terms of Service
-                    </a>{" "}
+                    </Link>{" "}
                     and{" "}
-                    <a href='#' className='text-indigo-600 font-semibold'>
+                    <Link
+                      href='/privacy'
+                      className='text-indigo-600 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm'
+                    >
                       Privacy Policy
-                    </a>
+                    </Link>
                   </label>
                   <p
                     className={`field-error text-xs text-red-500 mb-3 ${regErrors.terms ? "show" : ""}`}
