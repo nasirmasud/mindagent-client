@@ -32,7 +32,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="w-full px-4 md:px-20 py-16 md:py-24">
+    <section className="w-full px-4 md:px-20 py-24 md:py-40">
       <div className={`relative mx-auto w-full max-w-3xl px-6 py-12 text-center sm:px-12 sm:py-14 ${cn(glowCard, "rounded-none")}`}>
         <div aria-hidden="true" className={glowCardTopGlow} />
 
